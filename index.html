@@ -1,3 +1,505 @@
-<html>
-  <body>MAGIC TAKES SOME TIME</body>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLMap Command Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background: url('background.jpg') no-repeat center center fixed; background-size: cover;">
+    <div class="container">
+        <header class="header">
+            <h1>SQLMap Command Generator</h1>
+            <p>Interactive, local generator for the SQLMap commands.</p>
+            <p><a href="https://github.com/vizzdoom/sqlmap-command-builder">Github Repository</a></p>
+            <p>@vizz 2025</p>
+        </header>
+
+        <!-- Command Output Area -->
+        <section class="command-section">
+            <div class="command-header">
+                <button id="copyBtn" class="btn btn--primary">
+                    <span id="copyText">COPY</span>
+                </button>
+            </div>
+            <div class="command-output">
+                <pre id="commandOutput" contenteditable="true">sqlmap</pre>
+            </div>
+        </section>
+
+        <!-- Templates Section -->
+        <!-- TODO
+        <section class="templates-section">
+            <h3>Templates</h3>
+            <div class="templates-grid">
+                <button class="template-btn" data-template="basic_get">
+                    <strong>Basic GET Test</strong>
+                    <span>Basic http request</span>
+                </button>
+                <button class="template-btn" data-template="post_form">
+                    <strong>POST Form Test</strong>
+                    <span>Basic http request</span>
+                </button>
+                <button class="template-btn" data-template="burp_request">
+                    <strong>Burp Request</strong>
+                    <span>Use request saved into file (i.e. via Burp)</span>
+                </button>
+                <button class="template-btn" data-template="advanced">
+                    <strong>Advanced Test</strong>
+                    <span>Advanced test with high risk</span>
+                </button>
+            </div>
+        </section>
+        -->
+
+        <!-- Options Tabs -->
+        <section class="options-section">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="target">TARGET</button>
+                <button class="tab-btn" data-tab="request">REQUEST</button>
+                <button class="tab-btn" data-tab="injection">INJECTION</button>
+                <button class="tab-btn" data-tab="detection">DETECTION</button>
+                <button class="tab-btn" data-tab="enumeration">ENUMERATION</button>
+                <button class="tab-btn" data-tab="optimization">OPTIMIZATION</button>
+                <button class="tab-btn" data-tab="advanced">ADVANCED</button>
+                <button class="tab-btn" data-tab="tampering">TAMPERING</button>
+            </div>
+
+            <!-- TARGET Tab -->
+            <div class="tab-content active" id="target">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" title="Target URL (e.g. http://127.0.0.1/vuln.php?id=1)" for="url">TARGET URL (-u)</label>
+                                <input type="url" id="url" class="form-control" placeholder="https://127.0.0.1/page?id=1">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Force usage of given HTTP method (e.g. PUT)" for="method">HTTP Request Method (--method)</label>
+                                <select id="method" class="form-control">
+                                    <option value="">-- Choose HTTP Method --</option>
+                                    <option value="GET">GET</option>
+                                    <option value="POST">POST</option>
+                                    <option value="PUT">PUT</option>
+                                    <option value="DELETE">DELETE</option>
+                                    <option value="HEAD">HEAD</option>
+                                    <option value="OPTIONS">OPTIONS</option>
+                                    <option value="PATCH">PATCH</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Data string to be sent through POST" for="data">HTTP Body Data (--data)</label>
+                                <textarea id="data" class="form-control" rows="3" placeholder="param1=value1&param2=value2"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Load HTTP request from a file" for="requestFile" >File with saved HTTP Request (-r)</label>
+                                <input type="text" id="requestFile" class="form-control" placeholder="request.txt">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Scan multiple targets given in a textual file" for="targetsFile" >Target list bulkfile (-m)</label>
+                                <input type="text" id="targetsFile" class="form-control" placeholder="targets.txt">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Connection string for direct database connection" for="directDb">Database Connection String (-d)</label>
+                                <input type="text" id="directDb" class="form-control" placeholder="mysql://user:pass@host/db">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Process Google dork results as target URLs" for="googleDork">Google dork (-g)</label>
+                                <input type="text" id="googleDork" class="form-control" placeholder="inurl:php?id=">
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label" title="Force usage of SSL/HTTPS">
+                                    <input type="checkbox" id="forceSsl">
+                                    <span class="checkmark"></span>
+                                    Force SSL/HTTPS (--force-ssl)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REQUEST Tab -->
+            <div class="tab-content" id="request">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP User-Agent header value" for="userAgent">User-Agent (-A)</label>
+                                <select id="userAgent" class="form-control">
+                                    <option value="">Default: sqlmap/1.0-dev-xxx (http://sqlmap.org)</option>
+                                    <option value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36">Windows Chrome</option>
+                                    <option value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36">Mac Chrome</option>
+                                    <option value="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36">Linux Chrome</option>
+                                    <option value="custom">--Custom--</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="customUserAgentGroup" style="display:none;">
+                                <label class="form-label" title="Custom HTTP User-Agent header value" for="customUserAgent">Custom User-Agent Header</label>
+                                <input type="text" id="customUserAgent" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Additional HTTP Headers" for="headers">HTTP headers (-H)</label>
+                                <textarea id="headers" class="form-control" rows="3" placeholder="X-Forwarded-For: 127.0.0.1&#10;Authorization: Bearer token"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--cookie</label>
+                                <input type="text" id="cookie" class="form-control" placeholder="PHPSESSID=abc123; userid=1">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Referer header value" for="referer">--referer</label>
+                                <input type="url" id="referer" class="form-control" placeholder="https://127.0.0.1/login">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Use a proxy to connect to the target URL" for="proxy">Proxy (--proxy)</label>
+                                <input type="text" id="proxy" class="form-control" placeholder="http://127.0.0.1:8080">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Seconds to wait before timeout connection (default 30)" for="timeout">Timeout (--timeout)</label>
+                                <input type="number" id="timeout" class="form-control" min="1" max="300" placeholder="30">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Delay in seconds between each HTTP request" for="delay">Delay (--delay)</label>
+                                <input type="number" id="delay" class="form-control" min="0" step="0.1" placeholder="0">
+                            </div>
+                            <div class="form-group checkbox-group" title="Use randomly selected HTTP User-Agent header value from ./txt/user-agents.txt">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="randomAgent">
+                                    <span class="checkmark"></span>
+                                    Random User Agent (--random-agent)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INJECTION Tab -->
+            <div class="tab-content" id="injection">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" title="Comma separated parameters for testing" for="testParams">Tastable parameters (-p)</label>
+                                <input type="text" id="testParams" class="form-control" placeholder="id,name,category">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Skip testing for given parameter(s)" for="skipParams">Forbidden parameters (--skip)</label>
+                                <input type="text" id="skipParams" class="form-control" placeholder="csrf_token,session_id">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Level of tests to perform (default: 1)" for="level">--level <span id="levelValue">1</span></label>
+                                <input type="range" id="level" class="slider" min="1" max="5" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Risk of tests to perform (default: 1)" for="risk">--risk <span id="riskValue">1</span></label>
+                                <input type="range" id="risk" class="slider" min="1" max="3" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Force back-end database engine" for="dbms">--dbms</label>
+                                <select id="dbms" class="form-control">
+                                    <option value="">Auto-detect</option>
+                                    <option value="MySQL">MySQL</option>
+                                    <option value="Oracle">Oracle</option>
+                                    <option value="PostgreSQL">PostgreSQL</option>
+                                    <option value="Microsoft SQL Server">Microsoft SQL Server</option>
+                                    <option value="Microsoft Access">Microsoft Access</option>
+                                    <option value="IBM DB2">IBM DB2</option>
+                                    <option value="SQLite">SQLite</option>
+                                    <option value="Firebird">Firebird</option>
+                                    <option value="Sybase">Sybase</option>
+                                    <option value="SAP MaxDB">SAP MaxDB</option>
+                                    <option value="Informix">Informix</option>
+                                    <option value="MariaDB">MariaDB</option>
+                                    <option value="Percona">Percona</option>
+                                    <option value="MemSQL">MemSQL</option>
+                                    <option value="TiDB">TiDB</option>
+                                    <option value="CockroachDB">CockroachDB</option>
+                                    <option value="HSQLDB">HSQLDB</option>
+                                    <option value="H2">H2</option>
+                                    <option value="MonetDB">MonetDB</option>
+                                    <option value="Apache Derby">Apache Derby</option>
+                                    <option value="Amazon Redshift">Amazon Redshift</option>
+                                    <option value="Vertica">Vertica</option>
+                                    <option value="Mckoi">Mckoi</option>
+                                    <option value="Presto">Presto</option>
+                                    <option value="Altibase">Altibase</option>
+                                    <option value="MimerSQL">MimerSQL</option>
+                                    <option value="CrateDB">CrateDB</option>
+                                    <option value="Greenplum">Greenplum</option>
+                                    <option value="Drizzle">Drizzle</option>
+                                    <option value="Apache Ignite">Apache Ignite</option>
+                                    <option value="Cubrid">Cubrid</option>
+                                    <option value="InterSystems Cache">InterSystems Cache</option>
+                                    <option value="IRIS">IRIS</option>
+                                    <option value="eXtremeDB">eXtremeDB</option>
+                                    <option value="FrontBase">FrontBase</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="By default sqlmap automatically detects the web application's back-end database management system underlying operating system when this information is a dependence of any other provided switch or option. It is possible to force the operating system name if you already know it so that sqlmap will avoid doing it itself. Note that this option is not mandatory and it is strongly recommended to use it only if you are absolutely sure about the back-end database management system underlying operating system. If you do not know it, let sqlmap automatically identify it for you." for="os">--os</label>
+                                <select id="os" class="form-control">
+                                    <option value="">Auto-detect</option>
+                                    <option value="Linux">Linux</option>
+                                    <option value="Windows">Windows</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="">Attack techniques (--technique)</label>
+                                <div class="checkbox-grid">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="techB" value="B">
+                                        <span class="checkmark"></span>
+                                        Boolean-based blind
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="techE" value="E">
+                                        <span class="checkmark"></span>
+                                        Error-based
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="techU" value="U">
+                                        <span class="checkmark"></span>
+                                        Union query-based
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="techS" value="S">
+                                        <span class="checkmark"></span>
+                                        Stacked queries
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="techT" value="T">
+                                        <span class="checkmark"></span>
+                                        Time-based blind
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="techQ" value="Q">
+                                        <span class="checkmark"></span>
+                                        Inline queries
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DETECTION Tab -->
+            <div class="tab-content" id="detection">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="form-grid">
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label" title="Never ask for user input, use the default behavior (useful when using sqlmap in scripts)">
+                                    <input type="checkbox" id="batch">
+                                    <span class="checkmark"></span>
+                                    Batch mode (--batch)
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Set the verbosity level of output messages" for="verbose">Verbose (-v): <span id="verboseValue">1</span></label>
+                                <input type="range" id="verbose" class="slider" min="0" max="6" value="1">
+                                <div id="verbose-help">1: Show also information and warning messages (default).</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Log all HTTP traffic into a textual file" for="trafficFile">Traffic log file (-t)</label>
+                                <input type="text" id="trafficFile" class="form-control" placeholder="traffic.log">
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label" title="Parse and display DBMS error messages from responses">
+                                    <input type="checkbox" id="parseErrors">
+                                    <span class="checkmark"></span>
+                                    Parse errors (--parse-errors)
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Select tests by payloads and/or titles (e.g. ROW)" for="testFilter">--test-filter</label>
+                                <input type="text" id="testFilter" class="form-control" placeholder="ROW">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENUMERATION Tab -->
+            <div class="tab-content" id="enumeration">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="form-grid">
+                            <div class="checkbox-grid">
+                                <label class="checkbox-label" title="Retrieve DBMS current user">
+                                    <input type="checkbox" id="currentUser">
+                                    <span class="checkmark"></span>
+                                    --current-user
+                                </label>
+                                <label class="checkbox-label" title="Retrieve DBMS current database">
+                                    <input type="checkbox" id="currentDb">
+                                    <span class="checkmark"></span>
+                                    --current-db
+                                </label>
+                                <label class="checkbox-label" title="Enumerate DBMS databases">
+                                    <input type="checkbox" id="dbs">
+                                    <span class="checkmark"></span>
+                                    --dbs
+                                </label>
+                                <label class="checkbox-label" title="Enumerate DBMS database tables">
+                                    <input type="checkbox" id="tables">
+                                    <span class="checkmark"></span>
+                                    --tables
+                                </label>
+                                <label class="checkbox-label" title="Enumerate DBMS database table columns">
+                                    <input type="checkbox" id="columns">
+                                    <span class="checkmark"></span>
+                                    --columns
+                                </label>
+                                <label class="checkbox-label" title="Enumerate DBMS schema">
+                                    <input type="checkbox" id="schema">
+                                    <span class="checkmark"></span>
+                                    --schema
+                                </label>
+                                <label class="checkbox-label" title="Dump all DBMS databases tables entries">
+                                    <input type="checkbox" id="dumpAll">
+                                    <span class="checkmark"></span>
+                                    --dump-all
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="DBMS database to enumerate" for="database">Database name (-D)</label>
+                                <input type="text" id="database" class="form-control" placeholder="database_name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="DBMS database table(s) to enumerate" for="table">Table(s) name (-T)</label>
+                                <input type="text" id="table" class="form-control" placeholder="table_name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="DBMS database table column(s) to enumerate" for="column">Column(s) name (-C)</label>
+                                <input type="text" id="column" class="form-control" placeholder="column_name">
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPTIMIZATION Tab -->
+            <div class="tab-content" id="optimization">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" title="Max number of concurrent HTTP(s) requests (default 1)" for="threads">--threads</label>
+                                <input type="number" id="threads" class="form-control" min="1" max="10" placeholder="1">
+                            </div>
+                            <div class="form-grid">
+                                <label class="checkbox-label" title="Use persistent HTTP(s) connections">
+                                    <input type="checkbox" id="keepAlive">
+                                    <span class="checkmark"></span>
+                                    --keep-alive
+                                </label>
+                                <label class="checkbox-label" title="Retrieve page length without actual HTTP response body">
+                                    <input type="checkbox" id="nullConnection">
+                                    <span class="checkmark"></span>
+                                    --null-connection
+                                </label>
+                                <label class="checkbox-label" title="Predict common queries output">
+                                    <input type="checkbox" id="predictOutput">
+                                    <span class="checkmark"></span>
+                                    --predict-output
+                                </label>
+                                <label class="checkbox-label" title="Turn on all optimization switches">
+                                    <input type="checkbox" id="optimize">
+                                    <span class="checkmark"></span>
+                                    Turn on all optimization switches (-o)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADVANCED Tab -->
+            <div class="tab-content" id="advanced">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" title="Use given script(s) for tampering injection data" for="tamper">Tamper scripts (--tamper)</label>
+                                <input type="text" id="tamper" class="form-control" placeholder="between,randomcase,space2comment">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Injection payload prefix string" for="prefix">Prefix (--prefix)</label>
+                                <input type="text" id="prefix" class="form-control" placeholder="')">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Injection payload suffix string" for="suffix">Suffix (--suffix)</label>
+                                <input type="text" id="suffix" class="form-control" placeholder="-- -">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Parameter used to hold anti-CSRF token" for="csrfToken">CSRF token (--csrf-token)</label>
+                                <input type="text" id="csrfToken" class="form-control" placeholder="csrf_token">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="URL address to visit for extraction of anti-CSRF token" for="csrfUrl">CSRF URL (--csrf-url)</label>
+                                <input type="url" id="csrfUrl" class="form-control" placeholder="https://example.com/csrf">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="Resulting page URL searched for second-order response" for="secondUrl">Second order URL (--second-url)</label>
+                                <input type="url" id="secondUrl" class="form-control" placeholder="https://example.com/profile">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OPTIMIZATION Tab -->
+        <div class="tab-content" id="tampering">
+            <div class="card">
+                <div class="card__body">
+                    <div class="form-grid">
+                     
+                        <div class="checkbox-grid">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="keepAlive">
+                                <span class="checkmark"></span>
+                                <b>apostrophemask.py</b><small>Replaces single quotes (') with their UTF-8 full-width equivalents (e.g. ' -> %EF%BC%87)</small>
+                                
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="nullConnection">
+                                <span class="checkmark"></span>
+                                Null connection (--null-connection)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="predictOutput">
+                                <span class="checkmark"></span>
+                                Predict output (--predict-output)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="optimize">
+                                <span class="checkmark"></span>
+                                Optimize (-o)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Management -->
+        <section class="config-section">
+            <div class="card">
+                <div class="card__body">
+                    <h3>Config management</h3>
+                    <div class="config-buttons">
+                        <button id="saveConfig" class="btn btn--secondary">Save configuration</button>
+                        <button id="loadConfig" class="btn btn--secondary">Load configuration</button>
+                        <button id="resetConfig" class="btn btn--outline">Reset everything</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
 </html>
