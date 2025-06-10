@@ -55,14 +55,24 @@ class SQLMapGenerator {
             input.addEventListener('input', () => this.updateCommand());
             input.addEventListener('change', () => this.updateCommand());
         });
+
+        // HTTP method custom field toggle
+        document.getElementById('method').addEventListener('change', (e) => {
+            const customHttpGroup = document.getElementById('customHttpMethodGroup');
+            if (e.target.value === 'custom') {
+                customHttpGroup.style.display = 'block';
+            } else {
+                customHttpGroup.style.display = 'none';
+            }
+        });
         
         // User-Agent custom field toggle
         document.getElementById('userAgent').addEventListener('change', (e) => {
-            const customGroup = document.getElementById('customUserAgentGroup');
+            const customUserAgentGroup = document.getElementById('customUserAgentGroup');
             if (e.target.value === 'custom') {
-                customGroup.style.display = 'block';
+                customUserAgentGroup.style.display = 'block';
             } else {
-                customGroup.style.display = 'none';
+                customUserAgentGroup.style.display = 'none';
             }
         });
     }
@@ -187,45 +197,49 @@ class SQLMapGenerator {
         const proxyIgnore = document.getElementById('proxyIgnore').checked
         if (proxyIgnore) config['--ignore-proxy'] = proxyIgnore;
 
-
-
-
-
-        // 
-
+        // Request options
         const method = document.getElementById('method').value;
-        if (method) config['--method'] = method;
+        if (method && method !== 'custom') {
+            config['--method'] = method;
+        } else if (method === 'custom') {
+            const customHttpMethod = document.getElementById('customHttpMethod').value.trim();
+            if (customHttpMethod) config['--method'] = customHttpMethod;
+        }
         
-        const data = document.getElementById('data').value.trim();
+        const data = document.getElementById('data').value.trim().replaceAll("\n", "\\\n");
         if (data) config['--data'] = data;
 
-        
-        
-        
- 
+        const paramDel = document.getElementById('paramDel').value.trim();
+        if (paramDel) config['--param-del'] = paramDel;
+  
+        const host = document.getElementById('host').value.trim();
+        if (host) config['--host'] = host;
         
         // Request options
         const userAgent = document.getElementById('userAgent').value;
-        if (userAgent && userAgent !== 'custom') {
-            config['-A'] = userAgent;
-        } else if (userAgent === 'custom') {
+        if (userAgent && userAgent === 'random') {
+            config['--random-agent'] = true;
+        }
+        else if (userAgent && userAgent === 'mobile') {
+            config['--mobile'] = true;
+        }
+        else if (userAgent && userAgent === 'custom') {
             const customUserAgent = document.getElementById('customUserAgent').value.trim();
             if (customUserAgent) config['-A'] = customUserAgent;
         }
-        
-        const headers = document.getElementById('headers').value.trim();
+        else if (userAgent) {
+            config['-A'] = userAgent;
+        }
+
+        const referer = document.getElementById('referer').value.trim();
+        if (referer) config['--referer'] = referer;
+
+        const headers = document.getElementById('headers').value.trim().replaceAll("\n", "\\\n");
         if (headers) config['-H'] = headers;
         
         const cookie = document.getElementById('cookie').value.trim();
         if (cookie) config['--cookie'] = cookie;
         
-        const referer = document.getElementById('referer').value.trim();
-        if (referer) config['--referer'] = referer;
-        
-        
-        
-        
-        if (document.getElementById('randomAgent').checked) config['--random-agent'] = true;
         
         // Injection options
         const testParams = document.getElementById('testParams').value.trim();
@@ -327,7 +341,8 @@ class SQLMapGenerator {
             '-u', '-d', '-r', '-m', '-l', '--scope', '-g',
             '--force-ssl', '--timeout', '--delay', '--threads',
             '--proxy', '--proxy-cred', '--proxy-file', '--proxy-freq', '--ignore-proxy',
-            '--method',   '--data', 
+            '--method', '--data', '--param-del',
+            '--host', '-A', '--mobile', '--random-agent', "--referer", "-H",
             '-p', '--skip', '--level', '--risk', '--dbms', '--os', '--technique',
             '--batch', '-v', '-t', '--parse-errors', '--test-filter',
             '--current-user', '--current-db', '--dbs', '--tables', '--columns', '--schema', '--dump-all',
@@ -344,9 +359,13 @@ class SQLMapGenerator {
                 } else {
                     // Quote values that contain spaces or special characters
                     const value = config[param].toString();
-                    if (value.includes(' ') || value.includes('&') || value.includes('=')) {
+                    if (value.includes(' ') || value.includes('&') || value.includes(';') || value.includes('=') || value.includes('\n')) {
                         command += ` ${param} "${value}"`;
-                    } else {
+                    }
+                    else if (value.includes('"')) {
+                        command += ` ${param} ` + value.replaceAll('"', '\\"');
+                    }
+                    else {
                         command += ` ${param} ${value}`;
                     }
                 }
@@ -566,27 +585,31 @@ class SQLMapGenerator {
             // Map parameters to form element IDs
             const paramMapping = {
                 '-u': 'url',
-                '--method': 'method',
-                '--data': 'data',
+                '-d': 'directDb',
                 '-r': 'requestFile',
+                '-m': 'targetsFile',
                 '-l': 'burpFile',
                 '--scope': 'burpFileScope',
-                '-m': 'targetsFile',
-                '-d': 'directDb',
                 '-g': 'googleDork',
                 '--force-ssl': 'forceSsl',
-                '-A': 'userAgent',
-                '-H': 'headers',
-                '--cookie': 'cookie',
-                '--referer': 'referer',
+                '--timeout': 'timeout',
+                '--delay': 'delay',
+                '--threads': 'threads',
                 '--proxy': 'proxy',
                 '--proxy-cred': 'proxyCred',
                 '--proxy-file': 'proxyFile',
                 '--proxy-freq': 'proxyFreq',
                 '--ignore-proxy': 'proxyIgnore',
-                '--timeout': 'timeout',
-                '--delay': 'delay',
+                '--method': 'method',
+                '--data': 'data',
+                '--param-del': 'paramDel',
+                '--host': 'host',
+                '-A': 'userAgent',
+                '--mobile': 'mobileUserAgent',
                 '--random-agent': 'randomAgent',
+                '--referer': 'referer',
+                '-H': 'headers',
+                '--cookie': 'cookie',
                 '-p': 'testParams',
                 '--skip': 'skipParams',
                 '--level': 'level',
@@ -609,7 +632,6 @@ class SQLMapGenerator {
                 '-D': 'database',
                 '-T': 'table',
                 '-C': 'column',
-                '--threads': 'threads',
                 '--keep-alive': 'keepAlive',
                 '--null-connection': 'nullConnection',
                 '--predict-output': 'predictOutput',

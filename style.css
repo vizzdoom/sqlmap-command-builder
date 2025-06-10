@@ -401,6 +401,8 @@ pre code {
 textarea.form-control {
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
+  resize: vertical;
+  min-height: 39px;
 }
 
 select.form-control {

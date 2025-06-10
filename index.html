@@ -9,14 +9,14 @@
 <body style="background: url('background.jpg') no-repeat center center fixed; background-size: cover;">
     <div class="container">
         <header class="header">
-            <h1>SQLMap Command Generator</h1>
+            <h1><a href="?">SQLMap Command Generator</a></h1>
             <p>
                 Interactive command line generator for conducting advanced SQLMap pentests.<br />
                 This generator works locally with pure HTML/JS/CSS (no data exchanged to any server).
             </p>
 
             <p>
-                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250610</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
+                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250611</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
                 vizzdoom/at/gmail/dot/com
             </p>
         </header>
@@ -102,7 +102,7 @@
                             </div>
                             <!-- -l -->
                             <div class="form-group" title="Rather than providing a single target URL, it is possible to test and inject against HTTP requests proxied through Burp proxy.">
-                                <label class="form-label" for="burpFile">BURP PROXY FILE WITH HTTP REQYESTS (-l)</label>
+                                <label class="form-label" for="burpFile">BURP PROXY FILE WITH HTTP REQUESTS (-l)</label>
                                 <input type="text" id="burpFile" class="form-control" placeholder="burp.txt">
                             </div>
                             <!-- --scope -->
@@ -131,7 +131,6 @@
 This can be useful in cases when urls are being collected by using option --crawl or when Burp log is being provided with option -l.">
                                 <div class="checkbox-grid">
                                     <label class="form-label">FORCE USAGE OF HTTPS REQUESTS</label>
-
                                     <label class="checkbox-label">
                                         <input type="checkbox" id="forceSsl">
                                         <span class="checkmark"></span>
@@ -144,12 +143,12 @@ This can be useful in cases when urls are being collected by using option --craw
                                 <label class="form-label" for="timeout">REQUEST TIMEOUT (--timeout)</label>
                                 <input type="number" id="timeout" class="form-control" min="1" max="300" placeholder="10 (seconds)">
                             </div>
-                            <!-- delay -->
+                            <!-- --delay -->
                             <div class="form-group" title="Delay (in seconds) between each HTTP request">
                                 <label class="form-label" for="delay">DELAY BETWEEN REQUEST (--delay)</label>
                                 <input type="number" id="delay" class="form-control" min="0.0001" step="0.1" placeholder="2.25 (seconds)">
                             </div>
-                            <!-- Threads -->
+                            <!-- --threads -->
                             <div class="form-group" title="Max number of concurrent HTTP(s) requests (default 1, max 10)">
                                 <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS (--threads)</label>
                                 <input type="number" id="threads" class="form-control" min="1" max="10" placeholder="1">
@@ -196,9 +195,10 @@ This can be useful in cases when urls are being collected by using option --craw
                 <div class="card">
                     <div class="card__body">
                         <div class="form-grid">
+                            <h3>Request Data</h3>
                             <!-- --method -->
-                            <div class="form-group">
-                                <label class="form-label" title="Force usage of given HTTP method (e.g. PUT)" for="method">HTTP Request Method (--method)</label>
+                            <div class="form-group" title="Force usage of given HTTP method (e.g. PUT)">
+                                <label class="form-label" for="method">HTTP Request Method (--method)</label>
                                 <select id="method" class="form-control">
                                     <option value="">-- Choose HTTP Method --</option>
                                     <option value="GET">GET</option>
@@ -208,45 +208,163 @@ This can be useful in cases when urls are being collected by using option --craw
                                     <option value="HEAD">HEAD</option>
                                     <option value="OPTIONS">OPTIONS</option>
                                     <option value="PATCH">PATCH</option>
-                                </select>
-                            </div>
-                            <!-- --data -->
-                            <div class="form-group">
-                                <label class="form-label" title="Data string to be sent through POST" for="data">HTTP Body Data (--data)</label>
-                                <textarea id="data" class="form-control" rows="3" placeholder="param1=value1&param2=value2"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="HTTP User-Agent header value" for="userAgent">User-Agent (-A)</label>
-                                <select id="userAgent" class="form-control">
-                                    <option value="">Default: sqlmap/1.0-dev-xxx (http://sqlmap.org)</option>
-                                    <option value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36">Windows Chrome</option>
-                                    <option value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36">Mac Chrome</option>
-                                    <option value="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36">Linux Chrome</option>
                                     <option value="custom">--Custom--</option>
                                 </select>
+                                <div class="form-group" id="customHttpMethodGroup" style="display:none;">
+                                    <input type="text" id="customHttpMethod" class="form-control" placeholder="Custom HTTP method value">
+                                </div>
                             </div>
-                            <div class="form-group" id="customUserAgentGroup" style="display:none;">
-                                <label class="form-label" title="Custom HTTP User-Agent header value" for="customUserAgent">Custom User-Agent Header</label>
-                                <input type="text" id="customUserAgent" class="form-control">
+                            <!-- --data -->
+                            <div class="form-group" title="By default the HTTP method used to perform HTTP requests is GET, but you can implicitly change it to POST by providing the data to be sent in the POST requests. 
+Such data, being those parameters, are tested for SQL injection as well as any provided GET parameters.">
+                                <label class="form-label" for="data">HTTP Body Data (--data)</label>
+                                <textarea id="data" class="form-control" rows="4" placeholder="param1=value1&param2=value2"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Additional HTTP Headers" for="headers">HTTP headers (-H)</label>
-                                <textarea id="headers" class="form-control" rows="3" placeholder="X-Forwarded-For: 127.0.0.1&#10;Authorization: Bearer token"></textarea>
+                            <!-- --param-del -->
+                            <div class="form-group" title="There are cases when default parameter delimiter needs to be overwritten for sqlmap to be able to properly split and process each parameter separately (e.g. query=foobar;id=1 instead query=foobar&id=1).">
+                                <label class="form-label" for="paramDel">Parameter delimeter (--param-del)</label>
+                                <input type="text" id="paramDel" class="form-control" placeholder=";">
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--cookie</label>
-                                <input type="text" id="cookie" class="form-control" placeholder="PHPSESSID=abc123; userid=1">
+                            <h3>Request headers</h3>
+                            <!-- --host -->
+                            <div class="form-group" title="You can manually set HTTP Host header value. By default HTTP Host header is parsed from a provided target URL.
+Note that also the HTTP Host header is tested against SQL injection if the --level is set to 5.">
+                                <label class="form-label" for="host">Custom HTTP Host header (--host)</label>
+                                <input type="text" id="host" class="form-control" placeholder="example.com">
                             </div>
+                            <!-- -A / --random-agent / --mobile -->
+                            <div class="form-group" title="By default sqlmap performs HTTP requests with the &quot;sqlmap/1.0-dev-x (http://sqlmap.org)&quot; User-Agent header, but it can changed with the option -A.
+Moreover, by providing the switch --random-agent, sqlmap will randomly select a User-Agent from the ./txt/user-agents.txt textual file and use it for all HTTP requests within the session.
+Some sites perform a server-side check of HTTP User-Agent header value and fail the HTTP response if a valid User-Agent is not provided, its value is not expected or is blacklisted by a web application firewall or similar intrusion prevention system.
+Sometimes web servers expose different interfaces toward mobile phones than to desktop computers. In such cases you can enforce usage of one of predetermined smartphone HTTP User-Agent header values by using a --mobile switch (sqlmap will ask you to pick one of popular smartphones which it will imitate in current run).
+Note that also the HTTP User-Agent header is tested against SQL injection if the --level is set to 3 or above.">
+                                <label class="form-label" for="userAgent">User-Agent header value</label>
+                                <select id="userAgent" class="form-control">
+                                    <option value="">Default: sqlmap/1.0-dev-x (http://sqlmap.org)</option>
+                                    <option value="mobile">--mobile</option>
+                                    <option value="random">--random-agent</option>
+                                    <option value="custom">--Custom--</option>
+                                    <option value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36">Google Chrome 137 for Windows</option>
+                                    <option value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36">Google Chrome 137 for macOS</option>
+                                    <option value="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36">Google Chrome 137 for Linux</option>
+                                    <option value="Mozilla/5.0 (iPhone; CPU iPhone OS 17_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/137.0.7151.79 Mobile/15E148 Safari/604.1">Google Chrome 137 for iOS/iPhone</option>
+                                    <option value="Mozilla/5.0 (iPad; CPU OS 17_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/137.0.7151.79 Mobile/15E148 Safari/604.1">Google Chrome 137 for iOS/iPad</option>
+                                    <option value="Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.7151.73 Mobile Safari/537.36">Google Chrome 137 for Android</option>
+                                    <option value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36">Microsoft Edge 137 for Windows</option>
+                                    <option value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.3296.68">Microsoft Edge 137 macOS</option>
+                                    <option value="Mozilla/5.0 (iPhone; CPU iPhone OS 17_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 EdgiOS/137.3296.65 Mobile/15E148 Safari/605.1.15">Microsoft Edge 137 for iOS</option>
+                                    <option value="Mozilla/5.0 (Linux; Android 10; HD1913) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.7151.73 Mobile Safari/537.36 EdgA/137.0.3296.53">Microsoft Edge 137 for Android</option>
+                                    <option value="Mozilla/5.0 (Macintosh; Intel Mac OS X 14_7_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Safari/605.1.15">Apple Safari 18.4 for macOS</option>
+                                    <option value="Mozilla/5.0 (iPhone; CPU iPhone OS 17_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Mobile/15E148 Safari/604.1">Apple Safari 18.4 for iOS/iPhone</option>
+                                    <option value="Mozilla/5.0 (iPad; CPU OS 17_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Mobile/15E148 Safari/604.1">Apple Safari 18.4 for iOS/iPad</option>
+                                    <option value="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0">Firefox 139 for Windows</option>
+                                    <option value="Mozilla/5.0 (Macintosh; Intel Mac OS X 14.7; rv:139.0) Gecko/20100101 Firefox/139.0">Firefox 139 for macOS</option>
+                                    <option value="Mozilla/5.0 (X11; Linux i686; rv:139.0) Gecko/20100101 Firefox/139.0">Firefox 139 for Linux</option>
+                                    <option value="Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/139.0 Mobile/15E148 Safari/605.1.15">Firefox 139 for iOS/iPhone</option>
+                                    <option value="Mozilla/5.0 (iPad; CPU OS 14_7_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/139.0 Mobile/15E148 Safari/605.1.15">Firefox 139 for iOS/iPad</option>
+                                    <option value="Mozilla/5.0 (Android 15; Mobile; rv:139.0) Gecko/139.0 Firefox/139.0">Firefox 139 for Android</option>
+                                    <option value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/119.0.0.0">Opera for Windows</option>
+                                    <option value="Mozilla/5.0 (Linux; Android 15; Pixel 8 Pro Build/AP4A.250205.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/134.0.6998.39 Mobile Safari/537.36 THDConsumer/7.45 (Android 15; Pixel 8 Pro) DID:84d0d3e3907e6ea1">Android 15 WebView for Pixel 8 Pro</option>
+                                    <option value="Mozilla/5.0 (iPhone; CPU iPhone OS 18_3_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/22D82 [FBAN/FBIOS;FBAV/507.0.0.58.94;FBBV/716584418;FBDV/iPhone17,4;FBMD/iPhone;FBSN/iOS;FBSV/18.3.2;FBSS/3;FBID/phone;FBLC/en_US;FBOP/5;FBRV/719878764;IABMV/1]">Facebook App for iOS 18.3.2</option>
+                                    <option value="Mozilla/5.0 (Linux; Android 14; SM-A137F Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/134.0.6998.135 Mobile Safari/537.36 [FBAN/EMA;FBLC/sk_SK;FBAV/451.0.0.9.108;FB_FW/1;FBDM/DisplayMetrics{density=2.8125, width=1080, height=2301,2.8125, xdpi=403.411, ydpi=399.759};]">Facebook App for Android 14</option>
+                                    <option value="Mozilla/5.0 (iPhone; CPU iPhone OS 18_3_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/22D82 Instagram 344.0.9.27.90 (iPhone15,4; iOS 18_3_2; en_US; en; scale=3.00; 1179x2556; 631222391) NW/3">Instagram App for iOS 18.3.2</option>
+                                    <option value="Mozilla/5.0 (Linux; Android 14; SM-S906U Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/135.0.7049.38 Mobile Safari/537.36 Instagram 374.0.0.43.67 Android (34/14; 480dpi; 1080x2122; samsung; SM-S906U; g0q; qcom; en_US; 715888958; IABMV/1)">Instagram App for Android 14</option>
+                                </select>
+                                <div class="form-group" id="customUserAgentGroup" style="display:none;">
+                                    <input type="text" id="customUserAgent" class="form-control" placeholder="Custom User Agent value">
+                                </div>
+                            </div>
+                            <!-- --referer -->
                             <div class="form-group">
                                 <label class="form-label" title="HTTP Referer header value" for="referer">--referer</label>
                                 <input type="url" id="referer" class="form-control" placeholder="https://127.0.0.1/login">
                             </div>
-                            <div class="form-group checkbox-group" title="Use randomly selected HTTP User-Agent header value from ./txt/user-agents.txt">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="randomAgent">
-                                    <span class="checkmark"></span>
-                                    Random User Agent (--random-agent)
-                                </label>
+                            <!-- -H -->
+                            <div class="form-group">
+                                <label class="form-label" title="Additional HTTP Headers" for="headers">Extra HTTP headers (-H)</label>
+                                <textarea id="headers" class="form-control" rows="4" placeholder="X-Forwarded-For: 127.0.0.1&#10;Authorization: Bearer token"></textarea>
+                            </div>
+                            <h3>Authentication</h3>
+                            <!-- --cookie -->
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--cookie</label>
+                                <textarea id="cookie" rows="4" class="form-control" placeholder="PHPSESSID=abc123; userid=1"></textarea>
+                            </div>
+                            <!-- --cookie-del -->
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--cookie-del</label>
+                                <input type="text" id="cookie" rows="4" class="form-control" placeholder="PHPSESSID=abc123; userid=1">
+                            </div>
+                            <!-- --live-cookies -->
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--live-cookies</label>
+                                <input type="text" id="cookie" rows="4" class="form-control" placeholder="PHPSESSID=abc123; userid=1">
+                            </div>
+                            <!-- --load-cookies -->
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--load-cookies</label>
+                                <input type="text" id="cookie" rows="4" class="form-control" placeholder="PHPSESSID=abc123; userid=1">
+                            </div>
+                            <!-- --drop-set-cookie -->
+                            <div class="form-group" title="In case that user wants to force usage of SSL/HTTPS requests toward the target, he can use this switch.
+This can be useful in cases when urls are being collected by using option --crawl or when Burp log is being provided with option -l.">
+                                <div class="checkbox-grid">
+                                    <label class="form-label">Ignore Set-Cookie header</label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="forceSsl">
+                                        <span class="checkmark"></span>
+                                        <span class="checkbox-label__text">--drop-set-cookie</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- --auth-type -->
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--auth-type</label>
+                                <input type="text" id="cookie" rows="4" class="form-control" placeholder="PHPSESSID=abc123; userid=1">
+                            </div>
+                            <!-- --auth-cred -->
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--auth-cred</label>
+                                <input type="text" id="cookie" rows="4" class="form-control" placeholder="PHPSESSID=abc123; userid=1">
+                            </div>
+                            <!-- --auth-file -->
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--auth-file</label>
+                                <input type="text" id="cookie" rows="4" class="form-control" placeholder="PHPSESSID=abc123; userid=1">
+                            </div>
+                            <h3>CSRF tokens control</h3>
+                            <!-- --csrf-token -->
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--csrf-token</label>
+                                <input type="text" id="cookie" rows="4" class="form-control" placeholder="PHPSESSID=abc123; userid=1">
+                            </div>
+                            <!-- --csrf-retries -->
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--csrf-retries</label>
+                                <input type="text" id="cookie" rows="4" class="form-control" placeholder="PHPSESSID=abc123; userid=1">
+                            </div>
+                            <!-- --csrf-url -->
+                            <div class="form-group">
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">--csrf-url</label>
+                                <input type="text" id="cookie" rows="4" class="form-control" placeholder="PHPSESSID=abc123; userid=1">
+                            </div>
+                            <!-- --csrf-method -->
+                            <div class="form-group">
+                                <label class="form-label" title="Force usage of given HTTP method (e.g. PUT)" for="method">--csrf-method</label>
+                                <select id="method" class="form-control">
+                                    <option value="">-- Choose HTTP Method --</option>
+                                    <option value="GET">GET</option>
+                                    <option value="POST">POST</option>
+                                    <option value="PUT">PUT</option>
+                                    <option value="DELETE">DELETE</option>
+                                    <option value="HEAD">HEAD</option>
+                                    <option value="OPTIONS">OPTIONS</option>
+                                    <option value="PATCH">PATCH</option>
+                                    <option value="custom">--Custom--</option>
+                                </select>
+                                <div class="form-group" id="customHttpMethodGroup" style="display:none;">
+                                    <input type="text" id="customHttpMethod" class="form-control" placeholder="Custom HTTP method value">
+                                </div>
                             </div>
                         </div>
                     </div>
