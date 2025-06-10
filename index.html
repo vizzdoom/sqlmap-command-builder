@@ -10,52 +10,61 @@
     <div class="container">
         <header class="header">
             <h1>SQLMap Command Generator</h1>
-            <p>Interactive, local generator for the SQLMap commands.</p>
-            <p><a href="https://github.com/vizzdoom/sqlmap-command-builder">Github Repository</a></p>
-            <p>@vizz 2025</p>
+            <p>
+                Interactive command line generator for conducting advanced SQLMap pentests.<br />
+                This generator works locally with pure HTML/JS/CSS (no data exchanged to any server).
+            </p>
+
+            <p>
+                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250610</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
+                vizzdoom/at/gmail/dot/com
+            </p>
         </header>
 
         <!-- Command Output Area -->
         <section class="command-section">
             <div class="command-header">
                 <button id="copyBtn" class="btn btn--primary">
-                    <span id="copyText">COPY</span>
+                    <span id="copyText">COPY COMMAND TO A CLIPBOARD</span>
+                </button>
+                <button id="copyUrlBtn" class="btn btn--primary">
+                    <span id="copyUrlText">COPY URL WITH THIS CONFIG</span>
                 </button>
             </div>
             <div class="command-output">
-                <pre id="commandOutput" contenteditable="true">sqlmap</pre>
+                <pre id="commandOutput" spellcheck="false" contenteditable="true">sqlmap</pre>
             </div>
         </section>
 
         <!-- Templates Section -->
         <!-- TODO
-        <section class="templates-section">
-            <h3>Templates</h3>
-            <div class="templates-grid">
-                <button class="template-btn" data-template="basic_get">
-                    <strong>Basic GET Test</strong>
-                    <span>Basic http request</span>
-                </button>
-                <button class="template-btn" data-template="post_form">
-                    <strong>POST Form Test</strong>
-                    <span>Basic http request</span>
-                </button>
-                <button class="template-btn" data-template="burp_request">
-                    <strong>Burp Request</strong>
-                    <span>Use request saved into file (i.e. via Burp)</span>
-                </button>
-                <button class="template-btn" data-template="advanced">
-                    <strong>Advanced Test</strong>
-                    <span>Advanced test with high risk</span>
-                </button>
-            </div>
-        </section>
-        -->
-
+    <section class="templates-section">
+        <h3>Templates</h3>
+        <div class="templates-grid">
+            <button class="template-btn" data-template="basic_get">
+                <strong>Basic GET Test</strong>
+                <span>Basic http request</span>
+            </button>
+            <button class="template-btn" data-template="post_form">
+                <strong>POST Form Test</strong>
+                <span>Basic http request</span>
+            </button>
+            <button class="template-btn" data-template="burp_request">
+                <strong>Burp Request</strong>
+                <span>Use request saved into file (i.e. via Burp)</span>
+            </button>
+            <button class="template-btn" data-template="advanced">
+                <strong>Advanced Test</strong>
+                <span>Advanced test with high risk</span>
+            </button>
+        </div>
+    </section>
+    -->
         <!-- Options Tabs -->
         <section class="options-section">
             <div class="tabs">
                 <button class="tab-btn active" data-tab="target">TARGET</button>
+                <button class="tab-btn" data-tab="connection">CONNECTION</button>
                 <button class="tab-btn" data-tab="request">REQUEST</button>
                 <button class="tab-btn" data-tab="injection">INJECTION</button>
                 <button class="tab-btn" data-tab="detection">DETECTION</button>
@@ -63,6 +72,7 @@
                 <button class="tab-btn" data-tab="optimization">OPTIMIZATION</button>
                 <button class="tab-btn" data-tab="advanced">ADVANCED</button>
                 <button class="tab-btn" data-tab="tampering">TAMPERING</button>
+                <button class="tab-btn" data-tab="config">/CONFIG/</button>
             </div>
 
             <!-- TARGET Tab -->
@@ -70,10 +80,123 @@
                 <div class="card">
                     <div class="card__body">
                         <div class="form-grid">
-                            <div class="form-group">
-                                <label class="form-label" title="Target URL (e.g. http://127.0.0.1/vuln.php?id=1)" for="url">TARGET URL (-u)</label>
+                            <!-- -u -->
+                            <div class="form-group" title="Target URL (e.g. http://127.0.0.1/vuln.php?id=1)">
+                                <label class="form-label" for="url">TARGET URL (-u)</label>
                                 <input type="url" id="url" class="form-control" placeholder="https://127.0.0.1/page?id=1">
                             </div>
+                            <!-- -d -->
+                            <div class="form-group" title="Connection string for direct database connection">
+                                <label class="form-label" for="directDb">DATABASE CONNECTION STRING (-d)</label>
+                                <input type="text" id="directDb" class="form-control" placeholder="mysql://user:pass@host/db">
+                            </div>
+                            <!-- -r -->
+                            <div class="form-group" title="Load HTTP request from a file">
+                                <label class="form-label" for="requestFile">FILE WITH AN HTTP REQUEST (-r)</label>
+                                <input type="text" id="requestFile" class="form-control" placeholder="request.txt">
+                            </div>
+                            <!-- -m -->
+                            <div class="form-group" title="Scan multiple targets given in a textual file">
+                                <label class="form-label" for="targetsFile">FILE WITH TARGETS (-m)</label>
+                                <input type="text" id="targetsFile" class="form-control" placeholder="targets.txt">
+                            </div>
+                            <!-- -l -->
+                            <div class="form-group" title="Rather than providing a single target URL, it is possible to test and inject against HTTP requests proxied through Burp proxy.">
+                                <label class="form-label" for="burpFile">BURP PROXY FILE WITH HTTP REQYESTS (-l)</label>
+                                <input type="text" id="burpFile" class="form-control" placeholder="burp.txt">
+                            </div>
+                            <!-- --scope -->
+                            <div class="form-group" title="Rather than using all hosts parsed from provided logs with option -l, you can specify valid Python regular expression to be used for filtering desired ones.">
+                                <label class="form-label" for="burpFileScope">SCOPE FOR BURP PROXY FILE (--scope)</label>
+                                <input type="text" id="burpFileScope" class="form-control" placeholder="(www)?\.target\.(com|net|org)">
+                            </div>
+                            <!-- -g -->
+                            <div class="form-group" title="Process Google dork results as target URLs" for="googleDork">
+                                <label class="form-label">GOOGLE DORK FOR TARGET SELECTION (-g)</label>
+                                <input type="text" id="googleDork" class="form-control" placeholder="inurl:php?id=">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONNECTION Tab -->
+            <div class="tab-content" id="connection">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="form-grid">
+                            <h3>Connection control</h3>
+                            <!-- force-ssl -->
+                            <div class="form-group" title="In case that user wants to force usage of SSL/HTTPS requests toward the target, he can use this switch.
+This can be useful in cases when urls are being collected by using option --crawl or when Burp log is being provided with option -l.">
+                                <div class="checkbox-grid">
+                                    <label class="form-label">FORCE USAGE OF HTTPS REQUESTS</label>
+
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="forceSsl">
+                                        <span class="checkmark"></span>
+                                        <span class="checkbox-label__text">--force-ssl</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- --timeout -->
+                            <div class="form-group" title="Seconds to wait before timeout connection (default 30)">
+                                <label class="form-label" for="timeout">REQUEST TIMEOUT (--timeout)</label>
+                                <input type="number" id="timeout" class="form-control" min="1" max="300" placeholder="10 (seconds)">
+                            </div>
+                            <!-- delay -->
+                            <div class="form-group" title="Delay (in seconds) between each HTTP request">
+                                <label class="form-label" for="delay">DELAY BETWEEN REQUEST (--delay)</label>
+                                <input type="number" id="delay" class="form-control" min="0.0001" step="0.1" placeholder="2.25 (seconds)">
+                            </div>
+                            <!-- Threads -->
+                            <div class="form-group" title="Max number of concurrent HTTP(s) requests (default 1, max 10)">
+                                <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS (--threads)</label>
+                                <input type="number" id="threads" class="form-control" min="1" max="10" placeholder="1">
+                            </div>
+                            <h3>Proxy Options</h3>
+                            <!-- --proxy -->
+                            <div class="form-group" title="Use a proxy to connect to the target URL">
+                                <label class="form-label" for="proxy">HTTP(S) PROXY (--proxy)</label>
+                                <input type="text" id="proxy" class="form-control" placeholder="http://127.0.0.1:8080">
+                            </div>
+                            <!-- --proxy-cred -->
+                            <div class="form-group" title="Use a proxy to connect to the target URL">
+                                <label class="form-label" for="proxyCred">HTTP(S) PROXY CREDENTIALS</label>
+                                <input type="text" id="proxyCred" class="form-control" placeholder="username:password">
+                            </div>
+                            <!-- --proxy-file -->
+                            <div class="form-group" title="Use a proxy to connect to the target URL">
+                                <label class="form-label" for="proxyFile">HTTP(S) PROXY FILE</label>
+                                <input type="text" id="proxyFile" class="form-control" placeholder="proxy-file.txt">
+                            </div>
+                            <!-- --proxy-freq -->
+                            <div class="form-group" title="Requests between change of proxy from a given --proxy-file list">
+                                <label class="form-label" for="proxyFreq">Number of request for proxy rotation</label>
+                                <input type="number" id="proxyFreq" class="form-control" min="1" step="1" placeholder="3">
+                            </div>
+                            <!-- --ignore-proxy -->
+                            <div class="form-group" title="Run sqlmap against a target part of a local area network by ignoring the system-wide set HTTP(S) proxy server setting.">
+                                <div class="checkbox-grid">
+                                    <label class="form-label">Ignore system proxy settings</label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="proxyIgnore">
+                                        <span class="checkmark"></span>
+                                        <span class="checkbox-label__text">--proxy-ignore</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REQUEST Tab -->
+            <div class="tab-content" id="request">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="form-grid">
+                            <!-- --method -->
                             <div class="form-group">
                                 <label class="form-label" title="Force usage of given HTTP method (e.g. PUT)" for="method">HTTP Request Method (--method)</label>
                                 <select id="method" class="form-control">
@@ -87,43 +210,11 @@
                                     <option value="PATCH">PATCH</option>
                                 </select>
                             </div>
+                            <!-- --data -->
                             <div class="form-group">
                                 <label class="form-label" title="Data string to be sent through POST" for="data">HTTP Body Data (--data)</label>
                                 <textarea id="data" class="form-control" rows="3" placeholder="param1=value1&param2=value2"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Load HTTP request from a file" for="requestFile" >File with saved HTTP Request (-r)</label>
-                                <input type="text" id="requestFile" class="form-control" placeholder="request.txt">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Scan multiple targets given in a textual file" for="targetsFile" >Target list bulkfile (-m)</label>
-                                <input type="text" id="targetsFile" class="form-control" placeholder="targets.txt">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Connection string for direct database connection" for="directDb">Database Connection String (-d)</label>
-                                <input type="text" id="directDb" class="form-control" placeholder="mysql://user:pass@host/db">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Process Google dork results as target URLs" for="googleDork">Google dork (-g)</label>
-                                <input type="text" id="googleDork" class="form-control" placeholder="inurl:php?id=">
-                            </div>
-                            <div class="form-group checkbox-group">
-                                <label class="checkbox-label" title="Force usage of SSL/HTTPS">
-                                    <input type="checkbox" id="forceSsl">
-                                    <span class="checkmark"></span>
-                                    Force SSL/HTTPS (--force-ssl)
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- REQUEST Tab -->
-            <div class="tab-content" id="request">
-                <div class="card">
-                    <div class="card__body">
-                        <div class="form-grid">
                             <div class="form-group">
                                 <label class="form-label" title="HTTP User-Agent header value" for="userAgent">User-Agent (-A)</label>
                                 <select id="userAgent" class="form-control">
@@ -149,18 +240,6 @@
                             <div class="form-group">
                                 <label class="form-label" title="HTTP Referer header value" for="referer">--referer</label>
                                 <input type="url" id="referer" class="form-control" placeholder="https://127.0.0.1/login">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Use a proxy to connect to the target URL" for="proxy">Proxy (--proxy)</label>
-                                <input type="text" id="proxy" class="form-control" placeholder="http://127.0.0.1:8080">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Seconds to wait before timeout connection (default 30)" for="timeout">Timeout (--timeout)</label>
-                                <input type="number" id="timeout" class="form-control" min="1" max="300" placeholder="30">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Delay in seconds between each HTTP request" for="delay">Delay (--delay)</label>
-                                <input type="number" id="delay" class="form-control" min="0" step="0.1" placeholder="0">
                             </div>
                             <div class="form-group checkbox-group" title="Use randomly selected HTTP User-Agent header value from ./txt/user-agents.txt">
                                 <label class="checkbox-label">
@@ -190,10 +269,12 @@
                             <div class="form-group">
                                 <label class="form-label" title="Level of tests to perform (default: 1)" for="level">--level <span id="levelValue">1</span></label>
                                 <input type="range" id="level" class="slider" min="1" max="5" value="1">
+                                <div class="additional-help" id="level-help">1: Show also information and warning messages (default).</div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" title="Risk of tests to perform (default: 1)" for="risk">--risk <span id="riskValue">1</span></label>
                                 <input type="range" id="risk" class="slider" min="1" max="3" value="1">
+                                <div class="additional-help" id="risk-help">1: Show also information and warning messages (default).</div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" title="Force back-end database engine" for="dbms">--dbms</label>
@@ -299,7 +380,7 @@
                             <div class="form-group">
                                 <label class="form-label" title="Set the verbosity level of output messages" for="verbose">Verbose (-v): <span id="verboseValue">1</span></label>
                                 <input type="range" id="verbose" class="slider" min="0" max="6" value="1">
-                                <div id="verbose-help">1: Show also information and warning messages (default).</div>
+                                <div class="additional-help" id="verbose-help">1: Show also information and warning messages (default).</div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" title="Log all HTTP traffic into a textual file" for="trafficFile">Traffic log file (-t)</label>
@@ -374,7 +455,7 @@
                             <div class="form-group">
                                 <label class="form-label" title="DBMS database table column(s) to enumerate" for="column">Column(s) name (-C)</label>
                                 <input type="text" id="column" class="form-control" placeholder="column_name">
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -385,10 +466,6 @@
                 <div class="card">
                     <div class="card__body">
                         <div class="form-grid">
-                            <div class="form-group">
-                                <label class="form-label" title="Max number of concurrent HTTP(s) requests (default 1)" for="threads">--threads</label>
-                                <input type="number" id="threads" class="form-control" min="1" max="10" placeholder="1">
-                            </div>
                             <div class="form-grid">
                                 <label class="checkbox-label" title="Use persistent HTTP(s) connections">
                                     <input type="checkbox" id="keepAlive">
@@ -456,13 +533,13 @@
             <div class="card">
                 <div class="card__body">
                     <div class="form-grid">
-                     
+
                         <div class="checkbox-grid">
                             <label class="checkbox-label">
                                 <input type="checkbox" id="keepAlive">
                                 <span class="checkmark"></span>
                                 <b>apostrophemask.py</b><small>Replaces single quotes (') with their UTF-8 full-width equivalents (e.g. ' -> %EF%BC%87)</small>
-                                
+
                             </label>
                             <label class="checkbox-label">
                                 <input type="checkbox" id="nullConnection">
@@ -486,7 +563,7 @@
         </div>
 
         <!-- Configuration Management -->
-        <section class="config-section">
+        <div class="tab-content" id="config">
             <div class="card">
                 <div class="card__body">
                     <h3>Config management</h3>
@@ -497,9 +574,8 @@
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
 
-    <script src="app.js"></script>
+        <script src="app.js"></script>
 </body>
 </html>

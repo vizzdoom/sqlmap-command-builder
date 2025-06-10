@@ -31,12 +31,14 @@ class SQLMapGenerator {
         this.setupEventListeners();
         this.setupTabs();
         this.setupSliders();
+        this.handleHashtag();
         this.updateCommand();
     }
 
     setupEventListeners() {
         // Copy button
         document.getElementById('copyBtn').addEventListener('click', () => this.copyCommand());
+        document.getElementById('copyUrlBtn').addEventListener('click', () => this.copyUrl());
         
         // Template buttons
         document.querySelectorAll('.template-btn').forEach(btn => {
@@ -85,6 +87,15 @@ class SQLMapGenerator {
         const levelValue = document.getElementById('levelValue');
         levelSlider.addEventListener('input', (e) => {
             levelValue.textContent = e.target.value;
+            let levelHelp = "";
+            switch (levelSlider.value) {
+                case "1": levelHelp = "1: Fastest and least intrusive testing of GET and POST parameters (default)."; break;
+                case "2": levelHelp = "2: Additionaly test injections in the Cookie header."; break;
+                case "3": levelHelp = "3: Additionaly test injections in User-Agent and Referer headers ."; break;
+                case "4": levelHelp = "4: Additionaly perform more advbanced tests, such as null values and some extra payloads."; break;
+                case "5": levelHelp = "5: Additionaly test Host header, using all possible payloads."; break;
+            }
+            document.getElementById('level-help').textContent = levelHelp;
         });
 
         // Risk slider
@@ -92,6 +103,13 @@ class SQLMapGenerator {
         const riskValue = document.getElementById('riskValue');
         riskSlider.addEventListener('input', (e) => {
             riskValue.textContent = e.target.value;
+            let riskHelp = "";
+            switch (riskSlider.value) {
+                case "1": riskHelp = "1: Innocuous test for the majority of SQL injection points (default)."; break;
+                case "2": riskHelp = "2: Adds also time-based SQL injections."; break;
+                case "3": riskHelp = "3: Adds also OR-based SQL injection tests."; break;
+            }
+            document.getElementById('risk-help').textContent = riskHelp;
         });
 
         // Verbose slider
@@ -99,24 +117,17 @@ class SQLMapGenerator {
         const verboseValue = document.getElementById('verboseValue');
         verboseSlider.addEventListener('input', (e) => {
             verboseValue.textContent = e.target.value;
-            let verboseLevelHelp = "";
-            switch (document.getElementById('verbose').value) {
-                case "0":
-                    verboseLevelHelp = "0: Show only Python tracebacks, error and critical messages."; break;
-                case "1":
-                    verboseLevelHelp = "1: Show also information and warning messages (default)."; break;
-                case "2":
-                    verboseLevelHelp = "2: Show also debug messages."; break;
-                case "3":
-                    verboseLevelHelp = "3: Show also payloads injected."; break;
-                case "4":
-                    verboseLevelHelp = "4: Show also HTTP requests."; break;
-                case "5":
-                    verboseLevelHelp = "5: Show also HTTP responses' headers."; break;
-                case "6":
-                    verboseLevelHelp = "6: Show also HTTP responses' page content."; break;
+            let verboseHelp = "";
+            switch (verboseSlider.value) {
+                case "0": verboseHelp = "0: Show only Python tracebacks, error and critical messages."; break;
+                case "1": verboseHelp = "1: Show also information and warning messages (default)."; break;
+                case "2": verboseHelp = "2: Show also debug messages."; break;
+                case "3": verboseHelp = "3: Show also payloads injected."; break;
+                case "4": verboseHelp = "4: Show also HTTP requests."; break;
+                case "5": verboseHelp = "5: Show also HTTP responses' headers."; break;
+                case "6": verboseHelp = "6: Show also HTTP responses' page content."; break;
             }
-            document.getElementById('verbose-help').textContent = verboseLevelHelp;
+            document.getElementById('verbose-help').textContent = verboseHelp;
         });
 
         
@@ -128,26 +139,70 @@ class SQLMapGenerator {
         // Target options
         const url = document.getElementById('url').value.trim();
         if (url) config['-u'] = url;
-        
-        const method = document.getElementById('method').value;
-        if (method) config['--method'] = method;
-        
-        const data = document.getElementById('data').value.trim();
-        if (data) config['--data'] = data;
+
+        const directDb = document.getElementById('directDb').value.trim();
+        if (directDb) config['-d'] = directDb;
         
         const requestFile = document.getElementById('requestFile').value.trim();
         if (requestFile) config['-r'] = requestFile;
         
         const targetsFile = document.getElementById('targetsFile').value.trim();
         if (targetsFile) config['-m'] = targetsFile;
-        
-        const directDb = document.getElementById('directDb').value.trim();
-        if (directDb) config['-d'] = directDb;
+
+        const burpFile = document.getElementById('burpFile').value.trim();
+        if (burpFile) config['-l'] = burpFile;
+
+        const burpFileScope = document.getElementById('burpFileScope').value.trim();
+        if (burpFileScope) config['--scope'] = burpFileScope;
+        if (burpFileScope && !burpFile) document.getElementById('burpFile').value = "burp.txt";
         
         const googleDork = document.getElementById('googleDork').value.trim();
         if (googleDork) config['-g'] = googleDork;
+
+        // Connection options
+        const forceSsl = document.getElementById('forceSsl').checked;
+        if (forceSsl) config['--force-ssl'] = forceSsl;
+
+        const timeout = document.getElementById('timeout').value;
+        if (timeout && timeout != 30) config['--timeout'] = timeout;
+
+        const delay = document.getElementById('delay').value;
+        if (delay && delay > 0) config['--delay'] = delay;
+
+        const threads = document.getElementById('threads').value;
+        if (threads && threads > 1) config['--threads'] = threads;
+
+        const proxy = document.getElementById('proxy').value.trim();
+        if (proxy) config['--proxy'] = proxy;
+
+        const proxyCred = document.getElementById('proxyCred').value.trim();
+        if (proxyCred) config['--proxy-cred'] = proxyCred;
         
-        if (document.getElementById('forceSsl').checked) config['--force-ssl'] = true;
+        const proxyFile = document.getElementById('proxyFile').value.trim();
+        if (proxyFile) config['--proxy-file'] = proxyFile;
+        
+        const proxyFreq = document.getElementById('proxyFreq').value.trim();
+        if (proxyFreq && proxyFreq >= 1) config['--proxy-freq'] = proxyFreq;
+
+        const proxyIgnore = document.getElementById('proxyIgnore').checked
+        if (proxyIgnore) config['--ignore-proxy'] = proxyIgnore;
+
+
+
+
+
+        // 
+
+        const method = document.getElementById('method').value;
+        if (method) config['--method'] = method;
+        
+        const data = document.getElementById('data').value.trim();
+        if (data) config['--data'] = data;
+
+        
+        
+        
+ 
         
         // Request options
         const userAgent = document.getElementById('userAgent').value;
@@ -167,14 +222,8 @@ class SQLMapGenerator {
         const referer = document.getElementById('referer').value.trim();
         if (referer) config['--referer'] = referer;
         
-        const proxy = document.getElementById('proxy').value.trim();
-        if (proxy) config['--proxy'] = proxy;
         
-        const timeout = document.getElementById('timeout').value;
-        if (timeout) config['--timeout'] = timeout;
         
-        const delay = document.getElementById('delay').value;
-        if (delay) config['--delay'] = delay;
         
         if (document.getElementById('randomAgent').checked) config['--random-agent'] = true;
         
@@ -240,8 +289,7 @@ class SQLMapGenerator {
         if (column) config['-C'] = column;
         
         // Optimization options
-        const threads = document.getElementById('threads').value;
-        if (threads && threads > 1) config['--threads'] = threads;
+
         
         if (document.getElementById('keepAlive').checked) config['--keep-alive'] = true;
         if (document.getElementById('nullConnection').checked) config['--null-connection'] = true;
@@ -276,13 +324,15 @@ class SQLMapGenerator {
         
         // Order of parameters for better readability
         const paramOrder = [
-            '-u', '--method', '--data', '-r', '-m', '-d', '-g', '--force-ssl',
-            '-A', '-H', '--cookie', '--referer', '--proxy', '--timeout', '--delay', '--random-agent',
+            '-u', '-d', '-r', '-m', '-l', '--scope', '-g',
+            '--force-ssl', '--timeout', '--delay', '--threads',
+            '--proxy', '--proxy-cred', '--proxy-file', '--proxy-freq', '--ignore-proxy',
+            '--method',   '--data', 
             '-p', '--skip', '--level', '--risk', '--dbms', '--os', '--technique',
             '--batch', '-v', '-t', '--parse-errors', '--test-filter',
             '--current-user', '--current-db', '--dbs', '--tables', '--columns', '--schema', '--dump-all',
             '-D', '-T', '-C',
-            '--threads', '--keep-alive', '--null-connection', '--predict-output', '-o',
+            '--keep-alive', '--null-connection', '--predict-output', '-o',
             '--tamper', '--prefix', '--suffix', '--csrf-token', '--csrf-url', '--second-url'
         ];
         
@@ -306,30 +356,43 @@ class SQLMapGenerator {
         return command;
     }
 
+    handleHashtag() {
+        // Check if we have hashtag with proper config and load it if so
+        try {
+            let hashtag = location.hash.substr(1);
+            if (hashtag.length > 0) {
+                let hashtagCmd = JSON.parse(atob(hashtag));
+                this.applyConfiguration(hashtagCmd);
+            }
+        } catch (ex) {
+            console.log(ex);
+        } 
+    }
+
     updateCommand() {
-        const command = this.generateCommand();
-        const commandOutput = document.getElementById('commandOutput');
-        commandOutput.textContent = command;
-        
-        // Add syntax highlighting
-        this.applySyntaxHighlighting(commandOutput);
+            const command = this.generateCommand();
+            const commandOutput = document.getElementById('commandOutput');
+            commandOutput.textContent = command;
+
+            // Add syntax highlighting
+            this.applySyntaxHighlighting(commandOutput);
     }
 
     applySyntaxHighlighting(element) {
-        /* BUG 
+        
         let html = element.textContent;
         
         // Highlight options (starting with -)
-        html = html.replace(/(--?[\w-]+)/g, '<span class="option">$1</span>');
+        html = html.replace(/(--?[\w-]+)/g, "<span class='option'>$1</span>");
         
         // Highlight quoted values
-        html = html.replace(/"([^"]+)"/g, '"<span class="value">$1</span>"');
+        html = html.replace(/"([^"]+)"/g, "<span class='value'>\"$1\"</span>");
         
         // Highlight sqlmap command
-        html = html.replace(/^sqlmap/, '<span class="flag">sqlmap</span>');
+        html = html.replace(/^sqlmap/, "<span class='flag'>sqlmap</span>");
         
         element.innerHTML = html;
-        */
+        
     }
 
     async copyCommand() {
@@ -340,12 +403,12 @@ class SQLMapGenerator {
         try {
             await navigator.clipboard.writeText(command);
             copyBtn.classList.add('copying');
-            copyText.textContent = 'Copied!';
+            copyText.textContent = 'Command Copied!';
             
             setTimeout(() => {
                 copyBtn.classList.remove('copying');
-                copyText.textContent = 'Copy';
-            }, 2000);
+                copyText.textContent = 'COPY COMMAND TO A CLIPBOARD';
+            }, 3000);
         } catch (err) {
             // Fallback for older browsers
             const textArea = document.createElement('textarea');
@@ -355,10 +418,46 @@ class SQLMapGenerator {
             document.execCommand('copy');
             document.body.removeChild(textArea);
             
-            copyText.textContent = 'Copied!';
+            copyText.textContent = 'Command Copied!';
             setTimeout(() => {
-                copyText.textContent = 'Copy';
-            }, 2000);
+                copyText.textContent = 'COPY COMMAND TO A CLIPBOARD';
+            }, 3000);
+        }
+    }
+
+    async copyUrl() {
+        const serializedCommand = btoa(JSON.stringify(this.getCurrentConfig()));
+        const command = location.href.replace(location.hash, "") + "#" + serializedCommand;
+        const copyUrlBtn = document.getElementById('copyUrlBtn');
+        const copyUrlText = document.getElementById('copyUrlText');
+
+        try {
+            await navigator.clipboard.writeText(command);
+            copyUrlBtn.classList.add('copying');
+            copyUrlText.textContent = 'Copied!';
+
+            setTimeout(() => {
+                copyUrlBtn.classList.remove('copying');
+                copyUrlText.textContent = 'COPY URL WITH THIS CONFIG';
+            }, 3000);
+            debugger;
+            location.replace("#" + serializedCommand);
+
+        } catch (err) {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = command;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            copyUrlText.textContent = 'URL Copied!';
+            setTimeout(() => {
+                copyUrlText.textContent = 'COPY URL WITH THIS CONFIG';
+            }, 3000);
+            debugger;
+            location.replace("#" + serializedCommand);
         }
     }
 
@@ -378,6 +477,8 @@ class SQLMapGenerator {
                 'url': 'url',
                 'data': 'data',
                 'requestFile': 'requestFile',
+                'requestFileScope': 'requestFileScope',
+                'burpFile': 'burpFile',
                 'level': 'level',
                 'risk': 'risk',
                 'randomAgent': 'randomAgent',
@@ -468,6 +569,8 @@ class SQLMapGenerator {
                 '--method': 'method',
                 '--data': 'data',
                 '-r': 'requestFile',
+                '-l': 'burpFile',
+                '--scope': 'burpFileScope',
                 '-m': 'targetsFile',
                 '-d': 'directDb',
                 '-g': 'googleDork',
@@ -477,6 +580,10 @@ class SQLMapGenerator {
                 '--cookie': 'cookie',
                 '--referer': 'referer',
                 '--proxy': 'proxy',
+                '--proxy-cred': 'proxyCred',
+                '--proxy-file': 'proxyFile',
+                '--proxy-freq': 'proxyFreq',
+                '--ignore-proxy': 'proxyIgnore',
                 '--timeout': 'timeout',
                 '--delay': 'delay',
                 '--random-agent': 'randomAgent',
@@ -585,16 +692,18 @@ class SQLMapGenerator {
         
         document.body.appendChild(messageEl);
         
-        // Remove after 3 seconds
+        // Remove after 10 seconds
         setTimeout(() => {
             if (messageEl.parentNode) {
                 messageEl.parentNode.removeChild(messageEl);
             }
-        }, 3000);
+        }, 10000);
     }
 }
 
 // Initialize the application when DOM is loaded
+let sqlgen = null;
 document.addEventListener('DOMContentLoaded', () => {
-    new SQLMapGenerator();
+    sqlgen = new SQLMapGenerator();
+    document.querySelectorAll('input[type=text], textarea').forEach(field => field.spellcheck = false);
 });
