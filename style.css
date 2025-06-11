@@ -908,7 +908,7 @@ body {
 .card h3 {
     grid-column: 1 / -1;
     color: var(--hacker-green-dark);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-2xl);
     border-bottom-color: var(--hacker-green);
     border-bottom-style: dashed;
     border-bottom-width: 1px;
@@ -1284,4 +1284,8 @@ body {
   margin-top: var(--space-16);
   line-height: 1.5;
   height: 3em;
+}
+
+.column-double {
+    grid-column: 1 / 3;
 }

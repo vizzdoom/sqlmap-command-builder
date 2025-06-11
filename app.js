@@ -75,6 +75,16 @@ class SQLMapGenerator {
                 customUserAgentGroup.style.display = 'none';
             }
         });
+
+        // CSRF method custom field toggle
+        document.getElementById('csrfMethod').addEventListener('change', (e) => {
+            const customCsrfMethodGroup = document.getElementById('customCsrfMethodGroup');
+            if (e.target.value === 'custom') {
+                customCsrfMethodGroup.style.display = 'block';
+            } else {
+                customCsrfMethodGroup.style.display = 'none';
+            }
+        });
     }
 
     setupTabs() {
@@ -210,7 +220,7 @@ class SQLMapGenerator {
         if (data) config['--data'] = data;
 
         const paramDel = document.getElementById('paramDel').value.trim();
-        if (paramDel) config['--param-del'] = paramDel;
+        if (paramDel && paramDel !== "&") config['--param-del'] = paramDel;
   
         const host = document.getElementById('host').value.trim();
         if (host) config['--host'] = host;
@@ -224,7 +234,7 @@ class SQLMapGenerator {
             config['--mobile'] = true;
         }
         else if (userAgent && userAgent === 'custom') {
-            const customUserAgent = document.getElementById('customUserAgent').value.trim();
+            const customUserAgent = document.getElementById('customUserAgent').value;
             if (customUserAgent) config['-A'] = customUserAgent;
         }
         else if (userAgent) {
@@ -240,6 +250,44 @@ class SQLMapGenerator {
         const cookie = document.getElementById('cookie').value.trim();
         if (cookie) config['--cookie'] = cookie;
         
+        const cookieDel = document.getElementById('cookieDel').value.trim();
+        if (cookieDel) config['--cookie-del'] = cookieDel;
+        
+        const cookieLive = document.getElementById('cookieLive').value.trim();
+        if (cookieLive) config['--live-cookies'] = cookieLive;
+        
+        const cookieLoad = document.getElementById('cookieLoad').value.trim();
+        if (cookieLoad) config['--load-cookies'] = cookieLoad;
+
+        const cookieDrop = document.getElementById('cookieDrop').checked;
+        if (cookieDrop) config['--drop-set-cookie'] = cookieDrop;
+        
+        const authType = document.getElementById('authType').value;
+        const authCred = document.getElementById('authCred').value.trim();
+        if (authType && authCred) {
+            config['--auth-type'] = authType;
+            config['--auth-cred'] = authCred;
+        }
+        
+        const authFile = document.getElementById('authFile').value.trim();
+        if (authFile) config['--auth-file'] = authFile;
+        
+        const csrfToken = document.getElementById('csrfToken').value.trim();
+        if (csrfToken) config['--csrf-token'] = csrfToken;
+
+        const csrfMethod = document.getElementById('csrfMethod').value;
+        if (csrfMethod && csrfMethod !== 'custom') {
+            config['--csrf-method'] = csrfMethod;
+        } else if (csrfMethod === 'custom') {
+            const customCsrfMethod = document.getElementById('customCsrfMethod').value;
+            if (customCsrfMethod) config['--csrf-method'] = customCsrfMethod;
+        }
+        
+        const csrfUrl = document.getElementById('csrfUrl').value.trim();
+        if (csrfUrl) config['--csrf-url'] = csrfUrl;
+
+        const csrfRetries = document.getElementById('csrfRetries').value.trim();
+        if (csrfRetries && csrfRetries > 0) config['--csrf-retries'] = csrfRetries;
         
         // Injection options
         const testParams = document.getElementById('testParams').value.trim();
@@ -320,12 +368,6 @@ class SQLMapGenerator {
         const suffix = document.getElementById('suffix').value.trim();
         if (suffix) config['--suffix'] = suffix;
         
-        const csrfToken = document.getElementById('csrfToken').value.trim();
-        if (csrfToken) config['--csrf-token'] = csrfToken;
-        
-        const csrfUrl = document.getElementById('csrfUrl').value.trim();
-        if (csrfUrl) config['--csrf-url'] = csrfUrl;
-        
         const secondUrl = document.getElementById('secondUrl').value.trim();
         if (secondUrl) config['--second-url'] = secondUrl;
         
@@ -343,6 +385,9 @@ class SQLMapGenerator {
             '--proxy', '--proxy-cred', '--proxy-file', '--proxy-freq', '--ignore-proxy',
             '--method', '--data', '--param-del',
             '--host', '-A', '--mobile', '--random-agent', "--referer", "-H",
+            '--cookie', '--cookie-del', '--live-cookies', '--load-cookies', '--drop-set-cookie',
+            '--auth-type', '--auth-cred', '--auth-file',
+            '--csrf-token', '--csrf-url', '--csrf-method', '--csrf-retries',
             '-p', '--skip', '--level', '--risk', '--dbms', '--os', '--technique',
             '--batch', '-v', '-t', '--parse-errors', '--test-filter',
             '--current-user', '--current-db', '--dbs', '--tables', '--columns', '--schema', '--dump-all',
@@ -459,7 +504,6 @@ class SQLMapGenerator {
                 copyUrlBtn.classList.remove('copying');
                 copyUrlText.textContent = 'COPY URL WITH THIS CONFIG';
             }, 3000);
-            debugger;
             location.replace("#" + serializedCommand);
 
         } catch (err) {
@@ -475,7 +519,6 @@ class SQLMapGenerator {
             setTimeout(() => {
                 copyUrlText.textContent = 'COPY URL WITH THIS CONFIG';
             }, 3000);
-            debugger;
             location.replace("#" + serializedCommand);
         }
     }
@@ -610,6 +653,16 @@ class SQLMapGenerator {
                 '--referer': 'referer',
                 '-H': 'headers',
                 '--cookie': 'cookie',
+                '--cookie-del': 'cookieDel',
+                '--live-cookies': 'cookieLive',
+                '--drop-set-cookie': 'cookieDrop',
+                '--auth-type': 'authType',
+                '--auth-cred': 'authCred',
+                '--auth-file': 'authFile',
+                '--csrf-token': 'csrfToken',
+                '--csrf-url': 'csrfUrl',
+                '--csrf-method': 'csrfMethod',
+                '--csrf-retries': 'csrfRetries',
                 '-p': 'testParams',
                 '--skip': 'skipParams',
                 '--level': 'level',
@@ -694,7 +747,9 @@ class SQLMapGenerator {
         });
         
         // Hide custom user agent field
+        document.getElementById('customHttpMethodGroup').style.display = 'none';
         document.getElementById('customUserAgentGroup').style.display = 'none';
+        document.getElementById('customCsrfMethodGroup').style.display = 'none';
         
         this.updateCommand();
         this.showMessage('Configuration deleted', 'info');
