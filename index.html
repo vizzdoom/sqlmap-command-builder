@@ -9,14 +9,14 @@
 <body style="background: url('background.jpg') no-repeat center center fixed; background-size: cover;">
     <div class="container">
         <header class="header">
-            <h1><a href="?">SQLMap Command Generator</a></h1>
+            <h1><a href="?">SQLMap Command Builder</a></h1>
             <p>
                 Interactive command line generator for conducting advanced SQLMap pentests.<br />
-                This generator works locally with pure HTML/JS/CSS (no data exchanged to any server).
+                This builder works locally with pure HTML/JS/CSS (no data exchanged to any server).
             </p>
 
             <p>
-                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250611b</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
+                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250612</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
                 vizzdoom/at/gmail/dot/com
             </p>
         </header>
@@ -67,10 +67,9 @@
                 <button class="tab-btn" data-tab="connection">CONNECTION</button>
                 <button class="tab-btn" data-tab="request">REQUEST</button>
                 <button class="tab-btn" data-tab="injection">INJECTION</button>
-                <button class="tab-btn" data-tab="detection">DETECTION</button>
-                <button class="tab-btn" data-tab="enumeration">ENUMERATION</button>
-                <button class="tab-btn" data-tab="advanced">ADVANCED</button>
+                <button class="tab-btn" data-tab="post-exploitation">POST-EXPLOITATION</button>
                 <button class="tab-btn" data-tab="tampering">TAMPERING</button>
+                <button class="tab-btn" data-tab="sqlmap">SQLMAP</button>
                 <!-- TODO <button class="tab-btn" data-tab="config">/CONFIG/</button>-->
             </div>
 
@@ -91,7 +90,7 @@
                             </div>
                             <!-- -g -->
                             <div class="form-group" title="Process Google dork results as target URLs" for="googleDork">
-                                <label class="form-label">GOOGLE DORK FOR TARGET SELECTION (-g)</label>
+                                <label class="form-label">GOOGLE DORK AS TARGET SELECTION (-g)</label>
                                 <input type="text" id="googleDork" class="form-control" placeholder="inurl:php?id=">
                             </div>
                             <div></div>
@@ -102,7 +101,7 @@
                             </div>
                             <!-- -l -->
                             <div class="form-group" title="Rather than providing a single target URL, it is possible to test and inject against HTTP requests proxied through Burp proxy.">
-                                <label class="form-label" for="burpFile">BURP PROXY FILE WITH HTTP REQUESTS (-l)</label>
+                                <label class="form-label" for="burpFile">BURP FILE WITH HTTP REQUESTS (-l)</label>
                                 <input type="text" id="burpFile" class="form-control" placeholder="burp.txt">
                             </div>
                             <!-- --scope -->
@@ -133,7 +132,7 @@
                             </div>
                             <!-- --threads -->
                             <div class="form-group" title="Max number of concurrent HTTP(s) requests (default 1, max 10)">
-                                <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS (--threads)</label>
+                                <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS</label>
                                 <input type="number" id="threads" class="form-control" min="1" max="10" placeholder="1">
                             </div>
                             <div></div>
@@ -150,7 +149,7 @@ This can be useful in cases when urls are being collected by using option --craw
                             <!-- --keep-alive -->
                             <div class="form-group" title="Connection optimization - using persistent HTTP(s) connections">
                                 <label class="form-label">PERSISTENT CONNECTIONS OPTIMIZATION</label>
-                                <label class="checkbox-label" >
+                                <label class="checkbox-label">
                                     <input type="checkbox" id="keepAlive">
                                     <span class="checkmark"></span>
                                     --keep-alive
@@ -161,10 +160,19 @@ This can be useful in cases when urls are being collected by using option --craw
 There are special HTTP request types which can be used to retrieve HTTP response's size without getting the HTTP body. This knowledge can be used in blind injection technique to distinguish True from False responses. When this switch is provided, sqlmap will try to test and exploit two different NULL connection techniques: Range and HEAD. If any of these is supported by the target web server, speed up will come from the obvious saving of used bandwidth.
 Note that this switch is incompatible with switch --text-only.">
                                 <label class="form-label">HTTP NULL CONNECTIONS OPTIMIZATION</label>
-                                <label class="checkbox-label" >
+                                <label class="checkbox-label">
                                     <input type="checkbox" id="nullConnection">
                                     <span class="checkmark"></span>
                                     --null-connection
+                                </label>
+                            </div>
+                            <!-- --http2 -->
+                            <div class="form-group" title="Connection optimization - Use HTTP version 2 (experimental).">
+                                <label class="form-label">USE HTTP2 CONNECTIONS</label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="http2">
+                                    <span class="checkmark"></span>
+                                    --http2
                                 </label>
                             </div>
                             <h3>Proxy Options</h3>
@@ -222,7 +230,7 @@ Note that this switch is incompatible with switch --text-only.">
                                     <option value="PATCH">PATCH</option>
                                     <option value="custom">--Custom--</option>
                                 </select>
-                                <div class="form-group" id="customHttpMethodGroup">
+                                <div class="form-group" id="customHttpMethodGroup" style="display: none">
                                     <input type="text" id="customHttpMethod" class="form-control" placeholder="Custom HTTP method value">
                                 </div>
                             </div>
@@ -287,7 +295,7 @@ Note that also the HTTP User-Agent header is tested against SQL injection if the
                                     <option value="Mozilla/5.0 (iPhone; CPU iPhone OS 18_3_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/22D82 Instagram 344.0.9.27.90 (iPhone15,4; iOS 18_3_2; en_US; en; scale=3.00; 1179x2556; 631222391) NW/3">Instagram App for iOS 18.3.2</option>
                                     <option value="Mozilla/5.0 (Linux; Android 14; SM-S906U Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/135.0.7049.38 Mobile Safari/537.36 Instagram 374.0.0.43.67 Android (34/14; 480dpi; 1080x2122; samsung; SM-S906U; g0q; qcom; en_US; 715888958; IABMV/1)">Instagram App for Android 14</option>
                                 </select>
-                                <div class="form-group" id="customUserAgentGroup">
+                                <div class="form-group" id="customUserAgentGroup" style="display: none;">
                                     <input type="text" id="customUserAgent" class="form-control" placeholder="Custom User Agent value">
                                 </div>
                             </div>
@@ -344,7 +352,7 @@ This can be avoided by providing the switch --drop-set-cookie. Therefore, an sql
                             <div class="form-group" title="These options can be used to specify which HTTP protocol authentication back-end web server implements and the valid credentials to be used to perform all HTTP requests to the target application.">
                                 <label class="form-label" for="authType">HTTP PROTOCOL AUTHENTICATION<br />(--auth-type/--auth-cred)</label>
                                 <select id="authType" class="form-control">
-                                    <option value="">-- Choose one --</option>
+                                    <option value="">-- Choose auth method --</option>
                                     <option value="Basic">Basic</option>
                                     <option value="Digest">Digest</option>
                                     <option value="NTLM">NTLM</option>
@@ -356,7 +364,7 @@ This can be avoided by providing the switch --drop-set-cookie. Therefore, an sql
                             <!-- --auth-file -->
                             <div class="form-group" title="This option should be used in cases when the web server requires proper client-side certificate and a private key for authentication.
 Supplied value should be a PEM formatted key_file that contains your certificate and a private key.">
-                                <label class="form-label" for="authFile">HTTP PROTOCOL PRIVATE KEY AUTHENTICATION<br />(--auth-file)</label>
+                                <label class="form-label" for="authFile">PRIVATE KEY AUTHENTICATION<br />(--auth-file)</label>
                                 <input type="text" id="authFile" class="form-control" placeholder="auth_file.key">
                             </div>
                             <h3>CSRF Tokens Control</h3>
@@ -367,14 +375,14 @@ Supplied value should be a PEM formatted key_file that contains your certificate
                             </div>
                             <!-- --csrf-url -->
                             <div class="form-group" title="Option --csrf-url can be used for retrieval of the token value from arbitrary URL address. This is useful if the vulnerable target URL doesn't contain the necessary token value in the first place, but it is required to extract it from some other location.">
-                                <label class="form-label" for="csrfUrl">URL FOR TOKEN EXTRACTION (--csrf-url)</label>
+                                <label class="form-label" for="csrfUrl">TOKEN EXTRACTION URL (--csrf-url)</label>
                                 <input type="url" id="csrfUrl" class="form-control" placeholder="https://example.com/profile/">
                             </div>
                             <!-- --csrf-method -->
                             <div class="form-group" title="Force usage of given HTTP method (e.g. PUT) during anti-CSRF token page visit https://vocus.cc/article/641c1527fd89780001447d2e">
                                 <label class="form-label" for="csrfMethod">HTTP METHOD FOR TOKEN RETRIEVAL</label>
                                 <select id="csrfMethod" class="form-control">
-                                    <option value="">-- Choose HTTP Method --</option>
+                                    <option value="">-- Choose HTTP method --</option>
                                     <option value="GET">GET</option>
                                     <option value="POST">POST</option>
                                     <option value="PUT">PUT</option>
@@ -390,7 +398,7 @@ Supplied value should be a PEM formatted key_file that contains your certificate
                             </div>
                             <!-- --csrf-retries -->
                             <div class="form-group" title="Retries for anti-CSRF token retrieval (default 0)">
-                                <label class="form-label" for="csrfRetries">NUMBER OF RETRIES FOR TOKEN RETRIEVAL</label>
+                                <label class="form-label" for="csrfRetries">RETRIES DURING TOKEN RETRIEVAL</label>
                                 <input type="number" id="csrfRetries" class="form-control" placeholder="0" min="0" step="1">
                             </div>
                         </div>
@@ -403,26 +411,65 @@ Supplied value should be a PEM formatted key_file that contains your certificate
                 <div class="card">
                     <div class="card__body">
                         <div class="form-grid">
-                            <div class="form-group">
-                                <label class="form-label" title="Comma separated parameters for testing" for="testParams">Tastable parameters (-p)</label>
-                                <input type="text" id="testParams" class="form-control" placeholder="id,name,category">
+
+                            <h3>Parameters</h3>
+                            <!-- -p -->
+                            <div class="form-group" title="Comma separated parameters for testing. By default sqlmap tests all GET parameters and POST parameters.
+When the value of --level is &gt;= 2 it tests also HTTP Cookie header values. When this value is &gt;= 3 it tests also HTTP User-Agent and HTTP Referer header value for SQL injections.
+It is however possible to manually specify a comma-separated list of parameter(s) that you want sqlmap to test. This will bypass the dependence on value of --level too.
+For instance, to test for GET parameter id and for HTTP User-Agent only, provide -p &quot;id,user-agent&quot;.">
+                                <label class="form-label" for="paramTest">TESTABLE PARAMETERS (-p)</label>
+                                <input type="text" id="paramTest" class="form-control" placeholder="id,user-agent">
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Skip testing for given parameter(s)" for="skipParams">Forbidden parameters (--skip)</label>
-                                <input type="text" id="skipParams" class="form-control" placeholder="csrf_token,session_id">
+                            <!-- --skip -->
+                            <div class="form-group" title="Skip testing for given parameter(s). That is especially useful in cases when you want to use higher value for --level and test all available parameters excluding some of HTTP headers normally being tested.
+For instance, to skip testing for HTTP header User-Agent and HTTP header Referer at --level=5, provide --skip=&quot;user-agent,referer&quot;.">
+                                <label class="form-label" for="paramSkip">FORBIDDEN PARAMETERS (--skip)</label>
+                                <input type="text" id="paramSkip" class="form-control" placeholder="csrf_token,session_id">
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Level of tests to perform (default: 1)" for="level">--level <span id="levelValue">1</span></label>
+                            <!-- --param-exclude -->
+                            <div class="form-group" title="Skip testing for given parameter(s). This is the same as --skip, but this switch is based on a regular expressions.
+For instance, to skip testing for parameters which contain string token or session in their names, provide --param-exclude=&quot;token|session&quot;">
+                                <label class="form-label" for="paramExclude">FORBIDDEN PARAMETERS REGEX</label>
+                                <input type="text" id="paramExclude" class="form-control" placeholder="token|session">
+                            </div>
+                            <!-- --param-filter -->
+                            <div class="form-group" title="The --param-filter parameter restrict scans to specific components of HTTP requests, improving efficiency and reducing noise. Accepted comma-separated values include GET (URL parameters), POST (request body), COOKIE, HOST, USER-AGENT, and REFERER.
+This switch can isolate high-risk areas like API endpoints (test only POST body parameters) or speed-up headers injection testing (specifying COOKIE,HOST,USER-AGENT,REFERER filter with --level=5 focuses scans on headers, ignoring GET/POST parameters).
+The filter reduces scan times by 30-40% in header-rich environments and minimizes false positives from unnecessary parameters.">
+                                <label class="form-label" title="Skip testing for given parameter(s)" for="paramFilter">PARAMETERS SCAN CATEGORY ALLOWLIST</label>
+                                <input type="text" id="paramFilter" class="form-control" placeholder="GET,POST,COOKIE,USER-AGENT...">
+                            </div>
+                            <!-- --prefix -->
+                            <div class="form-group" title="The --prefix parameter allows you to prepend a custom string to every SQL injection payload before it is sent to the target application.
+                                 This parameter is essential when applications require specific SQL syntax or characters before the actual injection payload to construct a valid query.
+                                 It is particularly useful when dealing with applications that embed parameters within complex SQL queries requiring specific opening syntax, such as closing quotes or parentheses before the injection point.">
+                                <label class="form-label" title="Injection payload prefix string" for="prefix">Prefix (--prefix)</label>
+                                <input type="text" id="prefix" class="form-control" placeholder="')">
+                            </div>
+                            <!-- --suffix -->
+                            <div class="form-group" title="The --suffix parameter enables you to append a custom string to every SQL injection payload after the main injection code.
+It is crucial when applications require specific closing characters or comments to prevent SQL syntax errors, such as SQL comments (--) or closing parentheses to maintain query validity.">
+                                <label class="form-label" title="Injection payload suffix string" for="suffix">Suffix (--suffix)</label>
+                                <input type="text" id="suffix" class="form-control" placeholder="-- -">
+                            </div>
+
+                            <h3>Attack Optimalization</h3>
+                            <!-- --level -->
+                            <div class="form-group" title="Level of tests to perform (default: 1)">
+                                <label class="form-label" for="level">ATTACK --level <span id="levelValue">1</span></label>
                                 <input type="range" id="level" class="slider" min="1" max="5" value="1">
                                 <div class="additional-help" id="level-help">1: Show also information and warning messages (default).</div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Risk of tests to perform (default: 1)" for="risk">--risk <span id="riskValue">1</span></label>
+                            <!-- --risk -->
+                            <div class="form-group" title="Risk of tests to perform (default: 1)">
+                                <label class="form-label" for="risk">ATTACK --risk <span id="riskValue">1</span></label>
                                 <input type="range" id="risk" class="slider" min="1" max="3" value="1">
-                                <div class="additional-help" id="risk-help">1: Show also information and warning messages (default).</div>
+                                <div class="additional-help" id="risk-help">1: Innocuous test for the majority of SQL injection points (default).</div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Force back-end database engine" for="dbms">--dbms</label>
+                            <!-- --dbms -->
+                            <div class="form-group" title="Force back-end database engine">
+                                <label class="form-label" for="dbms">FORCE TARGET DATABASE ENGINE</label>
                                 <select id="dbms" class="form-control">
                                     <option value="">Auto-detect</option>
                                     <option value="MySQL">MySQL</option>
@@ -462,16 +509,30 @@ Supplied value should be a PEM formatted key_file that contains your certificate
                                     <option value="FrontBase">FrontBase</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" title="By default sqlmap automatically detects the web application's back-end database management system underlying operating system when this information is a dependence of any other provided switch or option. It is possible to force the operating system name if you already know it so that sqlmap will avoid doing it itself. Note that this option is not mandatory and it is strongly recommended to use it only if you are absolutely sure about the back-end database management system underlying operating system. If you do not know it, let sqlmap automatically identify it for you." for="os">--os</label>
+                            <!-- --os -->
+                            <div class="form-group" title="By default sqlmap automatically detects the web application's back-end database management system underlying operating system when this information is a dependence of any other provided switch or option. It is possible to force the operating system name if you already know it so that sqlmap will avoid doing it itself. Note that this option is not mandatory and it is strongly recommended to use it only if you are absolutely sure about the back-end database management system underlying operating system. If you do not know it, let sqlmap automatically identify it for you.">
+                                <label class="form-label" for="os">FORCE TARGET OS</label>
                                 <select id="os" class="form-control">
                                     <option value="">Auto-detect</option>
                                     <option value="Linux">Linux</option>
                                     <option value="Windows">Windows</option>
                                 </select>
                             </div>
+                            <!-- --second-url -->
+                            <div class="form-group" title="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
+You can point sqlmap a resulting page URL searched for second-order response to test for this type of SQL injection by using option --second-order.">
+                                <label class="form-label" for="secondUrl">SECOND ORDER PAGE URL</label>
+                                <input type="url" id="secondUrl" class="form-control" placeholder="https://example.com/profile">
+                            </div>
+                            <!-- --second-req -->
+                            <div class="form-group" title="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
+You can point sqlmap a request file for sending to the server where results are being shown to test by using option --second-req.">
+                                <label class="form-label" for="secondUrl">SECOND ORDER REQUEST FILE</label>
+                                <input type="text" id="secondReq" class="form-control" placeholder="second-order-request.txt">
+                            </div>
+                            <!-- Attack techniques -->
                             <div class="form-group">
-                                <label class="form-label" title="">Attack techniques (--technique)</label>
+                                <label class="form-label" title="">ATTACK TECHNIQUES (--technique)</label>
                                 <div class="checkbox-grid">
                                     <label class="checkbox-label">
                                         <input type="checkbox" id="techB" value="B">
@@ -505,54 +566,73 @@ Supplied value should be a PEM formatted key_file that contains your certificate
                                     </label>
                                 </div>
                             </div>
+                            <!-- Attack tuning -->
+                            <div class="form-group" title="Connection optimization - using persistent HTTP(s) connections">
+                                <label class="form-label">ATTACK TUNING</label>
+                                <div class="checkbox-grid">
+                                    <!-- --invalid-bignum -->
+                                    <label class="checkbox-label" title="This parameter forces sqlmap to use large integer numbers for invalidating original parameter values during SQL injection tests.
+Instead of standard invalidation methods (e.g., negative values), sqlmap replaces original values with very large numbers, which can bypass application filters that block typical techniques.
+It is particularly useful when applications filter standard parameter invalidation methods but may not properly handle extremely large numeric values.">
+                                        <input type="checkbox" id="invalidBignum">
+                                        <span class="checkmark"></span>
+                                        --invalid-bignum
+                                    </label>
+                                    <!-- --invalid-logical -->
+                                    <label class="checkbox-label" title="The switch enables the use of logical operations to invalidate parameter values.
+Sqlmap replaces original values with logical expressions that always return false (e.g., id=(1=0)).
+This method is effective when applications expect logical values or block other invalidation techniques. The parameter serves as an alternative for standard invalidation methods in environments with advanced filtering mechanisms.">
+                                        <input type="checkbox" id="invalidLogical">
+                                        <span class="checkmark"></span>
+                                        --invalid-logical
+                                    </label>
+                                    <!-- --invalid-string -->
+                                    <label class="checkbox-label" title="This parameter causes sqlmap to use random character strings for parameter value invalidation. Sqlmap generates random strings instead of original values, bypassing application filters focused on numeric values.
+It is useful when applications have special validation mechanisms for numbers but do not check string inputs.
+The parameter automatically replaces parameters with random strings during boolean-based injection tests.">
+                                        <input type="checkbox" id="invalidString">
+                                        <span class="checkmark"></span>
+                                        --invalid-string
+                                    </label>
+                                    <!-- --no-cast -->
+                                    <label class="checkbox-label" title="The switch disables sqlmap's automatic payload casting mechanism.
+Normally sqlmap adds CAST() functions to payloads for handling different DBMS data types.
+Using --no-cast is necessary when applications have payload length restrictions or when casting functions are blocked by WAF. It significantly reduces the size of generated payloads, which is critical in environments with character limits.
+It is often combined with --no-escape in environments with query length restrictions where every character matters.">
+                                        <input type="checkbox" id="noCast">
+                                        <span class="checkmark"></span>
+                                        --no-cast
+                                    </label>
+                                    <!-- --no-escape -->
+                                    <label class="checkbox-label" title="This parameter disables sqlmap's built-in string escaping mechanism.
+By default sqlmap automatically escapes special characters in payloads (adds backslash before apostrophes). This switch is useful when applications have their own escaping mechanisms or when automatic escaping breaks payloads.
+It is often combined with --no-cast in environments with query length restrictions where every character matters.">
+                                        <input type="checkbox" id="noEscape">
+                                        <span class="checkmark"></span>
+                                        --no-escape
+                                    </label>
+                                    <!-- --predict-output -->
+                                    <label class="checkbox-label" title="The switch enables a statistical algorithm for predicting query results in inference techniques.
+Sqlmap builds statistical tables of most probable character values based on the txt/common-outputs.txt file and current enumeration knowledge. It significantly speeds up data retrieval when values belong to common patterns (system table names, privileges).
+The parameter is not compatible with --threads and works best when retrieving standard DBMS entities.">
+                                        <input type="checkbox" id="predictOutput">
+                                        <span class="checkmark"></span>
+                                        --predict-output
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- DETECTION Tab -->
-            <div class="tab-content" id="detection">
+            <!-- Post-exploitation Tab -->
+            <div class="tab-content" id="post-exploitation">
                 <div class="card">
                     <div class="card__body">
                         <div class="form-grid">
-                            <div class="form-group checkbox-group">
-                                <label class="checkbox-label" title="Never ask for user input, use the default behavior (useful when using sqlmap in scripts)">
-                                    <input type="checkbox" id="batch">
-                                    <span class="checkmark"></span>
-                                    Batch mode (--batch)
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Set the verbosity level of output messages" for="verbose">Verbose (-v): <span id="verboseValue">1</span></label>
-                                <input type="range" id="verbose" class="slider" min="0" max="6" value="1">
-                                <div class="additional-help" id="verbose-help">1: Show also information and warning messages (default).</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Log all HTTP traffic into a textual file" for="trafficFile">Traffic log file (-t)</label>
-                                <input type="text" id="trafficFile" class="form-control" placeholder="traffic.log">
-                            </div>
-                            <div class="form-group checkbox-group">
-                                <label class="checkbox-label" title="Parse and display DBMS error messages from responses">
-                                    <input type="checkbox" id="parseErrors">
-                                    <span class="checkmark"></span>
-                                    Parse errors (--parse-errors)
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Select tests by payloads and/or titles (e.g. ROW)" for="testFilter">--test-filter</label>
-                                <input type="text" id="testFilter" class="form-control" placeholder="ROW">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ENUMERATION Tab -->
-            <div class="tab-content" id="enumeration">
-                <div class="card">
-                    <div class="card__body">
-                        <div class="form-grid">
-                            <div class="checkbox-grid">
+                            <div class="checkbox-grid" title="These options can be used to enumerate the back-end database management system information, structure and data contained in the tables">
+                                <label class="form-label">ENUMERATION AND DATA EXFILTRATION</label>
                                 <label class="checkbox-label" title="Retrieve DBMS current user">
                                     <input type="checkbox" id="currentUser">
                                     <span class="checkmark"></span>
@@ -590,84 +670,700 @@ Supplied value should be a PEM formatted key_file that contains your certificate
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" title="DBMS database to enumerate" for="database">Database name (-D)</label>
-                                <input type="text" id="database" class="form-control" placeholder="database_name">
+                                <label class="form-label" title="DBMS database to enumerate" for="database">DATABASE(S) NAME FOR ENUMERATION</label>
+                                <input type="text" id="database" class="form-control" placeholder="database_name1,database_name2">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" title="DBMS database table(s) to enumerate" for="table">Table(s) name (-T)</label>
-                                <input type="text" id="table" class="form-control" placeholder="table_name">
+                                <label class="form-label" title="DBMS database table(s) to enumerate" for="table">TABLE(S) NAME FOR ENUMERATION</label>
+                                <input type="text" id="table" class="form-control" placeholder="table_name1,table_name2">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" title="DBMS database table column(s) to enumerate" for="column">Column(s) name (-C)</label>
-                                <input type="text" id="column" class="form-control" placeholder="column_name">
+                                <label class="form-label" title="DBMS database table column(s) to enumerate" for="column">COLUMN(S) NAME FOR ENUMERATION</label>
+                                <input type="text" id="column" class="form-control" placeholder="column_name1,column_name2">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ADVANCED Tab -->
-            <div class="tab-content" id="advanced">
-                <div class="card">
-                    <div class="card__body">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label class="form-label" title="Use given script(s) for tampering injection data" for="tamper">Tamper scripts (--tamper)</label>
-                                <input type="text" id="tamper" class="form-control" placeholder="between,randomcase,space2comment">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Injection payload prefix string" for="prefix">Prefix (--prefix)</label>
-                                <input type="text" id="prefix" class="form-control" placeholder="')">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Injection payload suffix string" for="suffix">Suffix (--suffix)</label>
-                                <input type="text" id="suffix" class="form-control" placeholder="-- -">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Parameter used to hold anti-CSRF token" for="csrfToken">CSRF token (--csrf-token)</label>
-                                <input type="text" id="csrfToken" class="form-control" placeholder="csrf_token">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="URL address to visit for extraction of anti-CSRF token" for="csrfUrl">CSRF URL (--csrf-url)</label>
-                                <input type="url" id="csrfUrl" class="form-control" placeholder="https://example.com/csrf">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="Resulting page URL searched for second-order response" for="secondUrl">Second order URL (--second-url)</label>
-                                <input type="url" id="secondUrl" class="form-control" placeholder="https://example.com/profile">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- OPTIMIZATION Tab -->
+        <!-- TAMPERING Tab -->
         <div class="tab-content" id="tampering">
             <div class="card">
                 <div class="card__body">
                     <div class="form-grid">
+                        <div class="form-grid column-tripple">
+                            <div class="form-group">
+                                <label class="form-label" title="Use given script(s) for tampering injection data" for="tamper">TAMPER SCRIPTS FOR ADVANCED PAYLOD GENERATION (--tamper)</label>
+                                <input type="text" id="tamper" class="form-control" placeholder="between,randomcase,space2comment" style="display: none">
+                            </div>
+                        </div>
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-0eunion">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>0eunion.py</b></span>
+                                <span style="padding-left: 20px">Replaces instances of UNION with e0UNION to bypass certain filters</span>
+                            </label>
+                        </div>
 
-                        <div class="checkbox-grid">
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
                             <label class="checkbox-label">
-                                <input type="checkbox" id="keepAlive">
+                                <input type="checkbox" id="tamperscript-apostrophemask">
                                 <span class="checkmark"></span>
-                                <b>apostrophemask.py</b><small>Replaces single quotes (') with their UTF-8 full-width equivalents (e.g. ' -> %EF%BC%87)</small>
+                                <span style="font-weight: bold"><b>apostrophemask.py</b></span>
+                                <span style="padding-left: 20px">Replaces apostrophe character with its UTF-8 full width counterpart</span>
+                            </label>
+                        </div>
 
-                            </label>
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
                             <label class="checkbox-label">
-                                <input type="checkbox" id="nullConnection">
+                                <input type="checkbox" id="tamperscript-apostrophenullencode">
                                 <span class="checkmark"></span>
-                                Null connection (--null-connection)
+                                <span style="font-weight: bold"><b>apostrophenullencode.py</b></span>
+                                <span style="padding-left: 20px">Replaces apostrophe character with its illegal double unicode counterpart</span>
                             </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
                             <label class="checkbox-label">
-                                <input type="checkbox" id="predictOutput">
+                                <input type="checkbox" id="tamperscript-appendnullbyte">
                                 <span class="checkmark"></span>
-                                Predict output (--predict-output)
+                                <span style="font-weight: bold"><b>appendnullbyte.py</b></span>
+                                <span style="padding-left: 20px">Appends encoded NULL byte character at the end of payload</span>
                             </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
                             <label class="checkbox-label">
-                                <input type="checkbox" id="optimize">
+                                <input type="checkbox" id="tamperscript-base64encode">
                                 <span class="checkmark"></span>
-                                Optimize (-o)
+                                <span style="font-weight: bold"><b>base64encode.py</b></span>
+                                <span style="padding-left: 20px">Base64 encodes all characters in a given payload</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-between">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>between.py</b></span>
+                                <span style="padding-left: 20px">Replaces greater than operator ('>') with 'NOT BETWEEN 0 AND #' and equals with 'BETWEEN # AND #'</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-binary">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>binary.py</b></span>
+                                <span style="padding-left: 20px">Converts string values to their binary representation for payload obfuscation</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-bluecoat">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>bluecoat.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character after SQL statement with a valid random blank character and = with LIKE operator</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-chardoubleencode">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>chardoubleencode.py</b></span>
+                                <span style="padding-left: 20px">Double URL-encodes all characters in a given payload (not processing already encoded)</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-charencode">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>charencode.py</b></span>
+                                <span style="padding-left: 20px">URL-encodes all characters in a given payload (not processing already encoded)</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-charunicodeencode">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>charunicodeencode.py</b></span>
+                                <span style="padding-left: 20px">Unicode-URL-encodes non-encoded characters in a given payload</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-charunicodeescape">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>charunicodeescape.py</b></span>
+                                <span style="padding-left: 20px">Unicode-escapes non-encoded characters in a given payload using \\uXXXX format</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-commalesslimit">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>commalesslimit.py</b></span>
+                                <span style="padding-left: 20px">Replaces instances like 'LIMIT M, N' with 'LIMIT N OFFSET M' counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-commalessmid">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>commalessmid.py</b></span>
+                                <span style="padding-left: 20px">Replaces instances like 'MID(A, B, C)' with 'MID(A FROM B FOR C)' counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-commentbeforeparentheses">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>commentbeforeparentheses.py</b></span>
+                                <span style="padding-left: 20px">Adds comments before opening parentheses to bypass certain filters</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-concat2concatws">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>concat2concatws.py</b></span>
+                                <span style="padding-left: 20px">Replaces instances like 'CONCAT(A, B)' with 'CONCAT_WS(MID(CHAR(0), 0, 0), A, B)' counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-decentities">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>decentities.py</b></span>
+                                <span style="padding-left: 20px">HTML decimal-encodes all non-alphanumeric characters</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-dunion">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>dunion.py</b></span>
+                                <span style="padding-left: 20px">Replaces instances of UNION with DISTINCTROW UNION to bypass certain filters</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-equaltolike">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>equaltolike.py</b></span>
+                                <span style="padding-left: 20px">Replaces all occurrences of operator equal ('=') with 'LIKE' counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-equaltorlike">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>equaltorlike.py</b></span>
+                                <span style="padding-left: 20px">Replaces all occurrences of operator equal ('=') with 'RLIKE' counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-escapequotes">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>escapequotes.py</b></span>
+                                <span style="padding-left: 20px">Slash escape quotes (' and ") in payload</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-greatest">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>greatest.py</b></span>
+                                <span style="padding-left: 20px">Replaces greater than operator ('>') with 'GREATEST' counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-halfversionedmorekeywords">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>halfversionedmorekeywords.py</b></span>
+                                <span style="padding-left: 20px">Adds MySQL versioned comment before each keyword</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-hex2char">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>hex2char.py</b></span>
+                                <span style="padding-left: 20px">Replaces each (MySQL) 0x encoded string with equivalent CHAR() counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-hexentities">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>hexentities.py</b></span>
+                                <span style="padding-left: 20px">HTML hex-encodes all non-alphanumeric characters</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-htmlencode">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>htmlencode.py</b></span>
+                                <span style="padding-left: 20px">HTML-encodes all non-alphanumeric characters</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-if2case">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>if2case.py</b></span>
+                                <span style="padding-left: 20px">Replaces instances like 'IF(A, B, C)' with 'CASE WHEN (A) THEN (B) ELSE (C) END' counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-ifnull2casewhenisnull">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>ifnull2casewhenisnull.py</b></span>
+                                <span style="padding-left: 20px">Replaces instances like 'IFNULL(A, B)' with 'CASE WHEN ISNULL(A) THEN (B) ELSE (A) END' counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-ifnull2ifisnull">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>ifnull2ifisnull.py</b></span>
+                                <span style="padding-left: 20px">Replaces instances like 'IFNULL(A, B)' with 'IF(ISNULL(A), B, A)' counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-informationschemacomment">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>informationschemacomment.py</b></span>
+                                <span style="padding-left: 20px">Adds MySQL comment to INFORMATION_SCHEMA for bypassing certain filters</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-least">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>least.py</b></span>
+                                <span style="padding-left: 20px">Replaces greater than operator ('>') with 'LEAST' counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-lowercase">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>lowercase.py</b></span>
+                                <span style="padding-left: 20px">Replaces each keyword character with lowercase value</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-luanginx">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>luanginx.py</b></span>
+                                <span style="padding-left: 20px">Bypasses LUA/Nginx web application firewall using specific encoding techniques</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-luanginxmore">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>luanginxmore.py</b></span>
+                                <span style="padding-left: 20px">Advanced bypassing for LUA/Nginx web application firewall with extended techniques</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-misunion">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>misunion.py</b></span>
+                                <span style="padding-left: 20px">Replaces instances of UNION with /*!UNION*/ to bypass certain filters</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-modsecurityversioned">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>modsecurityversioned.py</b></span>
+                                <span style="padding-left: 20px">Embraces complete query with MySQL versioned comment to bypass ModSecurity WAF</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-modsecurityzeroversioned">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>modsecurityzeroversioned.py</b></span>
+                                <span style="padding-left: 20px">Embraces complete query with MySQL zero-versioned comment to bypass ModSecurity WAF</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-multiplespaces">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>multiplespaces.py</b></span>
+                                <span style="padding-left: 20px">Adds multiple spaces around SQL keywords to bypass filters</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-ord2ascii">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>ord2ascii.py</b></span>
+                                <span style="padding-left: 20px">Replaces ORD(x) with ASCII(x) function calls</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-overlongutf8">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>overlongutf8.py</b></span>
+                                <span style="padding-left: 20px">Converts all characters in a given payload to overlong UTF8 (not processing already encoded)</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-overlongutf8more">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>overlongutf8more.py</b></span>
+                                <span style="padding-left: 20px">Advanced overlong UTF8 encoding for bypassing additional security filters</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-percentage">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>percentage.py</b></span>
+                                <span style="padding-left: 20px">Adds a percentage sign (%) in front of each character</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-plus2concat">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>plus2concat.py</b></span>
+                                <span style="padding-left: 20px">Replaces plus operator ('+') with MsSQL function CONCAT() counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-plus2fnconcat">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>plus2fnconcat.py</b></span>
+                                <span style="padding-left: 20px">Replaces plus operator ('+') with MsSQL function fn_concat() counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-randomcase">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>randomcase.py</b></span>
+                                <span style="padding-left: 20px">Replaces each keyword character with random case value (e.g. SELECT -> SEleCt)</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-randomcomments">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>randomcomments.py</b></span>
+                                <span style="padding-left: 20px">Adds random comments inside SQL keywords to bypass filters</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-schemasplit">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>schemasplit.py</b></span>
+                                <span style="padding-left: 20px">Splits database schema and table names to bypass certain filters</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-scientific">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>scientific.py</b></span>
+                                <span style="padding-left: 20px">Converts integer values to scientific notation (e.g. 1 -> 1e0)</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-sleep2getlock">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>sleep2getlock.py</b></span>
+                                <span style="padding-left: 20px">Replaces instances of SLEEP with GET_LOCK for time-based injections</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-sp_password">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>sp_password.py</b></span>
+                                <span style="padding-left: 20px">Appends 'sp_password' to the end of payload to avoid logging in SQL Server</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-space2comment">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>space2comment.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character (' ') with comments '/**/'</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-space2dash">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>space2dash.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character (' ') with dash comments ('-- ') followed by random string and new line</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-space2hash">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>space2hash.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character (' ') with hash character ('#') followed by random string and new line</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-space2morecomment">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>space2morecomment.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character (' ') with comments '/**_**/' (with random underscore variations)</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-space2morehash">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>space2morehash.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character (' ') with hash character ('#') followed by random string and new line</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-space2mssqlblank">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>space2mssqlblank.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character (' ') with random blank character from valid alternate character set for MSSQL</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-space2mssqlhash">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>space2mssqlhash.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character (' ') with hash character ('#') followed by new line for MSSQL</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-space2mysqlblank">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>space2mysqlblank.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character (' ') with random blank character from valid alternate character set for MySQL</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-space2mysqldash">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>space2mysqldash.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character (' ') with dash comments ('-- ') followed by new line for MySQL</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-space2plus">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>space2plus.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character (' ') with plus sign ('+') for URL encoding</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-space2randomblank">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>space2randomblank.py</b></span>
+                                <span style="padding-left: 20px">Replaces space character (' ') with random blank character from valid alternate character set</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-substring2leftright">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>substring2leftright.py</b></span>
+                                <span style="padding-left: 20px">Replaces PostgreSQL SUBSTRING with LEFT and RIGHT functions</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-symboliclogical">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>symboliclogical.py</b></span>
+                                <span style="padding-left: 20px">Replaces AND and OR logical operators with symbolic equivalents (&& and ||)</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-unionalltounion">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>unionalltounion.py</b></span>
+                                <span style="padding-left: 20px">Replaces UNION ALL SELECT with UNION SELECT counterpart</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-unmagicquotes">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>unmagicquotes.py</b></span>
+                                <span style="padding-left: 20px">Replaces quote character (') with multibyte combo %bf%27 (valid for GBK charset)</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-uppercase">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>uppercase.py</b></span>
+                                <span style="padding-left: 20px">Replaces each keyword character with uppercase value</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-varnish">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>varnish.py</b></span>
+                                <span style="padding-left: 20px">Appends HTTP header 'X-originating-IP' for bypassing Varnish firewalls</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-versionedkeywords">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>versionedkeywords.py</b></span>
+                                <span style="padding-left: 20px">Encloses each non-function keyword with MySQL versioned comment</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-versionedmorekeywords">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>versionedmorekeywords.py</b></span>
+                                <span style="padding-left: 20px">Encloses each keyword with MySQL versioned comment (extended version)</span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tamperscript-xforwardedfor">
+                                <span class="checkmark"></span>
+                                <span style="font-weight: bold"><b>xforwardedfor.py</b></span>
+                                <span style="padding-left: 20px">Appends a fake HTTP header 'X-Forwarded-For' to bypass IP restrictions</span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SQLMAP Tab -->
+        <div class="tab-content" id="sqlmap">
+            <div class="card">
+                <div class="card__body">
+                    <div class="form-grid">
+                        <!-- -v -->
+                        <div class="form-group" title="Set the verbosity level of output messages">
+                            <label class="form-label" for="verbose">Verbose level (-v): <span id="verboseValue">1</span></label>
+                            <input type="range" id="verbose" class="slider" min="0" max="6" value="1">
+                            <div class="additional-help" id="verbose-help">1: Show also information and warning messages (default).</div>
+                        </div>
+                        <!-- -t -->
+                        <div class="form-group" title="This option requires an argument that specified the textual file to write all HTTP(s) traffic generated by sqlmap - HTTP(S) requests and HTTP(S) responses.">
+                            <label class="form-label" for="trafficFile">Traffic log file (-t)</label>
+                            <input type="text" id="trafficFile" class="form-control" placeholder="traffic.log">
+                        </div>
+                        <!-- --batch -->
+                        <div class="form-group" title="Never ask for user input, use the default behavior (useful when using sqlmap in scripts).">
+                            <label class="form-label">BATCH MODE</label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="batch">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label__text">--batch</span>
+                            </label>
+                        </div>
+                        <!-- --parse-errors -->
+                        <div class="form-group" title="Parse and display DBMS error messages from responses.">
+                            <label class="form-label">PARSE ERRORS</label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="parseErrors">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label__text">--parse-errors</span>
                             </label>
                         </div>
                     </div>
@@ -690,5 +1386,5 @@ Supplied value should be a PEM formatted key_file that contains your certificate
         </div>
 
         <script src="app.js"></script>
-</body>
-</html>
+    </body>
+    </html>
