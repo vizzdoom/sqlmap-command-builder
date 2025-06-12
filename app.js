@@ -753,6 +753,7 @@ class SQLMapGenerator {
                 '--cookie-del': 'cookieDel',
                 '--live-cookies': 'cookieLive',
                 '--drop-set-cookie': 'cookieDrop',
+                '--load-cookies': 'cookieLoad',
                 '--auth-type': 'authType',
                 '--auth-cred': 'authCred',
                 '--auth-file': 'authFile',
@@ -796,8 +797,6 @@ class SQLMapGenerator {
                 '--tamper': 'tamper',
                 '--prefix': 'prefix',
                 '--suffix': 'suffix',
-                '--csrf-token': 'csrfToken',
-                '--csrf-url': 'csrfUrl',
                 '--second-url': 'secondUrl'
             };
             
