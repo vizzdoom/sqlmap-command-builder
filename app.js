@@ -417,7 +417,7 @@ class SQLMapGenerator {
             if (document.getElementById('tamperscript-'+s).checked) tamperScripts.push(s);
         });
         const tamper = document.getElementById('tamper');
-        if (tamperScripts.length > 0) tamper.value = tamperScripts.join(',');
+        tamper.value = tamperScripts.join(',');
         if (tamper.value.trim()) config['--tamper'] = tamper.value.trim();
         
         const invalidBignum = document.getElementById('invalidBignum').checked;
