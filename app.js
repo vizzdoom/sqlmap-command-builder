@@ -1,6 +1,79 @@
 class SQLMapGenerator {
     constructor() {
         this.config = {};
+        this.tamperScriptList = [
+            "0eunion",
+            "apostrophemask",
+            "apostrophenullencode",
+            "appendnullbyte",
+            "base64encode",
+            "between",
+            "binary",
+            "bluecoat",
+            "chardoubleencode",
+            "charencode",
+            "charunicodeencode",
+            "charunicodeescape",
+            "commalesslimit",
+            "commalessmid",
+            "commentbeforeparentheses",
+            "concat2concatws",
+            "decentities",
+            "dunion",
+            "equaltolike",
+            "equaltorlike",
+            "escapequotes",
+            "greatest",
+            "halfversionedmorekeywords",
+            "hex2char",
+            "hexentities",
+            "htmlencode",
+            "if2case",
+            "ifnull2casewhenisnull",
+            "ifnull2ifisnull",
+            "informationschemacomment",
+            "least",
+            "lowercase",
+            "luanginx",
+            "luanginxmore",
+            "misunion",
+            "modsecurityversioned",
+            "modsecurityzeroversioned",
+            "multiplespaces",
+            "ord2ascii",
+            "overlongutf8",
+            "overlongutf8more",
+            "percentage",
+            "plus2concat",
+            "plus2fnconcat",
+            "randomcase",
+            "randomcomments",
+            "schemasplit",
+            "scientific",
+            "sleep2getlock",
+            "sp_password",
+            "space2comment",
+            "space2dash",
+            "space2hash",
+            "space2morecomment",
+            "space2morehash",
+            "space2mssqlblank",
+            "space2mssqlhash",
+            "space2mysqlblank",
+            "space2mysqldash",
+            "space2plus",
+            "space2randomblank",
+            "substring2leftright",
+            "symboliclogical",
+            "unionalltounion",
+            "unmagicquotes",
+            "uppercase",
+            "varnish",
+            "versionedkeywords",
+            "versionedmorekeywords",
+            "xforwardedfor"
+        ];
+
         this.templates = {
             basic_get: {
                 name: "tbd",
@@ -340,77 +413,9 @@ class SQLMapGenerator {
         if (techniques.length > 0) config['--technique'] = techniques.join('');
 
         const tamperScripts = [];
-        if (document.getElementById('tamperscript-0eunion').checked)                    tamperScripts.push('0eunion');
-        if (document.getElementById('tamperscript-apostrophemask').checked)             tamperScripts.push('apostrophemask');
-        if (document.getElementById('tamperscript-apostrophenullencode').checked)       tamperScripts.push('apostrophenullencode');
-        if (document.getElementById('tamperscript-appendnullbyte').checked)             tamperScripts.push('appendnullbyte');
-        if (document.getElementById('tamperscript-base64encode').checked)               tamperScripts.push('base64encode');
-        if (document.getElementById('tamperscript-between').checked)                    tamperScripts.push('between');
-        if (document.getElementById('tamperscript-binary').checked)                     tamperScripts.push('binary');
-        if (document.getElementById('tamperscript-bluecoat').checked)                   tamperScripts.push('bluecoat');
-        if (document.getElementById('tamperscript-chardoubleencode').checked)           tamperScripts.push('chardoubleencode');
-        if (document.getElementById('tamperscript-charencode').checked)                 tamperScripts.push('charencode');
-        if (document.getElementById('tamperscript-charunicodeencode').checked)          tamperScripts.push('charunicodeencode');
-        if (document.getElementById('tamperscript-charunicodeescape').checked)          tamperScripts.push('charunicodeescape');
-        if (document.getElementById('tamperscript-commalesslimit').checked)             tamperScripts.push('commalesslimit');
-        if (document.getElementById('tamperscript-commalessmid').checked)               tamperScripts.push('commalessmid');
-        if (document.getElementById('tamperscript-commentbeforeparentheses').checked)   tamperScripts.push('commentbeforeparentheses');
-        if (document.getElementById('tamperscript-concat2concatws').checked)            tamperScripts.push('concat2concatws');
-        if (document.getElementById('tamperscript-decentities').checked)                tamperScripts.push('decentities');
-        if (document.getElementById('tamperscript-dunion').checked)                     tamperScripts.push('dunion');
-        if (document.getElementById('tamperscript-equaltolike').checked)                tamperScripts.push('equaltolike');
-        if (document.getElementById('tamperscript-equaltorlike').checked)               tamperScripts.push('equaltorlike');
-        if (document.getElementById('tamperscript-escapequotes').checked)               tamperScripts.push('escapequotes');
-        if (document.getElementById('tamperscript-greatest').checked)                   tamperScripts.push('greatest');
-        if (document.getElementById('tamperscript-halfversionedmorekeywords').checked)  tamperScripts.push('halfversionedmorekeywords');
-        if (document.getElementById('tamperscript-hex2char').checked)                   tamperScripts.push('hex2char');
-        if (document.getElementById('tamperscript-hexentities').checked)                tamperScripts.push('hexentities');
-        if (document.getElementById('tamperscript-htmlencode').checked)                 tamperScripts.push('htmlencode');
-        if (document.getElementById('tamperscript-if2case').checked)                    tamperScripts.push('if2case');
-        if (document.getElementById('tamperscript-ifnull2casewhenisnull').checked)      tamperScripts.push('ifnull2casewhenisnull');
-        if (document.getElementById('tamperscript-ifnull2ifisnull').checked)            tamperScripts.push('ifnull2ifisnull');
-        if (document.getElementById('tamperscript-informationschemacomment').checked)   tamperScripts.push('informationschemacomment');
-        if (document.getElementById('tamperscript-least').checked)                      tamperScripts.push('least');
-        if (document.getElementById('tamperscript-lowercase').checked)                  tamperScripts.push('lowercase');
-        if (document.getElementById('tamperscript-luanginx').checked)                   tamperScripts.push('luanginx');
-        if (document.getElementById('tamperscript-luanginxmore').checked)               tamperScripts.push('luanginxmore');
-        if (document.getElementById('tamperscript-misunion').checked)                   tamperScripts.push('misunion');
-        if (document.getElementById('tamperscript-modsecurityversioned').checked)       tamperScripts.push('modsecurityversioned');
-        if (document.getElementById('tamperscript-modsecurityzeroversioned').checked)   tamperScripts.push('modsecurityzeroversioned');
-        if (document.getElementById('tamperscript-multiplespaces').checked)             tamperScripts.push('multiplespaces');
-        if (document.getElementById('tamperscript-ord2ascii').checked)                  tamperScripts.push('ord2ascii');
-        if (document.getElementById('tamperscript-overlongutf8').checked)               tamperScripts.push('overlongutf8');
-        if (document.getElementById('tamperscript-overlongutf8more').checked)           tamperScripts.push('overlongutf8more');
-        if (document.getElementById('tamperscript-percentage').checked)                 tamperScripts.push('percentage');
-        if (document.getElementById('tamperscript-plus2concat').checked)                tamperScripts.push('plus2concat');
-        if (document.getElementById('tamperscript-plus2fnconcat').checked)              tamperScripts.push('plus2fnconcat');
-        if (document.getElementById('tamperscript-randomcase').checked)                 tamperScripts.push('randomcase');
-        if (document.getElementById('tamperscript-randomcomments').checked)             tamperScripts.push('randomcomments');
-        if (document.getElementById('tamperscript-schemasplit').checked)                tamperScripts.push('schemasplit');
-        if (document.getElementById('tamperscript-scientific').checked)                 tamperScripts.push('scientific');
-        if (document.getElementById('tamperscript-sleep2getlock').checked)              tamperScripts.push('sleep2getlock');
-        if (document.getElementById('tamperscript-sp_password').checked)                tamperScripts.push('sp_password');
-        if (document.getElementById('tamperscript-space2comment').checked)              tamperScripts.push('space2comment');
-        if (document.getElementById('tamperscript-space2dash').checked)                 tamperScripts.push('space2dash');
-        if (document.getElementById('tamperscript-space2hash').checked)                 tamperScripts.push('space2hash');
-        if (document.getElementById('tamperscript-space2morecomment').checked)          tamperScripts.push('space2morecomment');
-        if (document.getElementById('tamperscript-space2morehash').checked)             tamperScripts.push('space2morehash');
-        if (document.getElementById('tamperscript-space2mssqlblank').checked)           tamperScripts.push('space2mssqlblank');
-        if (document.getElementById('tamperscript-space2mssqlhash').checked)            tamperScripts.push('space2mssqlhash');
-        if (document.getElementById('tamperscript-space2mysqlblank').checked)           tamperScripts.push('space2mysqlblank');
-        if (document.getElementById('tamperscript-space2mysqldash').checked)            tamperScripts.push('space2mysqldash');
-        if (document.getElementById('tamperscript-space2plus').checked)                 tamperScripts.push('space2plus');
-        if (document.getElementById('tamperscript-space2randomblank').checked)          tamperScripts.push('space2randomblank');
-        if (document.getElementById('tamperscript-substring2leftright').checked)        tamperScripts.push('substring2leftright');
-        if (document.getElementById('tamperscript-symboliclogical').checked)            tamperScripts.push('symboliclogical');
-        if (document.getElementById('tamperscript-unionalltounion').checked)            tamperScripts.push('unionalltounion');
-        if (document.getElementById('tamperscript-unmagicquotes').checked)              tamperScripts.push('unmagicquotes');
-        if (document.getElementById('tamperscript-uppercase').checked)                  tamperScripts.push('uppercase');
-        if (document.getElementById('tamperscript-varnish').checked)                    tamperScripts.push('varnish');
-        if (document.getElementById('tamperscript-versionedkeywords').checked)          tamperScripts.push('versionedkeywords');
-        if (document.getElementById('tamperscript-versionedmorekeywords').checked)      tamperScripts.push('versionedmorekeywords');
-        if (document.getElementById('tamperscript-xforwardedfor').checked)              tamperScripts.push('xforwardedfor');
-
+        this.tamperScriptList.forEach(s => {
+            if (document.getElementById('tamperscript-'+s).checked) tamperScripts.push(s);
+        });
         const tamper = document.getElementById('tamper');
         if (tamperScripts.length > 0) tamper.value = tamperScripts.join(',');
         if (tamper.value.trim()) config['--tamper'] = tamper.value.trim();
@@ -802,12 +807,22 @@ class SQLMapGenerator {
                 if (element) {
                     if (element.type === 'checkbox') {
                         element.checked = value === true;
-                    } else if (param === '--technique') {
+                    }
+                    else if (param === '--technique') {
                         // Handle technique checkboxes
                         ['B', 'E', 'U', 'S', 'T'].forEach(tech => {
                             const techElement = document.getElementById('tech' + tech);
                             if (techElement) {
                                 techElement.checked = value.includes(tech);
+                            }
+                        });
+                    }
+                    else if (param === '--tamper') {
+                        // Handle tamperscripts checkboxes
+                        this.tamperScriptList.forEach(s => {
+                            const sElement = document.getElementById('tamperscript-' + s);
+                            if (sElement) {
+                                sElement.checked = value.includes(s);
                             }
                         });
                     }
