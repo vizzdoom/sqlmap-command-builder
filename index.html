@@ -16,7 +16,7 @@
             </p>
 
             <p>
-                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250612c</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
+                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250614</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
                 vizzdoom/at/gmail/dot/com
             </p>
         </header>
@@ -67,10 +67,10 @@
                 <button class="tab-btn" data-tab="connection">CONNECTION</button>
                 <button class="tab-btn" data-tab="request">REQUEST</button>
                 <button class="tab-btn" data-tab="injection">INJECTION</button>
-                <button class="tab-btn" data-tab="post-exploitation">POST-EXPLOITATION</button>
+                <button class="tab-btn" data-tab="exploitation">EXPLOITATION</button>
                 <button class="tab-btn" data-tab="tampering">TAMPERING</button>
                 <button class="tab-btn" data-tab="sqlmap">SQLMAP</button>
-                <!-- TODO <button class="tab-btn" data-tab="config">/CONFIG/</button>-->
+                <button class="tab-btn" data-tab="config">CONFIG</button>
             </div>
 
             <!-- TARGET Tab -->
@@ -93,7 +93,6 @@
                                 <label class="form-label">GOOGLE DORK AS TARGET SELECTION (-g)</label>
                                 <input type="text" id="googleDork" class="form-control" placeholder="inurl:php?id=">
                             </div>
-                            <div></div>
                             <!-- -m -->
                             <div class="form-group" title="Scan multiple targets given in a textual file">
                                 <label class="form-label" for="targetsFile">FILE WITH TARGETS (-m)</label>
@@ -135,7 +134,6 @@
                                 <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS</label>
                                 <input type="number" id="threads" class="form-control" min="1" max="10" placeholder="1">
                             </div>
-                            <div></div>
                             <!-- force-ssl -->
                             <div class="form-group" title="In case that user wants to force usage of SSL/HTTPS requests toward the target, he can use this switch.
 This can be useful in cases when urls are being collected by using option --crawl or when Burp log is being provided with option -l.">
@@ -345,8 +343,6 @@ This can be avoided by providing the switch --drop-set-cookie. Therefore, an sql
                                     <span class="checkbox-label__text">--drop-set-cookie</span>
                                 </label>
                             </div>
-                            <div></div>
-                            <div></div>
                             <div></div>
                             <!-- --auth-type/--auth-cred -->
                             <div class="form-group" title="These options can be used to specify which HTTP protocol authentication back-end web server implements and the valid credentials to be used to perform all HTTP requests to the target application.">
@@ -626,8 +622,8 @@ The parameter is not compatible with --threads and works best when retrieving st
                 </div>
             </div>
 
-            <!-- Post-exploitation Tab -->
-            <div class="tab-content" id="post-exploitation">
+            <!-- Exploitation Tab -->
+            <div class="tab-content" id="exploitation">
                 <div class="card">
                     <div class="card__body">
                         <div class="form-grid">
@@ -691,12 +687,10 @@ The parameter is not compatible with --threads and works best when retrieving st
             <div class="card">
                 <div class="card__body">
                     <div class="form-grid">
-                        <div class="form-grid column-tripple">
-                            <div class="form-group">
-                                <label class="form-label" title="Use given script(s) for tampering injection data" for="tamper">TAMPER SCRIPTS FOR ADVANCED PAYLOD GENERATION (--tamper)</label>
-                                <input type="text" id="tamper" class="form-control" placeholder="between,randomcase,space2comment" style="display: none">
-                            </div>
-                        </div>
+
+                                <!-- <label class="form-label" title="Use given script(s) for tampering injection data" for="tamper">TAMPER SCRIPTS</label> -->
+                                <input type="text" id="tamper" class="form-control" placeholder="between,randomcase,space2comment" style="display: none;">
+
                         <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
                             <label class="checkbox-label">
                                 <input type="checkbox" id="tamperscript-0eunion">
