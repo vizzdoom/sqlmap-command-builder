@@ -46,10 +46,10 @@
   /* Typography */
   --font-family-base: "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-size-xs: 10px;
-  --font-size-s: 11px;
-  --font-size-base: 14px;
-  --font-size-m: 14px;
+  --font-size-xs: 11px;
+  --font-size-s: 12px;
+  --font-size-base: 13px;
+  --font-size-m: 13px;
   --font-size-l: 16px;
   --font-size-xl: 18px;
   --font-size-2xl: 20px;
@@ -197,13 +197,21 @@
   }
 }
 
+
+
 /* FORM GRID TAMPERING TAB */
-#tampering .form-grid {
+.form-grid-tamper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-xl);
+  grid-template-columns: 1fr;
+  gap: var(--space-m);
 }
-@media (min-width: 625px) {
+
+.form-grid-tamper label.checkbox-label-tamper  { 
+  font-size: var(--font-size-sm) !important;
+}
+
+
+/* @media (min-width: 625px) {
   #tampering .form-grid {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-xl);
@@ -214,8 +222,30 @@
     grid-template-columns: 1fr 2fr;
     gap: var(--space-xl);
   }
+} */
+
+.checkbox-label-tamper {
+  line-height: 16px;
+}
+.checkbox-label-tamper__title {
+  font-size: var(--font-size-s);
+  font-weight: bold;
+  padding-left: var(--space-xs);
 }
 
+.checkbox-label-tamper__subtitle {
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+}
+.checkbox-label-tamper .checkmark {
+  height: 26px;
+  width: 26px;
+}
+
+.checkbox-label-tamper .checkmark::after{
+  height: 11px;
+  width: 11px;
+}
 
 /* Base styles */
 html {
@@ -317,7 +347,7 @@ pre code {
   justify-content: center;
   padding: var(--space-m) var(--space-m);
   border-radius: var(--radius-base);
-  font-size: var(--font-size-s);
+  font-size: var(--font-size-xs);
   line-height: 1.5;
   cursor: pointer;
   transition: all var(--duration-normal) var(--ease-standard);
@@ -790,7 +820,7 @@ body {
   color: var(--hacker-primary);
   font-weight: bold;
   margin-bottom: var(--space-s);
-  font-size: var(--font-size-s);
+  font-size: var(--font-size-xs);
   letter-spacing: 0.7px;
 }
 
@@ -893,7 +923,7 @@ body {
   padding-left: var(--space-3xl);
 }*/
 
-.checkbox-label input[type="checkbox"] {
+.checkbox-label input[type="checkbox"], .checkbox-label-tamper input[type="checkbox"] {
   position: absolute;
   opacity: 0;
   cursor: pointer;

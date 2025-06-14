@@ -16,7 +16,7 @@
             </p>
 
             <p>
-                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250614</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
+                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250614b</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
                 vizzdoom/at/gmail/dot/com
             </p>
         </header>
@@ -686,640 +686,502 @@ The parameter is not compatible with --threads and works best when retrieving st
         <div class="tab-content" id="tampering">
             <div class="card">
                 <div class="card__body">
-                    <div class="form-grid">
+                    <div class="form-grid form-grid-tamper">
 
                                 <!-- <label class="form-label" title="Use given script(s) for tampering injection data" for="tamper">TAMPER SCRIPTS</label> -->
                                 <input type="text" id="tamper" class="form-control" placeholder="between,randomcase,space2comment" style="display: none;">
 
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-0eunion">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>0eunion.py</b></span>
-                                <span style="padding-left: 20px">Replaces instances of UNION with e0UNION to bypass certain filters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-apostrophemask">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>apostrophemask.py</b></span>
-                                <span style="padding-left: 20px">Replaces apostrophe character with its UTF-8 full width counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-apostrophenullencode">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>apostrophenullencode.py</b></span>
-                                <span style="padding-left: 20px">Replaces apostrophe character with its illegal double unicode counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-appendnullbyte">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>appendnullbyte.py</b></span>
-                                <span style="padding-left: 20px">Appends encoded NULL byte character at the end of payload</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-base64encode">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>base64encode.py</b></span>
-                                <span style="padding-left: 20px">Base64 encodes all characters in a given payload</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-between">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>between.py</b></span>
-                                <span style="padding-left: 20px">Replaces greater than operator ('>') with 'NOT BETWEEN 0 AND #' and equals with 'BETWEEN # AND #'</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-binary">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>binary.py</b></span>
-                                <span style="padding-left: 20px">Converts string values to their binary representation for payload obfuscation</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-bluecoat">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>bluecoat.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character after SQL statement with a valid random blank character and = with LIKE operator</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-chardoubleencode">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>chardoubleencode.py</b></span>
-                                <span style="padding-left: 20px">Double URL-encodes all characters in a given payload (not processing already encoded)</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-charencode">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>charencode.py</b></span>
-                                <span style="padding-left: 20px">URL-encodes all characters in a given payload (not processing already encoded)</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-charunicodeencode">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>charunicodeencode.py</b></span>
-                                <span style="padding-left: 20px">Unicode-URL-encodes non-encoded characters in a given payload</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-charunicodeescape">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>charunicodeescape.py</b></span>
-                                <span style="padding-left: 20px">Unicode-escapes non-encoded characters in a given payload using \\uXXXX format</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-commalesslimit">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>commalesslimit.py</b></span>
-                                <span style="padding-left: 20px">Replaces instances like 'LIMIT M, N' with 'LIMIT N OFFSET M' counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-commalessmid">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>commalessmid.py</b></span>
-                                <span style="padding-left: 20px">Replaces instances like 'MID(A, B, C)' with 'MID(A FROM B FOR C)' counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-commentbeforeparentheses">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>commentbeforeparentheses.py</b></span>
-                                <span style="padding-left: 20px">Adds comments before opening parentheses to bypass certain filters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-concat2concatws">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>concat2concatws.py</b></span>
-                                <span style="padding-left: 20px">Replaces instances like 'CONCAT(A, B)' with 'CONCAT_WS(MID(CHAR(0), 0, 0), A, B)' counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-decentities">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>decentities.py</b></span>
-                                <span style="padding-left: 20px">HTML decimal-encodes all non-alphanumeric characters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-dunion">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>dunion.py</b></span>
-                                <span style="padding-left: 20px">Replaces instances of UNION with DISTINCTROW UNION to bypass certain filters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-equaltolike">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>equaltolike.py</b></span>
-                                <span style="padding-left: 20px">Replaces all occurrences of operator equal ('=') with 'LIKE' counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-equaltorlike">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>equaltorlike.py</b></span>
-                                <span style="padding-left: 20px">Replaces all occurrences of operator equal ('=') with 'RLIKE' counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-escapequotes">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>escapequotes.py</b></span>
-                                <span style="padding-left: 20px">Slash escape quotes (' and ") in payload</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-greatest">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>greatest.py</b></span>
-                                <span style="padding-left: 20px">Replaces greater than operator ('>') with 'GREATEST' counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-halfversionedmorekeywords">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>halfversionedmorekeywords.py</b></span>
-                                <span style="padding-left: 20px">Adds MySQL versioned comment before each keyword</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-hex2char">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>hex2char.py</b></span>
-                                <span style="padding-left: 20px">Replaces each (MySQL) 0x encoded string with equivalent CHAR() counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-hexentities">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>hexentities.py</b></span>
-                                <span style="padding-left: 20px">HTML hex-encodes all non-alphanumeric characters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-htmlencode">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>htmlencode.py</b></span>
-                                <span style="padding-left: 20px">HTML-encodes all non-alphanumeric characters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-if2case">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>if2case.py</b></span>
-                                <span style="padding-left: 20px">Replaces instances like 'IF(A, B, C)' with 'CASE WHEN (A) THEN (B) ELSE (C) END' counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-ifnull2casewhenisnull">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>ifnull2casewhenisnull.py</b></span>
-                                <span style="padding-left: 20px">Replaces instances like 'IFNULL(A, B)' with 'CASE WHEN ISNULL(A) THEN (B) ELSE (A) END' counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-ifnull2ifisnull">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>ifnull2ifisnull.py</b></span>
-                                <span style="padding-left: 20px">Replaces instances like 'IFNULL(A, B)' with 'IF(ISNULL(A), B, A)' counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-informationschemacomment">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>informationschemacomment.py</b></span>
-                                <span style="padding-left: 20px">Adds MySQL comment to INFORMATION_SCHEMA for bypassing certain filters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-least">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>least.py</b></span>
-                                <span style="padding-left: 20px">Replaces greater than operator ('>') with 'LEAST' counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-lowercase">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>lowercase.py</b></span>
-                                <span style="padding-left: 20px">Replaces each keyword character with lowercase value</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-luanginx">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>luanginx.py</b></span>
-                                <span style="padding-left: 20px">Bypasses LUA/Nginx web application firewall using specific encoding techniques</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-luanginxmore">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>luanginxmore.py</b></span>
-                                <span style="padding-left: 20px">Advanced bypassing for LUA/Nginx web application firewall with extended techniques</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-misunion">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>misunion.py</b></span>
-                                <span style="padding-left: 20px">Replaces instances of UNION with /*!UNION*/ to bypass certain filters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-modsecurityversioned">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>modsecurityversioned.py</b></span>
-                                <span style="padding-left: 20px">Embraces complete query with MySQL versioned comment to bypass ModSecurity WAF</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-modsecurityzeroversioned">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>modsecurityzeroversioned.py</b></span>
-                                <span style="padding-left: 20px">Embraces complete query with MySQL zero-versioned comment to bypass ModSecurity WAF</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-multiplespaces">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>multiplespaces.py</b></span>
-                                <span style="padding-left: 20px">Adds multiple spaces around SQL keywords to bypass filters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-ord2ascii">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>ord2ascii.py</b></span>
-                                <span style="padding-left: 20px">Replaces ORD(x) with ASCII(x) function calls</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-overlongutf8">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>overlongutf8.py</b></span>
-                                <span style="padding-left: 20px">Converts all characters in a given payload to overlong UTF8 (not processing already encoded)</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-overlongutf8more">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>overlongutf8more.py</b></span>
-                                <span style="padding-left: 20px">Advanced overlong UTF8 encoding for bypassing additional security filters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-percentage">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>percentage.py</b></span>
-                                <span style="padding-left: 20px">Adds a percentage sign (%) in front of each character</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-plus2concat">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>plus2concat.py</b></span>
-                                <span style="padding-left: 20px">Replaces plus operator ('+') with MsSQL function CONCAT() counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-plus2fnconcat">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>plus2fnconcat.py</b></span>
-                                <span style="padding-left: 20px">Replaces plus operator ('+') with MsSQL function fn_concat() counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-randomcase">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>randomcase.py</b></span>
-                                <span style="padding-left: 20px">Replaces each keyword character with random case value (e.g. SELECT -> SEleCt)</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-randomcomments">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>randomcomments.py</b></span>
-                                <span style="padding-left: 20px">Adds random comments inside SQL keywords to bypass filters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-schemasplit">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>schemasplit.py</b></span>
-                                <span style="padding-left: 20px">Splits database schema and table names to bypass certain filters</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-scientific">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>scientific.py</b></span>
-                                <span style="padding-left: 20px">Converts integer values to scientific notation (e.g. 1 -> 1e0)</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-sleep2getlock">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>sleep2getlock.py</b></span>
-                                <span style="padding-left: 20px">Replaces instances of SLEEP with GET_LOCK for time-based injections</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-sp_password">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>sp_password.py</b></span>
-                                <span style="padding-left: 20px">Appends 'sp_password' to the end of payload to avoid logging in SQL Server</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-space2comment">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>space2comment.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character (' ') with comments '/**/'</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-space2dash">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>space2dash.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character (' ') with dash comments ('-- ') followed by random string and new line</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-space2hash">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>space2hash.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character (' ') with hash character ('#') followed by random string and new line</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-space2morecomment">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>space2morecomment.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character (' ') with comments '/**_**/' (with random underscore variations)</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-space2morehash">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>space2morehash.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character (' ') with hash character ('#') followed by random string and new line</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-space2mssqlblank">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>space2mssqlblank.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character (' ') with random blank character from valid alternate character set for MSSQL</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-space2mssqlhash">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>space2mssqlhash.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character (' ') with hash character ('#') followed by new line for MSSQL</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-space2mysqlblank">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>space2mysqlblank.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character (' ') with random blank character from valid alternate character set for MySQL</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-space2mysqldash">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>space2mysqldash.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character (' ') with dash comments ('-- ') followed by new line for MySQL</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-space2plus">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>space2plus.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character (' ') with plus sign ('+') for URL encoding</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-space2randomblank">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>space2randomblank.py</b></span>
-                                <span style="padding-left: 20px">Replaces space character (' ') with random blank character from valid alternate character set</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-substring2leftright">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>substring2leftright.py</b></span>
-                                <span style="padding-left: 20px">Replaces PostgreSQL SUBSTRING with LEFT and RIGHT functions</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-symboliclogical">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>symboliclogical.py</b></span>
-                                <span style="padding-left: 20px">Replaces AND and OR logical operators with symbolic equivalents (&& and ||)</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-unionalltounion">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>unionalltounion.py</b></span>
-                                <span style="padding-left: 20px">Replaces UNION ALL SELECT with UNION SELECT counterpart</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-unmagicquotes">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>unmagicquotes.py</b></span>
-                                <span style="padding-left: 20px">Replaces quote character (') with multibyte combo %bf%27 (valid for GBK charset)</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-uppercase">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>uppercase.py</b></span>
-                                <span style="padding-left: 20px">Replaces each keyword character with uppercase value</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-varnish">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>varnish.py</b></span>
-                                <span style="padding-left: 20px">Appends HTTP header 'X-originating-IP' for bypassing Varnish firewalls</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-versionedkeywords">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>versionedkeywords.py</b></span>
-                                <span style="padding-left: 20px">Encloses each non-function keyword with MySQL versioned comment</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-versionedmorekeywords">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>versionedmorekeywords.py</b></span>
-                                <span style="padding-left: 20px">Encloses each keyword with MySQL versioned comment (extended version)</span>
-                            </label>
-                        </div>
-
-                        <div class="checkbox-grid column-tripple" style="grid-column: 1 / 5">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tamperscript-xforwardedfor">
-                                <span class="checkmark"></span>
-                                <span style="font-weight: bold"><b>xforwardedfor.py</b></span>
-                                <span style="padding-left: 20px">Appends a fake HTTP header 'X-Forwarded-For' to bypass IP restrictions</span>
-                            </label>
-                        </div>
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-0eunion">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">0eunion.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances of UNION with e0UNION to bypass certain filters
+                                </span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-apostrophemask">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">apostrophemask.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces apostrophe character with its UTF-8 full width counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-apostrophenullencode">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">apostrophenullencode.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces apostrophe character with its illegal double unicode counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-appendnullbyte">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">appendnullbyte.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Appends encoded NULL byte character at the end of payload</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-base64encode">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">base64encode.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Base64 encodes all characters in a given payload</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-between">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">between.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces greater than operator ('>') with 'NOT BETWEEN 0 AND #' and equals with 'BETWEEN # AND #'</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-binary">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">binary.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Converts string values to their binary representation for payload obfuscation</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-bluecoat">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">bluecoat.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character after SQL statement with a valid random blank character and = with LIKE operator</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-chardoubleencode">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">chardoubleencode.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Double URL-encodes all characters in a given payload (not processing already encoded)</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-charencode">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">charencode.py
+                                <br/><span class="checkbox-label-tamper__subtitle">URL-encodes all characters in a given payload (not processing already encoded)</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-charunicodeencode">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">charunicodeencode.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Unicode-URL-encodes non-encoded characters in a given payload</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-charunicodeescape">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">charunicodeescape.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Unicode-escapes non-encoded characters in a given payload using \\uXXXX format</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-commalesslimit">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">commalesslimit.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'LIMIT M, N' with 'LIMIT N OFFSET M' counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-commalessmid">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">commalessmid.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'MID(A, B, C)' with 'MID(A FROM B FOR C)' counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-commentbeforeparentheses">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">commentbeforeparentheses.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Adds comments before opening parentheses to bypass certain filters</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-concat2concatws">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">concat2concatws.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'CONCAT(A, B)' with 'CONCAT_WS(MID(CHAR(0), 0, 0), A, B)' counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-decentities">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">decentities.py
+                                <br/><span class="checkbox-label-tamper__subtitle">HTML decimal-encodes all non-alphanumeric characters</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-dunion">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">dunion.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances of UNION with DISTINCTROW UNION to bypass certain filters</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-equaltolike">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">equaltolike.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces all occurrences of operator equal ('=') with 'LIKE' counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-equaltorlike">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">equaltorlike.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces all occurrences of operator equal ('=') with 'RLIKE' counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-escapequotes">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">escapequotes.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Slash escape quotes (' and ") in payload</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-greatest">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">greatest.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces greater than operator ('>') with 'GREATEST' counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-halfversionedmorekeywords">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">halfversionedmorekeywords.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Adds MySQL versioned comment before each keyword</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-hex2char">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">hex2char.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces each (MySQL) 0x encoded string with equivalent CHAR() counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-hexentities">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">hexentities.py
+                                <br/><span class="checkbox-label-tamper__subtitle">HTML hex-encodes all non-alphanumeric characters</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-htmlencode">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">htmlencode.py
+                                <br/><span class="checkbox-label-tamper__subtitle">HTML-encodes all non-alphanumeric characters</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-if2case">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">if2case.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'IF(A, B, C)' with 'CASE WHEN (A) THEN (B) ELSE (C) END' counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-ifnull2casewhenisnull">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">ifnull2casewhenisnull.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'IFNULL(A, B)' with 'CASE WHEN ISNULL(A) THEN (B) ELSE (A) END' counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-ifnull2ifisnull">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">ifnull2ifisnull.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'IFNULL(A, B)' with 'IF(ISNULL(A), B, A)' counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-informationschemacomment">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">informationschemacomment.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Adds MySQL comment to INFORMATION_SCHEMA for bypassing certain filters</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-least">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">least.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces greater than operator ('>') with 'LEAST' counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-lowercase">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">lowercase.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces each keyword character with lowercase value</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-luanginx">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">luanginx.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Bypasses LUA/Nginx web application firewall using specific encoding techniques</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-luanginxmore">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">luanginxmore.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Advanced bypassing for LUA/Nginx web application firewall with extended techniques</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-misunion">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">misunion.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances of UNION with /*!UNION*/ to bypass certain filters</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-modsecurityversioned">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">modsecurityversioned.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Embraces complete query with MySQL versioned comment to bypass ModSecurity WAF</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-modsecurityzeroversioned">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">modsecurityzeroversioned.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Embraces complete query with MySQL zero-versioned comment to bypass ModSecurity WAF</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-multiplespaces">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">multiplespaces.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Adds multiple spaces around SQL keywords to bypass filters</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-ord2ascii">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">ord2ascii.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces ORD(x) with ASCII(x) function calls</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-overlongutf8">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">overlongutf8.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Converts all characters in a given payload to overlong UTF8 (not processing already encoded)</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-overlongutf8more">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">overlongutf8more.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Advanced overlong UTF8 encoding for bypassing additional security filters</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-percentage">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">percentage.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Adds a percentage sign (%) in front of each character</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-plus2concat">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">plus2concat.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces plus operator ('+') with MsSQL function CONCAT() counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-plus2fnconcat">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">plus2fnconcat.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces plus operator ('+') with MsSQL function fn_concat() counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-randomcase">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">randomcase.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces each keyword character with random case value (e.g. SELECT -> SEleCt)</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-randomcomments">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">randomcomments.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Adds random comments inside SQL keywords to bypass filters</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-schemasplit">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">schemasplit.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Splits database schema and table names to bypass certain filters</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-scientific">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">scientific.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Converts integer values to scientific notation (e.g. 1 -> 1e0)</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-sleep2getlock">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">sleep2getlock.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances of SLEEP with GET_LOCK for time-based injections</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-sp_password">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">sp_password.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Appends 'sp_password' to the end of payload to avoid logging in SQL Server</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-space2comment">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">space2comment.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with comments '/**/'</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-space2dash">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">space2dash.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with dash comments ('-- ') followed by random string and new line</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-space2hash">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">space2hash.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with hash character ('#') followed by random string and new line</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-space2morecomment">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">space2morecomment.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with comments '/**_**/' (with random underscore variations)</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-space2morehash">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">space2morehash.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with hash character ('#') followed by random string and new line</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-space2mssqlblank">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">space2mssqlblank.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with random blank character from valid alternate character set for MSSQL</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-space2mssqlhash">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">space2mssqlhash.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with hash character ('#') followed by new line for MSSQL</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-space2mysqlblank">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">space2mysqlblank.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with random blank character from valid alternate character set for MySQL</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-space2mysqldash">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">space2mysqldash.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with dash comments ('-- ') followed by new line for MySQL</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-space2plus">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">space2plus.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with plus sign ('+') for URL encoding</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-space2randomblank">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">space2randomblank.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with random blank character from valid alternate character set</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-substring2leftright">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">substring2leftright.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces PostgreSQL SUBSTRING with LEFT and RIGHT functions</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-symboliclogical">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">symboliclogical.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces AND and OR logical operators with symbolic equivalents (&& and ||)</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-unionalltounion">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">unionalltounion.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces UNION ALL SELECT with UNION SELECT counterpart</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-unmagicquotes">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">unmagicquotes.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces quote character (') with multibyte combo %bf%27 (valid for GBK charset)</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-uppercase">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">uppercase.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Replaces each keyword character with uppercase value</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-varnish">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">varnish.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Appends HTTP header 'X-originating-IP' for bypassing Varnish firewalls</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-versionedkeywords">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">versionedkeywords.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Encloses each non-function keyword with MySQL versioned comment</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-versionedmorekeywords">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">versionedmorekeywords.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Encloses each keyword with MySQL versioned comment (extended version)</span></span>
+                        </label>
+                        
+                        <label class="checkbox-label checkbox-label-tamper">
+                            <input type="checkbox" id="tamperscript-xforwardedfor">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label-tamper__title">xforwardedfor.py
+                                <br/><span class="checkbox-label-tamper__subtitle">Appends a fake HTTP header 'X-Forwarded-For' to bypass IP restrictions</span></span>
+                        </label>
+                        
 
                     </div>
                 </div>
