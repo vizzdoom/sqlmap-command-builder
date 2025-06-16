@@ -16,7 +16,7 @@
             </p>
 
             <p>
-                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250616</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
+                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250616b</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
                 vizzdoom/at/gmail/dot/com
             </p>
         </header>
@@ -134,6 +134,8 @@
                                 <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS</label>
                                 <input type="number" id="threads" class="form-control" min="1" max="10" placeholder="1">
                             </div>
+                            <!-- SPACER -->
+                            <div></div>
                             <!-- force-ssl -->
                             <div class="form-group" title="In case that user wants to force usage of SSL/HTTPS requests toward the target, he can use this switch.
 This can be useful in cases when urls are being collected by using option --crawl or when Burp log is being provided with option -l.">
@@ -191,7 +193,7 @@ Note that this switch is incompatible with switch --text-only.">
                             </div>
                             <!-- --proxy-freq -->
                             <div class="form-group" title="Requests between change of proxy from a given --proxy-file list">
-                                <label class="form-label" for="proxyFreq">NUMBER OF REQUEST FOR PROXY ROTATION</label>
+                                <label class="form-label" for="proxyFreq">PROXY ROTATION NUMBER</label>
                                 <input type="number" id="proxyFreq" class="form-control" min="1" step="1" placeholder="3">
                             </div>
                             <!-- --ignore-proxy -->
@@ -243,7 +245,7 @@ Note that this switch is incompatible with switch --text-only.">
                                 <input type="text" id="requestFile" class="form-control" placeholder="request.txt">
                             </div>
                             <!-- --data -->
-                            <div class="form-group column-double" title="By default the HTTP method used to perform HTTP requests is GET, but you can implicitly change it to POST by providing the data to be sent in the POST requests.
+                            <div class="form-group" title="By default the HTTP method used to perform HTTP requests is GET, but you can implicitly change it to POST by providing the data to be sent in the POST requests.
 Such data, being those parameters, are tested for SQL injection as well as any provided GET parameters.">
                                 <label class="form-label" for="data">HTTP BODY DATA (--data)</label>
                                 <textarea id="data" class="form-control" rows="4" placeholder="param1=value1&param2=value2"></textarea>
@@ -303,9 +305,8 @@ Note that also the HTTP Referer header is tested against SQL injection if the --
                                 <label class="form-label" title="HTTP Referer header value" for="referer">HTTP REFERER HEADER (--referer)</label>
                                 <input type="url" id="referer" class="form-control" placeholder="https://127.0.0.1/login">
                             </div>
-                            <div></div>
                             <!-- -H -->
-                            <div class="form-group column-double" title="Extra HTTP headers separated by a newline.">
+                            <div class="form-group" title="Extra HTTP headers separated by a newline.">
                                 <label class="form-label" title="Additional HTTP Headers" for="headers">EXTRA HTTP HEADERS (-H)</label>
                                 <textarea id="headers" class="form-control" rows="4" placeholder="X-Forwarded-For: 127.0.0.1&#10;Authorization: Bearer token"></textarea>
                             </div>
@@ -1231,10 +1232,9 @@ The parameter is not compatible with --threads and works best when retrieving st
         <div class="tab-content" id="config">
             <div class="card">
                 <div class="card__body">
-                    <h3>Config Management</h3>
                     <div class="config-buttons">
-                        <button id="saveConfig" class="btn btn--secondary">Save configuration</button>
-                        <button id="loadConfig" class="btn btn--secondary">Load configuration</button>
+                        <button id="saveConfig" class="btn btn--primary">Save configuration</button>
+                        <button id="loadConfig" class="btn btn--primary">Load configuration</button>
                         <button id="resetConfig" class="btn btn--outline">Reset everything</button>
                     </div>
                 </div>

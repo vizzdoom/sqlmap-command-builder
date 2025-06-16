@@ -190,7 +190,7 @@
 @media (min-width: 1100px) {
   .form-grid {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: var(--space-xl);
+    gap: var(--space-m);
   }
 }
 
@@ -1132,14 +1132,6 @@ body {
   line-height: 1.5;
   height: 3em;
   user-select: none;
-}
-
-.column-double {
-    grid-column: 1 / 3;
-}
-
-.column-tripple {
-    grid-column: 1 / 4;
 }
 
 .tamper--script {
