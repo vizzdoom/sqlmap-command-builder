@@ -864,6 +864,10 @@ class SQLMapGenerator {
             }
         });
         
+        // Reset verbose to default
+        document.getElementById('verbose').value = 1; 
+        document.getElementById('verboseValue').textContent = "1"; 
+        document.getElementById('verbose-help').textContent = "1: Show also information and warning messages (default).";
         // Hide custom user agent field
         document.getElementById('customHttpMethodGroup').style.display = 'none';
         document.getElementById('customUserAgentGroup').style.display = 'none';
