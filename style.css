@@ -23,7 +23,7 @@
   inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   --button-border-secondary: rgba(119, 124, 124, 0.2);
   --hacker-primary: #00f83e;
-  --hacker-secondary: #7bfd8efa;
+  --hacker-secondary: #9bffaafa;
   --hacker-bg-dark: #0d1117;
   --hacker-surface: #161b22;
   --hacker-border: #2f3832;
@@ -190,7 +190,7 @@
 @media (min-width: 1100px) {
   .form-grid {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: var(--space-m);
+    gap: var(--space-l);
   }
 }
 
@@ -257,10 +257,11 @@
 .checkbox-label-tamper {
   line-height: 16px;
 }
-.checkbox-label-tamper__title {
+label span.checkbox-label-tamper__title {
   font-size: var(--font-size-s);
   font-weight: bold;
   padding-left: var(--space-xs);
+  color: var(--hacker-primary) !important;
 }
 
 .checkbox-label-tamper__subtitle {
@@ -837,6 +838,11 @@ body {
   margin-bottom: var(--space-s);
   font-size: var(--font-size-xs);
   letter-spacing: 0.7px;
+}
+
+.form-label span, .checkbox-label span {
+  font-weight: normal;;
+  color: var(--hacker-secondary);
 }
 
 .form-control {

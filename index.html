@@ -16,7 +16,7 @@
             </p>
 
             <p>
-                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250616c</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
+                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250616d</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
                 vizzdoom/at/gmail/dot/com
             </p>
         </header>
@@ -80,32 +80,32 @@
                         <div class="form-grid">
                             <!-- -u -->
                             <div class="form-group" title="Target URL (e.g. http://127.0.0.1/vuln.php?id=1)">
-                                <label class="form-label" for="url">TARGET URL (-u)</label>
+                                <label class="form-label" for="url">TARGET URL<br/><span>-u</span></label>
                                 <input type="url" id="url" class="form-control" placeholder="https://127.0.0.1/page?id=1">
                             </div>
                             <!-- -d -->
                             <div class="form-group" title="Connection string for direct database connection">
-                                <label class="form-label" for="directDb">DATABASE CONNECTION STRING (-d)</label>
+                                <label class="form-label" for="directDb">DATABASE CONNECTION STRING<br/><span>-d</span></label>
                                 <input type="text" id="directDb" class="form-control" placeholder="mysql://user:pass@host/db">
                             </div>
                             <!-- -g -->
                             <div class="form-group" title="Process Google dork results as target URLs" for="googleDork">
-                                <label class="form-label">GOOGLE DORK FOR TARGETS (-g)</label>
+                                <label class="form-label">GOOGLE DORK FOR TARGETS<br/><span>-g</label></span>
                                 <input type="text" id="googleDork" class="form-control" placeholder="inurl:php?id=">
                             </div>
                             <!-- -m -->
                             <div class="form-group" title="Scan multiple targets given in a textual file">
-                                <label class="form-label" for="targetsFile">FILE WITH TARGETS (-m)</label>
+                                <label class="form-label" for="targetsFile">FILE WITH TARGETS<br/><span>-m</span></label>
                                 <input type="text" id="targetsFile" class="form-control" placeholder="targets.txt">
                             </div>
                             <!-- -l -->
                             <div class="form-group" title="Rather than providing a single target URL, it is possible to test and inject against HTTP requests proxied through Burp proxy.">
-                                <label class="form-label" for="burpFile">BURP FILE WITH HTTP REQUESTS (-l)</label>
+                                <label class="form-label" for="burpFile">BURP FILE WITH HTTP REQUESTS<br/><span>-l</span></label>
                                 <input type="text" id="burpFile" class="form-control" placeholder="burp.txt">
                             </div>
                             <!-- --scope -->
                             <div class="form-group" title="Rather than using all hosts parsed from provided logs with option -l, you can specify valid Python regular expression to be used for filtering desired ones.">
-                                <label class="form-label" for="burpFileScope">SCOPE FOR BURP PROXY FILE</label>
+                                <label class="form-label" for="burpFileScope">SCOPE FOR BURP PROXY FILE<br/><span>--scope</span></label>
                                 <input type="text" id="burpFileScope" class="form-control" placeholder="(www)?\.target\.(com|net|org)">
                             </div>
                         </div>
@@ -121,17 +121,17 @@
                             <h3>Connection Control</h3>
                             <!-- --timeout -->
                             <div class="form-group" title="Seconds to wait before timeout connection (default 30)">
-                                <label class="form-label" for="timeout">REQUEST TIMEOUT (--timeout)</label>
+                                <label class="form-label" for="timeout">REQUEST TIMEOUT<br/><span>--timeout</span></label>
                                 <input type="number" id="timeout" class="form-control" min="1" max="300" placeholder="10 (seconds)">
                             </div>
                             <!-- --delay -->
                             <div class="form-group" title="Delay (in seconds) between each HTTP request">
-                                <label class="form-label" for="delay">DELAY BETWEEN REQUEST (--delay)</label>
-                                <input type="number" id="delay" class="form-control" min="0.0001" step="0.1" placeholder="2.25 (seconds)">
+                                <label class="form-label" for="delay">DELAY BETWEEN REQUEST<br/><span>--delay</span></label>
+                                <input type="number" id="delay" class="form-control" min="0.01" step="0.01" placeholder="2.25 (seconds)">
                             </div>
                             <!-- --threads -->
                             <div class="form-group" title="Max number of concurrent HTTP(s) requests (default 1, max 10)">
-                                <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS</label>
+                                <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS<br/><span>--threads</span></label>
                                 <input type="number" id="threads" class="form-control" min="1" max="10" placeholder="1">
                             </div>
                             <!-- SPACER -->
@@ -152,7 +152,7 @@ This can be useful in cases when urls are being collected by using option --craw
                                 <label class="checkbox-label">
                                     <input type="checkbox" id="keepAlive">
                                     <span class="checkmark"></span>
-                                    --keep-alive
+                                    <span>--keep-alive</span>
                                 </label>
                             </div>
                             <!-- --null-connection -->
@@ -163,7 +163,7 @@ Note that this switch is incompatible with switch --text-only.">
                                 <label class="checkbox-label">
                                     <input type="checkbox" id="nullConnection">
                                     <span class="checkmark"></span>
-                                    --null-connection
+                                    <span>--null-connection</span>
                                 </label>
                             </div>
                             <!-- --http2 -->
@@ -172,28 +172,28 @@ Note that this switch is incompatible with switch --text-only.">
                                 <label class="checkbox-label">
                                     <input type="checkbox" id="http2">
                                     <span class="checkmark"></span>
-                                    --http2
+                                    <span>--http2</span>
                                 </label>
                             </div>
                             <h3>Proxy Options</h3>
                             <!-- --proxy -->
                             <div class="form-group" title="Use a proxy to connect to the target URL">
-                                <label class="form-label" for="proxy">HTTP(S) PROXY (--proxy)</label>
+                                <label class="form-label" for="proxy">HTTP(S) PROXY<br/><span>--proxy</span></label>
                                 <input type="text" id="proxy" class="form-control" placeholder="http://127.0.0.1:8080">
                             </div>
                             <!-- --proxy-cred -->
                             <div class="form-group" title="Use a proxy to connect to the target URL">
-                                <label class="form-label" for="proxyCred">HTTP(S) PROXY CREDENTIALS</label>
+                                <label class="form-label" for="proxyCred">HTTP(S) PROXY CREDENTIALS<br/><span>--proxy-creed</span></label>
                                 <input type="text" id="proxyCred" class="form-control" placeholder="username:password">
                             </div>
                             <!-- --proxy-file -->
                             <div class="form-group" title="Use a proxy to connect to the target URL">
-                                <label class="form-label" for="proxyFile">HTTP(S) PROXY FILE</label>
+                                <label class="form-label" for="proxyFile">HTTP(S) PROXY FILE<br/><span>--proxy-file</span></label>
                                 <input type="text" id="proxyFile" class="form-control" placeholder="proxy-file.txt">
                             </div>
                             <!-- --proxy-freq -->
                             <div class="form-group" title="Requests between change of proxy from a given --proxy-file list">
-                                <label class="form-label" for="proxyFreq">PROXY ROTATION NUMBER</label>
+                                <label class="form-label" for="proxyFreq">PROXY ROTATION NUMBER<br/><span>--proxy-freq</span></label>
                                 <input type="number" id="proxyFreq" class="form-control" min="1" step="1" placeholder="3">
                             </div>
                             <!-- --ignore-proxy -->
@@ -218,7 +218,7 @@ Note that this switch is incompatible with switch --text-only.">
                             <h3>Request Data</h3>
                             <!-- --method -->
                             <div class="form-group" title="Force usage of given HTTP method (e.g. PUT)">
-                                <label class="form-label" for="method">HTTP REQUEST METHOD (--method)</label>
+                                <label class="form-label" for="method">HTTP REQUEST METHOD<br/><span>--method</span></label>
                                 <select id="method" class="form-control">
                                     <option value="">-- Choose HTTP Method --</option>
                                     <option value="GET">GET</option>
@@ -236,25 +236,25 @@ Note that this switch is incompatible with switch --text-only.">
                             </div>
                             <!-- --param-del -->
                             <div class="form-group" title="There are cases when default parameter delimiter (&) needs to be overwritten for sqlmap to be able to properly split and process each parameter separately (e.g. query=foobar;id=1 instead query=foobar&id=1).">
-                                <label class="form-label" for="paramDel">PARAMETER DELIMITER (--param-del)</label>
+                                <label class="form-label" for="paramDel">PARAMETER DELIMITER<br/><span>--param-del</span></label>
                                 <input type="text" id="paramDel" class="form-control" placeholder="&">
                             </div>
                             <!-- -r -->
                             <div class="form-group" title="Load HTTP request from a file">
-                                <label class="form-label" for="requestFile">FILE WITH AN HTTP REQUEST (-r)</label>
+                                <label class="form-label" for="requestFile">FILE WITH AN HTTP REQUEST<br/><span>-r</span></label>
                                 <input type="text" id="requestFile" class="form-control" placeholder="request.txt">
                             </div>
                             <!-- --data -->
                             <div class="form-group" title="By default the HTTP method used to perform HTTP requests is GET, but you can implicitly change it to POST by providing the data to be sent in the POST requests.
 Such data, being those parameters, are tested for SQL injection as well as any provided GET parameters.">
-                                <label class="form-label" for="data">HTTP BODY DATA (--data)</label>
+                                <label class="form-label" for="data">HTTP BODY DATA<br/><span>--data</span></label>
                                 <textarea id="data" class="form-control" rows="4" placeholder="param1=value1&param2=value2"></textarea>
                             </div>
                             <h3>Request Headers</h3>
                             <!-- --host -->
                             <div class="form-group" title="You can manually set HTTP Host header value. By default HTTP Host header is parsed from a provided target URL.
 Note that also the HTTP Host header is tested against SQL injection if the --level is set to 5.">
-                                <label class="form-label" for="host">CUSTOM HTTP HOST HEADER (--host)</label>
+                                <label class="form-label" for="host">CUSTOM HTTP HOST HEADER<br/><span>--host</span></label>
                                 <input type="text" id="host" class="form-control" placeholder="example.com">
                             </div>
                             <!-- -A / --random-agent / --mobile -->
@@ -263,7 +263,7 @@ Moreover, by providing the switch --random-agent, sqlmap will randomly select a 
 Some sites perform a server-side check of HTTP User-Agent header value and fail the HTTP response if a valid User-Agent is not provided, its value is not expected or is blacklisted by a web application firewall or similar intrusion prevention system.
 Sometimes web servers expose different interfaces toward mobile phones than to desktop computers. In such cases you can enforce usage of one of predetermined smartphone HTTP User-Agent header values by using a --mobile switch (sqlmap will ask you to pick one of popular smartphones which it will imitate in current run).
 Note that also the HTTP User-Agent header is tested against SQL injection if the --level is set to 3 or above.">
-                                <label class="form-label" for="userAgent">USER-AGENT HEADER VALUE</label>
+                                <label class="form-label" for="userAgent">USER-AGENT HEADER VALUE<br/><span>-A / --random-agent / --mobile</span></label>
                                 <select id="userAgent" class="form-control">
                                     <option value="">Default: sqlmap/1.0-dev-x (http://sqlmap.org)</option>
                                     <option value="mobile">--mobile</option>
@@ -302,36 +302,36 @@ Note that also the HTTP User-Agent header is tested against SQL injection if the
                             <!-- --referer -->
                             <div class="form-group" title="By default no HTTP Referer header is sent in HTTP requests if not explicitly set by the --referer switch.
 Note that also the HTTP Referer header is tested against SQL injection if the --level is set to 3 or above.">
-                                <label class="form-label" title="HTTP Referer header value" for="referer">HTTP REFERER HEADER (--referer)</label>
+                                <label class="form-label" title="HTTP Referer header value" for="referer">HTTP REFERER HEADER<br/><span>--referer</span></label>
                                 <input type="url" id="referer" class="form-control" placeholder="https://127.0.0.1/login">
                             </div>
                             <!-- -H -->
                             <div class="form-group" title="Extra HTTP headers separated by a newline.">
-                                <label class="form-label" title="Additional HTTP Headers" for="headers">EXTRA HTTP HEADERS (-H)</label>
+                                <label class="form-label" title="Additional HTTP Headers" for="headers">EXTRA HTTP HEADERS<br/><span>-H</span></label>
                                 <textarea id="headers" class="form-control" rows="4" placeholder="X-Forwarded-For: 127.0.0.1&#10;Authorization: Bearer token"></textarea>
                             </div>
                             <h3>Authentication</h3>
                             <!-- --cookie -->
                             <div class="form-group" title="HTTP Cookie header value for authentication (and for exploitation if the --level is set to 2 or above).
 If you provide a HTTP Cookie header with option --cookie and the target URL sends an HTTP Set-Cookie header at any time, sqlmap will ask you which set of cookies to use for the following HTTP requests (see also a --drop-set-cookie switch).">
-                                <label class="form-label" title="HTTP Cookie header value" for="cookie">COOKIE HEADER VALUE (--cookie)</label>
+                                <label class="form-label" title="HTTP Cookie header value" for="cookie">COOKIE HEADER VALUE<br/><span>--cookie</span></label>
                                 <input id="cookie" class="form-control" placeholder="PHPSESSID=abc123; userid=1"></input>
                             </div>
                             <!-- --cookie-del -->
                             <div class="form-group" title="the HTTP Cookie header values are usually separated by a ; character, not by an &. Sqlmap can recognize these as separate sets of parameter=value too, as well as GET and POST parameters. In case that the separation character is other than ; it can be specified by using option --cookie-del">
-                                <label class="form-label" title="HTTP Cookie header value" for="cookieDel">COOKIE DELIMITER (--cookie-del)</label>
+                                <label class="form-label" title="HTTP Cookie header value" for="cookieDel">COOKIE DELIMITER<br/><span>--cookie-del</span></label>
                                 <input type="text" id="cookieDel" class="form-control" placeholder=";">
                             </div>
                             <!-- --live-cookies -->
                             <div class="form-group" title="Option --live-cookies can be used to provide a cookies file which will be used for loading of up-to-date values. This means that that same file will be read prior to each request to get the latest value for HTTP Cookie header.
 It should point to a file with fresh/up-to-date cookie values. Trick is that once you delete its content, sqlmap immediately will stop and wait for the update of its content. Same applies if you just modify its content in-place. You can do this indefinitely number of times during a run. In your case, you can just run sqlmap in one terminal, with --live-cookies pointing to a file containing starting cookie value, while in another terminal you can do a periodic deletion and filling of that same file.">
-                                <label class="form-label" title="HTTP Cookie header value" for="cookieLive">LIVE COOKIES FILE (--live-cookies)</label>
+                                <label class="form-label" title="HTTP Cookie header value" for="cookieLive">LIVE COOKIES FILE<br/><span>--live-cookies</span></label>
                                 <input type="text" id="cookieLive" class="form-control" placeholder="live-cookies.txt">
                             </div>
                             <!-- --load-cookies -->
                             <div class="form-group" title="An option --load-cookies can be used to provide a special file containing Netscape/wget formatted cookies. This format includes not only cookie names and values but also their domains, paths, expiry, and security attributes.
 Unlike the --cookie or -H options which requires to manually enter raw cookie strings, --load-cookies reads structures cookie data, which can help fully replicate a browser session.">
-                                <label class="form-label" title="HTTP Cookie header value" for="cookieLoad">RAW COOKIE FILE (--load-cookies)</label>
+                                <label class="form-label" title="HTTP Cookie header value" for="cookieLoad">RAW COOKIE FILE<br/><span>--load-cookies</span></label>
                                 <input type="text" id="cookieLoad" class="form-control" placeholder="load-cookies.txt">
                             </div>
                             <!-- --drop-set-cookie -->
@@ -347,7 +347,7 @@ This can be avoided by providing the switch --drop-set-cookie. Therefore, an sql
                             <div></div>
                             <!-- --auth-type/--auth-cred -->
                             <div class="form-group" title="These options can be used to specify which HTTP protocol authentication back-end web server implements and the valid credentials to be used to perform all HTTP requests to the target application.">
-                                <label class="form-label" for="authType">HTTP PROTOCOL AUTHENTICATION<br />(--auth-type/--auth-cred)</label>
+                                <label class="form-label" for="authType">HTTP PROTOCOL AUTHENTICATION<br/><span>--auth-type / --auth-cred</span></label>
                                 <select id="authType" class="form-control">
                                     <option value="">-- Choose auth method --</option>
                                     <option value="Basic">Basic</option>
@@ -361,23 +361,23 @@ This can be avoided by providing the switch --drop-set-cookie. Therefore, an sql
                             <!-- --auth-file -->
                             <div class="form-group" title="This option should be used in cases when the web server requires proper client-side certificate and a private key for authentication.
 Supplied value should be a PEM formatted key_file that contains your certificate and a private key.">
-                                <label class="form-label" for="authFile">PRIVATE KEY AUTHENTICATION<br />(--auth-file)</label>
+                                <label class="form-label" for="authFile">PRIVATE KEY AUTHENTICATION<br/><span>--auth-file</span></label>
                                 <input type="text" id="authFile" class="form-control" placeholder="auth_file.key">
                             </div>
                             <h3>CSRF Tokens Control</h3>
                             <!-- --csrf-token -->
                             <div class="form-group" title="Option --csrf-token can be used to set the name of the hidden value that contains the randomized token. This is useful in cases when web sites use non-standard names for such fields.">
-                                <label class="form-label" for="csrfToken">ANTI-CSRF TOKEN FIELD (--csrf-token)</label>
+                                <label class="form-label" for="csrfToken">ANTI-CSRF TOKEN FIELD<br/><span>--csrf-token</span></label>
                                 <input type="text" id="csrfToken" class="form-control" placeholder="anti-csrf">
                             </div>
                             <!-- --csrf-url -->
                             <div class="form-group" title="Option --csrf-url can be used for retrieval of the token value from arbitrary URL address. This is useful if the vulnerable target URL doesn't contain the necessary token value in the first place, but it is required to extract it from some other location.">
-                                <label class="form-label" for="csrfUrl">TOKEN EXTRACTION URL (--csrf-url)</label>
+                                <label class="form-label" for="csrfUrl">TOKEN EXTRACTION URL<br/><span>--csrf-url</span></label>
                                 <input type="url" id="csrfUrl" class="form-control" placeholder="https://example.com/profile/">
                             </div>
                             <!-- --csrf-method -->
                             <div class="form-group" title="Force usage of given HTTP method (e.g. PUT) during anti-CSRF token page visit https://vocus.cc/article/641c1527fd89780001447d2e">
-                                <label class="form-label" for="csrfMethod">HTTP METHOD FOR TOKEN RETRIEVAL</label>
+                                <label class="form-label" for="csrfMethod">HTTP METHOD FOR TOKEN RETRIEVAL<br/><span>--csrf-method</span></label>
                                 <select id="csrfMethod" class="form-control">
                                     <option value="">-- Choose HTTP method --</option>
                                     <option value="GET">GET</option>
@@ -395,7 +395,7 @@ Supplied value should be a PEM formatted key_file that contains your certificate
                             </div>
                             <!-- --csrf-retries -->
                             <div class="form-group" title="Retries for anti-CSRF token retrieval (default 0)">
-                                <label class="form-label" for="csrfRetries">RETRIES DURING TOKEN RETRIEVAL</label>
+                                <label class="form-label" for="csrfRetries">RETRIES DURING TOKEN RETRIEVAL<br/><span>--csrf-retries</span></label>
                                 <input type="number" id="csrfRetries" class="form-control" placeholder="0" min="0" step="1">
                             </div>
                         </div>
@@ -415,58 +415,58 @@ Supplied value should be a PEM formatted key_file that contains your certificate
 When the value of --level is &gt;= 2 it tests also HTTP Cookie header values. When this value is &gt;= 3 it tests also HTTP User-Agent and HTTP Referer header value for SQL injections.
 It is however possible to manually specify a comma-separated list of parameter(s) that you want sqlmap to test. This will bypass the dependence on value of --level too.
 For instance, to test for GET parameter id and for HTTP User-Agent only, provide -p &quot;id,user-agent&quot;.">
-                                <label class="form-label" for="paramTest">TESTABLE PARAMETERS (-p)</label>
+                                <label class="form-label" for="paramTest">TESTABLE PARAMETERS<br/><span>-p</span></label>
                                 <input type="text" id="paramTest" class="form-control" placeholder="id,user-agent">
                             </div>
                             <!-- --skip -->
                             <div class="form-group" title="Skip testing for given parameter(s). That is especially useful in cases when you want to use higher value for --level and test all available parameters excluding some of HTTP headers normally being tested.
 For instance, to skip testing for HTTP header User-Agent and HTTP header Referer at --level=5, provide --skip=&quot;user-agent,referer&quot;.">
-                                <label class="form-label" for="paramSkip">FORBIDDEN PARAMETERS (--skip)</label>
+                                <label class="form-label" for="paramSkip">FORBIDDEN PARAMETERS<br/><span>--skip</span></label>
                                 <input type="text" id="paramSkip" class="form-control" placeholder="csrf_token,session_id">
                             </div>
                             <!-- --param-exclude -->
                             <div class="form-group" title="Skip testing for given parameter(s). This is the same as --skip, but this switch is based on a regular expressions.
 For instance, to skip testing for parameters which contain string token or session in their names, provide --param-exclude=&quot;token|session&quot;">
-                                <label class="form-label" for="paramExclude">FORBIDDEN PARAMETERS REGEX</label>
+                                <label class="form-label" for="paramExclude">FORBIDDEN PARAMETERS REGEX<br/><span>--param-exclude</span></label>
                                 <input type="text" id="paramExclude" class="form-control" placeholder="token|session">
                             </div>
                             <!-- --param-filter -->
                             <div class="form-group" title="The --param-filter parameter restrict scans to specific components of HTTP requests, improving efficiency and reducing noise. Accepted comma-separated values include GET (URL parameters), POST (request body), COOKIE, HOST, USER-AGENT, and REFERER.
 This switch can isolate high-risk areas like API endpoints (test only POST body parameters) or speed-up headers injection testing (specifying COOKIE,HOST,USER-AGENT,REFERER filter with --level=5 focuses scans on headers, ignoring GET/POST parameters).
 The filter reduces scan times by 30-40% in header-rich environments and minimizes false positives from unnecessary parameters.">
-                                <label class="form-label" title="Skip testing for given parameter(s)" for="paramFilter">PARAMETERS SCAN CATEGORY ALLOWLIST</label>
+                                <label class="form-label" title="Skip testing for given parameter(s)" for="paramFilter">PARAMETERS SCAN CATEGORY ALLOWLIST<br/><span>--param-filter</span></label>
                                 <input type="text" id="paramFilter" class="form-control" placeholder="GET,POST,COOKIE,USER-AGENT...">
                             </div>
                             <!-- --prefix -->
                             <div class="form-group" title="The --prefix parameter allows you to prepend a custom string to every SQL injection payload before it is sent to the target application.
                                  This parameter is essential when applications require specific SQL syntax or characters before the actual injection payload to construct a valid query.
                                  It is particularly useful when dealing with applications that embed parameters within complex SQL queries requiring specific opening syntax, such as closing quotes or parentheses before the injection point.">
-                                <label class="form-label" title="Injection payload prefix string" for="prefix">Prefix (--prefix)</label>
+                                <label class="form-label" title="Injection payload prefix string" for="prefix">Prefix<br/><span>--prefix</span></label>
                                 <input type="text" id="prefix" class="form-control" placeholder="')">
                             </div>
                             <!-- --suffix -->
                             <div class="form-group" title="The --suffix parameter enables you to append a custom string to every SQL injection payload after the main injection code.
 It is crucial when applications require specific closing characters or comments to prevent SQL syntax errors, such as SQL comments (--) or closing parentheses to maintain query validity.">
-                                <label class="form-label" title="Injection payload suffix string" for="suffix">Suffix (--suffix)</label>
+                                <label class="form-label" title="Injection payload suffix string" for="suffix">Suffix<br/><span>--suffix</span></label>
                                 <input type="text" id="suffix" class="form-control" placeholder="-- -">
                             </div>
 
                             <h3>Attack Optimalization</h3>
                             <!-- --level -->
                             <div class="form-group" title="Level of tests to perform (default: 1)">
-                                <label class="form-label" for="level">ATTACK --level <span id="levelValue">1</span></label>
+                                <label class="form-label" for="level">ATTACK <span>--level</span> <span id="levelValue">1</span></label>
                                 <input type="range" id="level" class="slider" min="1" max="5" value="1">
                                 <div class="additional-help" id="level-help">1: Show also information and warning messages (default).</div>
                             </div>
                             <!-- --risk -->
                             <div class="form-group" title="Risk of tests to perform (default: 1)">
-                                <label class="form-label" for="risk">ATTACK --risk <span id="riskValue">1</span></label>
+                                <label class="form-label" for="risk">ATTACK <span>--risk</span> <span id="riskValue">1</span></label>
                                 <input type="range" id="risk" class="slider" min="1" max="3" value="1">
                                 <div class="additional-help" id="risk-help">1: Innocuous test for the majority of SQL injection points (default).</div>
                             </div>
                             <!-- --dbms -->
                             <div class="form-group" title="Force back-end database engine">
-                                <label class="form-label" for="dbms">FORCE TARGET DATABASE ENGINE</label>
+                                <label class="form-label" for="dbms">FORCE TARGET DATABASE ENGINE<br/><span>--dbms</span></label>
                                 <select id="dbms" class="form-control">
                                     <option value="">Auto-detect</option>
                                     <option value="MySQL">MySQL</option>
@@ -508,7 +508,7 @@ It is crucial when applications require specific closing characters or comments 
                             </div>
                             <!-- --os -->
                             <div class="form-group" title="By default sqlmap automatically detects the web application's back-end database management system underlying operating system when this information is a dependence of any other provided switch or option. It is possible to force the operating system name if you already know it so that sqlmap will avoid doing it itself. Note that this option is not mandatory and it is strongly recommended to use it only if you are absolutely sure about the back-end database management system underlying operating system. If you do not know it, let sqlmap automatically identify it for you.">
-                                <label class="form-label" for="os">FORCE TARGET OS</label>
+                                <label class="form-label" for="os">FORCE TARGET OS<br/><span>--os</span></label>
                                 <select id="os" class="form-control">
                                     <option value="">Auto-detect</option>
                                     <option value="Linux">Linux</option>
@@ -518,18 +518,18 @@ It is crucial when applications require specific closing characters or comments 
                             <!-- --second-url -->
                             <div class="form-group" title="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
 You can point sqlmap a resulting page URL searched for second-order response to test for this type of SQL injection by using option --second-order.">
-                                <label class="form-label" for="secondUrl">SECOND ORDER PAGE URL</label>
+                                <label class="form-label" for="secondUrl">SECOND ORDER PAGE URL<br/><span>--second-url</span></label>
                                 <input type="url" id="secondUrl" class="form-control" placeholder="https://example.com/profile">
                             </div>
                             <!-- --second-req -->
                             <div class="form-group" title="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
 You can point sqlmap a request file for sending to the server where results are being shown to test by using option --second-req.">
-                                <label class="form-label" for="secondUrl">SECOND ORDER REQUEST FILE</label>
+                                <label class="form-label" for="secondUrl">SECOND ORDER REQUEST FILE<br/><span>--second-req</span></label>
                                 <input type="text" id="secondReq" class="form-control" placeholder="second-order-request.txt">
                             </div>
                             <!-- Attack techniques -->
                             <div class="form-group">
-                                <label class="form-label" title="">ATTACK TECHNIQUES (--technique)</label>
+                                <label class="form-label" title="">ATTACK TECHNIQUES<br/><span>--technique</span></label>
                                 <div class="checkbox-grid">
                                     <label class="checkbox-label">
                                         <input type="checkbox" id="techB" value="B">
@@ -573,7 +573,7 @@ Instead of standard invalidation methods (e.g., negative values), sqlmap replace
 It is particularly useful when applications filter standard parameter invalidation methods but may not properly handle extremely large numeric values.">
                                         <input type="checkbox" id="invalidBignum">
                                         <span class="checkmark"></span>
-                                        --invalid-bignum
+                                        <span>--invalid-bignum</span>
                                     </label>
                                     <!-- --invalid-logical -->
                                     <label class="checkbox-label" title="The switch enables the use of logical operations to invalidate parameter values.
@@ -581,7 +581,7 @@ Sqlmap replaces original values with logical expressions that always return fals
 This method is effective when applications expect logical values or block other invalidation techniques. The parameter serves as an alternative for standard invalidation methods in environments with advanced filtering mechanisms.">
                                         <input type="checkbox" id="invalidLogical">
                                         <span class="checkmark"></span>
-                                        --invalid-logical
+                                        <span>--invalid-logical</span>
                                     </label>
                                     <!-- --invalid-string -->
                                     <label class="checkbox-label" title="This parameter causes sqlmap to use random character strings for parameter value invalidation. Sqlmap generates random strings instead of original values, bypassing application filters focused on numeric values.
@@ -589,7 +589,7 @@ It is useful when applications have special validation mechanisms for numbers bu
 The parameter automatically replaces parameters with random strings during boolean-based injection tests.">
                                         <input type="checkbox" id="invalidString">
                                         <span class="checkmark"></span>
-                                        --invalid-string
+                                        <span>--invalid-string</span>
                                     </label>
                                     <!-- --no-cast -->
                                     <label class="checkbox-label" title="The switch disables sqlmap's automatic payload casting mechanism.
@@ -598,7 +598,7 @@ Using --no-cast is necessary when applications have payload length restrictions 
 It is often combined with --no-escape in environments with query length restrictions where every character matters.">
                                         <input type="checkbox" id="noCast">
                                         <span class="checkmark"></span>
-                                        --no-cast
+                                        <span>--no-cast</span>
                                     </label>
                                     <!-- --no-escape -->
                                     <label class="checkbox-label" title="This parameter disables sqlmap's built-in string escaping mechanism.
@@ -606,7 +606,7 @@ By default sqlmap automatically escapes special characters in payloads (adds bac
 It is often combined with --no-cast in environments with query length restrictions where every character matters.">
                                         <input type="checkbox" id="noEscape">
                                         <span class="checkmark"></span>
-                                        --no-escape
+                                        <span>--no-escape</span>
                                     </label>
                                     <!-- --predict-output -->
                                     <label class="checkbox-label" title="The switch enables a statistical algorithm for predicting query results in inference techniques.
@@ -614,7 +614,7 @@ Sqlmap builds statistical tables of most probable character values based on the 
 The parameter is not compatible with --threads and works best when retrieving standard DBMS entities.">
                                         <input type="checkbox" id="predictOutput">
                                         <span class="checkmark"></span>
-                                        --predict-output
+                                        <span>--predict-output</span>
                                     </label>
                                 </div>
                             </div>
@@ -633,49 +633,49 @@ The parameter is not compatible with --threads and works best when retrieving st
                                 <label class="checkbox-label" title="Retrieve DBMS current user">
                                     <input type="checkbox" id="currentUser">
                                     <span class="checkmark"></span>
-                                    --current-user
+                                    <span>--current-user</span>
                                 </label>
                                 <label class="checkbox-label" title="Retrieve DBMS current database">
                                     <input type="checkbox" id="currentDb">
                                     <span class="checkmark"></span>
-                                    --current-db
+                                    <span>--current-db</span>
                                 </label>
                                 <label class="checkbox-label" title="Enumerate DBMS databases">
                                     <input type="checkbox" id="dbs">
                                     <span class="checkmark"></span>
-                                    --dbs
+                                    <span>--dbs</span>
                                 </label>
                                 <label class="checkbox-label" title="Enumerate DBMS database tables">
                                     <input type="checkbox" id="tables">
                                     <span class="checkmark"></span>
-                                    --tables
+                                    <span>--tables</span>
                                 </label>
                                 <label class="checkbox-label" title="Enumerate DBMS database table columns">
                                     <input type="checkbox" id="columns">
                                     <span class="checkmark"></span>
-                                    --columns
+                                    <span>--columns</span>
                                 </label>
                                 <label class="checkbox-label" title="Enumerate DBMS schema">
                                     <input type="checkbox" id="schema">
                                     <span class="checkmark"></span>
-                                    --schema
+                                    <span>--schema</span>
                                 </label>
                                 <label class="checkbox-label" title="Dump all DBMS databases tables entries">
                                     <input type="checkbox" id="dumpAll">
                                     <span class="checkmark"></span>
-                                    --dump-all
+                                    <span>--dump-all</span>
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" title="DBMS database to enumerate" for="database">DATABASE(S) NAME FOR ENUMERATION</label>
+                                <label class="form-label" title="DBMS database to enumerate" for="database">DATABASE(S) NAME FOR ENUMERATION<br/><span>-D</span></label>
                                 <input type="text" id="database" class="form-control" placeholder="database_name1,database_name2">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" title="DBMS database table(s) to enumerate" for="table">TABLE(S) NAME FOR ENUMERATION</label>
+                                <label class="form-label" title="DBMS database table(s) to enumerate" for="table">TABLE(S) NAME FOR ENUMERATION<br/><span>-T</span></label>
                                 <input type="text" id="table" class="form-control" placeholder="table_name1,table_name2">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" title="DBMS database table column(s) to enumerate" for="column">COLUMN(S) NAME FOR ENUMERATION</label>
+                                <label class="form-label" title="DBMS database table column(s) to enumerate" for="column">COLUMN(S) NAME FOR ENUMERATION<br/><span>-C</span></label>
                                 <input type="text" id="column" class="form-control" placeholder="column_name1,column_name2">
                             </div>
                         </div>
@@ -1196,13 +1196,13 @@ The parameter is not compatible with --threads and works best when retrieving st
                     <div class="form-grid">
                         <!-- -v -->
                         <div class="form-group" title="Set the verbosity level of output messages">
-                            <label class="form-label" for="verbose">Verbose level (-v): <span id="verboseValue">1</span></label>
+                            <label class="form-label" for="verbose">Verbose level: <span>-v</span> <span id="verboseValue">1</span<br/></label>
                             <input type="range" id="verbose" class="slider" min="0" max="6" value="1">
                             <div class="additional-help" id="verbose-help">1: Show also information and warning messages (default).</div>
                         </div>
                         <!-- -t -->
                         <div class="form-group" title="This option requires an argument that specified the textual file to write all HTTP(s) traffic generated by sqlmap - HTTP(S) requests and HTTP(S) responses.">
-                            <label class="form-label" for="trafficFile">Traffic log file (-t)</label>
+                            <label class="form-label" for="trafficFile">Traffic log file<br/><span>-t</span></label>
                             <input type="text" id="trafficFile" class="form-control" placeholder="traffic.log">
                         </div>
                         <!-- --batch -->
