@@ -560,15 +560,17 @@ class SQLMapGenerator {
         const command = this.generateCommand();
         const copyBtn = document.getElementById('copyBtn');
         const copyText = document.getElementById('copyText');
+        const txt_command_copy_clipboard = 'COPY COMMAND TO CLIPBOARD';
+        const txt_command_copy_coppied = 'COMMAND COPIED!';
         
         try {
             await navigator.clipboard.writeText(command);
             copyBtn.classList.add('copying');
-            copyText.textContent = 'Command Copied!';
+            copyText.textContent = txt_command_copy_coppied;
             
             setTimeout(() => {
                 copyBtn.classList.remove('copying');
-                copyText.textContent = 'COPY COMMAND TO A CLIPBOARD';
+                copyText.textContent = txt_command_copy_clipboard;
             }, 3000);
         } catch (err) {
             // Fallback for older browsers
@@ -579,9 +581,9 @@ class SQLMapGenerator {
             document.execCommand('copy');
             document.body.removeChild(textArea);
             
-            copyText.textContent = 'Command Copied!';
+            copyText.textContent = txt_command_copy_coppied;
             setTimeout(() => {
-                copyText.textContent = 'COPY COMMAND TO A CLIPBOARD';
+                copyText.textContent = txt_command_copy_clipboard;
             }, 3000);
         }
     }
@@ -591,15 +593,17 @@ class SQLMapGenerator {
         const command = location.href.replace(location.hash, "") + "#" + serializedCommand;
         const copyUrlBtn = document.getElementById('copyUrlBtn');
         const copyUrlText = document.getElementById('copyUrlText');
+        const txt_command_url_clipboard = 'COPY CONFIG URL';
+        const txt_command_url_coppied = 'URL COPIED!';
 
         try {
             await navigator.clipboard.writeText(command);
             copyUrlBtn.classList.add('copying');
-            copyUrlText.textContent = 'Copied!';
+            copyUrlText.textContent = txt_command_url_coppied;
 
             setTimeout(() => {
                 copyUrlBtn.classList.remove('copying');
-                copyUrlText.textContent = 'COPY URL WITH THIS CONFIG';
+                copyUrlText.textContent = txt_command_url_clipboard;
             }, 3000);
             location.replace("#" + serializedCommand);
 
@@ -612,9 +616,9 @@ class SQLMapGenerator {
             document.execCommand('copy');
             document.body.removeChild(textArea);
 
-            copyUrlText.textContent = 'URL Copied!';
+            copyUrlText.textContent = txt_command_url_coppied;
             setTimeout(() => {
-                copyUrlText.textContent = 'COPY URL WITH THIS CONFIG';
+                copyUrlText.textContent = txt_command_url_clipboard;
             }, 3000);
             location.replace("#" + serializedCommand);
         }
