@@ -5,6 +5,8 @@ js = open('app.js').read()
 
 # Zakładam, że index.html ma <head>...</head> i </body>
 # Dodaj CSS do <head>
+html = html.replace('<link rel="stylesheet" href="style.css">', '');
+
 html = html.replace(
     '</head>',
     f'<style>\n{css}\n</style>\n</head>'
@@ -16,5 +18,5 @@ html = html.replace(
     f'<script>\n{js}\n</script>\n</body>'
 )
 
-with open('index-final.html', 'w') as f:
+with open('index.html', 'w') as f:
     f.write(html)
