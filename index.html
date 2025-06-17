@@ -16,7 +16,7 @@
             </p>
 
             <p>
-                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250616e</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9</a><br />
+                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250617</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9.4</a><br />
                 vizzdoom/at/gmail/dot/com
             </p>
         </header>
@@ -197,14 +197,49 @@ Note that this switch is incompatible with switch --text-only.">
                                 <input type="number" id="proxyFreq" class="form-control" min="1" step="1" placeholder="3">
                             </div>
                             <!-- --ignore-proxy -->
-                            <div class="form-group" title="Run sqlmap against a target part of a local area network by ignoring the system-wide set HTTP(S) proxy server setting.">
+                            <div class="form-group row-expand" title="Run sqlmap against a target part of a local area network by ignoring the system-wide set HTTP(S) proxy server setting.">
                                 <label class="form-label">IGNORE SYSTEM PROXY SETTINGS</label>
                                 <label class="checkbox-label">
                                     <input type="checkbox" id="proxyIgnore">
                                     <span class="checkmark"></span>
-                                    <span class="checkbox-label__text">--proxy-ignore</span>
+                                    <span class="checkbox-label__text">--ignore-proxy</span>
                                 </label>
                             </div>
+                            <div class="form-group" title="If, for any reason, you need to stay anonymous, instead of passing by a single predefined HTTP(S) proxy server, you can configure a Tor client together with Privoxy (or similar) on your machine as explained in Tor installation guides. 
+Then you can use a switch --tor and sqlmap will try to automatically set Tor proxy connection settings.
+You are strongly advised to use --check-tor occasionally to be sure that everything was set up properly - sqlmap will check that everything works as expected by sending a single request to an official Are you using Tor? page before any target requests.">
+                                <!-- --tor -->
+                                <div class="checkbox-grid">
+                                    <label class="form-label">TOR ANONYMITY NETWORK SETTINGS</label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="tor">
+                                        <span class="checkmark"></span>
+                                        <span class="checkbox-label__text">--tor</span>
+                                    </label>
+                                    <!-- --check-tor -->
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="checkTor">
+                                        <span class="checkmark"></span>
+                                        <span class="checkbox-label__text">--check-tor</span>
+                                    </label>
+                                </div>  
+                            </div>
+                            <!-- --tor-port -->
+                            <div class="form-group" title="In case that you want to manually set the port of used Tor proxy">
+                                <label class="form-label" for="torPort">TOR PROXY PORT<br/><span>--tor-port</span></label>
+                                <input type="number" id="torPort" class="form-control" min="1" max="65535" placeholder="9050">
+                            </div>
+                            <!-- --tor-type -->
+                            <div class="form-group" title="In case that you want to manually set the type of used Tor proxy.">
+                                <label class="form-label" for="torType">TOR PROXY TYPE<br/><span>--tor-type</span></label>
+                                <select id="torType" class="form-control">
+                                    <option value="">-- Choose Type --</option>
+                                    <option value="SOCKS5">SOCKS5 (default)</option>
+                                    <option value="SOCKS4">SOCKS4</option>
+                                    <option value="HTTP">HTTP</option>
+                                </select>
+                            </div>
+
                         </div>
                     </div>
                 </div>

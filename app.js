@@ -283,9 +283,21 @@ class SQLMapGenerator {
         
         const proxyFreq = document.getElementById('proxyFreq').value.trim();
         if (proxyFreq && proxyFreq >= 1) config['--proxy-freq'] = proxyFreq;
-
+        
         const proxyIgnore = document.getElementById('proxyIgnore').checked
         if (proxyIgnore) config['--ignore-proxy'] = proxyIgnore;
+
+        const tor = document.getElementById('tor').checked;
+        if (tor) config['--tor'] = tor;        
+
+        const checTor = document.getElementById('checkTor').checked;
+        if (checTor) config['--check-tor'] = checTor;  
+
+        const torPort = document.getElementById('torPort').value.trim();
+        if (torPort) config['--tor-port'] = torPort;        
+
+        const torType = document.getElementById('torType').value.trim();;
+        if (torType && torType !== "SOCKS5") config['--tor-type'] = torType;        
 
         // Request options
         const method = document.getElementById('method').value;
@@ -479,6 +491,7 @@ class SQLMapGenerator {
             '-u', '-d', '-r', '-m', '-l', '--scope', '-g',
              '--timeout', '--delay', '--threads',
             '--proxy', '--proxy-cred', '--proxy-file', '--proxy-freq', '--ignore-proxy',
+            '--tor', '--check-tor', '--tor-port', '--tor-type',
             '--force-ssl', '--keep-alive', '--null-connection', '--http2',
             '--method', '--data', '--param-del',
             '--host', '-A', '--mobile', '--random-agent', "--referer", "-H",
@@ -744,6 +757,10 @@ class SQLMapGenerator {
                 '--proxy-file': 'proxyFile',
                 '--proxy-freq': 'proxyFreq',
                 '--ignore-proxy': 'proxyIgnore',
+                '--tor': 'tor',
+                '--check-tor': 'checkTor',
+                '--tor-port': 'torPort',
+                '--tor-type': 'torType',
                 '--method': 'method',
                 '--data': 'data',
                 '--param-del': 'paramDel',

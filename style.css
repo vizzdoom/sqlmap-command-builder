@@ -1147,3 +1147,7 @@ body {
 .tamper--help {
     padding-left: 20px;
 }
+
+.row-expand {
+  grid-column: 1 / -1;
+}
