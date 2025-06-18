@@ -296,7 +296,7 @@ class SQLMapGenerator {
         const torPort = document.getElementById('torPort').value.trim();
         if (torPort) config['--tor-port'] = torPort;        
 
-        const torType = document.getElementById('torType').value.trim();;
+        const torType = document.getElementById('torType').value.trim();
         if (torType && torType !== "SOCKS5") config['--tor-type'] = torType;        
 
         // Request options
