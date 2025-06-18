@@ -1,4 +1,4 @@
-![SQLMAP --command-builder](logo.png)
+![SQLMAP --command-builder](logo-white.png)
 
 # SQLMap Command Builder
 
