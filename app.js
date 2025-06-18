@@ -291,12 +291,12 @@ class SQLMapGenerator {
         if (tor) config['--tor'] = tor;        
 
         const checkTor = document.getElementById('checkTor').checked;
-        if (checkTor) config['--check-tor'] = checkTor;  
+        if (checkTor) config['--check-tor'] = checkTor;
 
         const torPort = document.getElementById('torPort').value.trim();
         if (torPort) config['--tor-port'] = torPort;        
 
-        const torType = document.getElementById('torType').value.trim();;
+        const torType = document.getElementById('torType').value.trim();
         if (torType && torType !== "SOCKS5") config['--tor-type'] = torType;        
 
         // Request options
@@ -574,12 +574,12 @@ class SQLMapGenerator {
         const copyBtn = document.getElementById('copyBtn');
         const copyText = document.getElementById('copyText');
         const txt_command_copy_clipboard = 'COPY COMMAND TO CLIPBOARD';
-        const txt_command_copy_coppied = 'COMMAND COPIED!';
+        const txt_command_copy_copied = 'COMMAND COPIED!';
         
         try {
             await navigator.clipboard.writeText(command);
             copyBtn.classList.add('copying');
-            copyText.textContent = txt_command_copy_coppied;
+            copyText.textContent = txt_command_copy_copied;
             
             setTimeout(() => {
                 copyBtn.classList.remove('copying');
@@ -594,7 +594,7 @@ class SQLMapGenerator {
             document.execCommand('copy');
             document.body.removeChild(textArea);
             
-            copyText.textContent = txt_command_copy_coppied;
+            copyText.textContent = txt_command_copy_copied;
             setTimeout(() => {
                 copyText.textContent = txt_command_copy_clipboard;
             }, 3000);
@@ -607,12 +607,12 @@ class SQLMapGenerator {
         const copyUrlBtn = document.getElementById('copyUrlBtn');
         const copyUrlText = document.getElementById('copyUrlText');
         const txt_command_url_clipboard = 'COPY CONFIG URL';
-        const txt_command_url_coppied = 'URL COPIED!';
+        const txt_command_url_copied = 'URL COPIED!';
 
         try {
             await navigator.clipboard.writeText(command);
             copyUrlBtn.classList.add('copying');
-            copyUrlText.textContent = txt_command_url_coppied;
+            copyUrlText.textContent = txt_command_url_copied;
 
             setTimeout(() => {
                 copyUrlBtn.classList.remove('copying');
@@ -629,7 +629,7 @@ class SQLMapGenerator {
             document.execCommand('copy');
             document.body.removeChild(textArea);
 
-            copyUrlText.textContent = txt_command_url_coppied;
+            copyUrlText.textContent = txt_command_url_copied;
             setTimeout(() => {
                 copyUrlText.textContent = txt_command_url_clipboard;
             }, 3000);
@@ -653,11 +653,10 @@ class SQLMapGenerator {
                 'url': 'url',
                 'data': 'data',
                 'requestFile': 'requestFile',
-                'requestFileScope': 'requestFileScope',
                 'burpFile': 'burpFile',
                 'level': 'level',
                 'risk': 'risk',
-                'randomAgent': 'randomAgent',
+                'randomAgent': 'userAgent',
                 'batch': 'batch',
                 'dbs': 'dbs'
             };
@@ -767,7 +766,7 @@ class SQLMapGenerator {
                 '--host': 'host',
                 '-A': 'userAgent',
                 '--mobile': 'mobileUserAgent',
-                '--random-agent': 'randomAgent',
+                '--random-agent': 'userAgent',
                 '--referer': 'referer',
                 '-H': 'headers',
                 '--cookie': 'cookie',
