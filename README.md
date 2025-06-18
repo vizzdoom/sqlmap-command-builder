@@ -1,3 +1,5 @@
+![SQLMAP --command-builder](logo.png)
+
 # SQLMap Command Builder
 
 **Take control of SQLMap with a single page app.** This interactive builder lets you craft advanced [SQLMap](https://github.com/sqlmapproject/sqlmap) commands without memorising dozens of CLI switches. 
