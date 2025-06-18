@@ -1,20 +1,15 @@
 # SQLMap Command Builder
 
-**Take control of SQLMap with a single page app.** This interactive builder lets you craft advanced [SQLMap](https://github.com/sqlmapproject/sqlmap) commands without memorising dozens of CLI switches. The whole project is pure HTML, CSS and JavaScript, so it works completely offline and keeps your tests private.
+**Take control of SQLMap with a single page app.** This interactive builder lets you craft advanced [SQLMap](https://github.com/sqlmapproject/sqlmap) commands without memorising dozens of CLI switches. 
 
-## Why is this tool handy?
+Thewhole project is pure HTML, CSS and JavaScript, so it works completely offline to keeps your tests private.
 
-- **Quick templates** – Start from built-in scenarios such as GET or POST tests and a Burp request import.
-- **Full option coverage** – Toggle SQLMap's flags from clearly arranged tabs.
-- **Tamper scripts** – Enable obfuscation techniques with a single click.
-- **Save/Load configs** – Keep your favourite setups and share them easily.
-- **Works offline** – Perfect for restricted environments or on‑site engagements.
-
-Whether you are new to SQLMap or a seasoned operator, the builder saves you from endless command‑line tweaking and lets you focus on the actual test.
+This command builder saves you from endless command‑line tweaking and lets you focus on the actual penetration test.
 
 ## Project website
 
 <https://vizzdoom.github.io/sqlmap-command-builder/>
+(this page source code can be saved and opened locally)
 
 ## Building
 
