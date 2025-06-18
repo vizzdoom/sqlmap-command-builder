@@ -290,8 +290,8 @@ class SQLMapGenerator {
         const tor = document.getElementById('tor').checked;
         if (tor) config['--tor'] = tor;        
 
-        const checTor = document.getElementById('checkTor').checked;
-        if (checTor) config['--check-tor'] = checTor;  
+        const checkTor = document.getElementById('checkTor').checked;
+        if (checkTor) config['--check-tor'] = checkTor;  
 
         const torPort = document.getElementById('torPort').value.trim();
         if (torPort) config['--tor-port'] = torPort;        
