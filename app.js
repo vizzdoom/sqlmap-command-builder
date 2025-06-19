@@ -299,7 +299,7 @@ class SQLMapGenerator {
         const torType = document.getElementById('torType').value.trim();
         if (torType && torType !== "SOCKS5") config['--tor-type'] = torType;        
 
-        // Request options
+
         const method = document.getElementById('method').value;
         if (method && method !== 'custom') {
             config['--method'] = method;
@@ -307,15 +307,28 @@ class SQLMapGenerator {
             const customHttpMethod = document.getElementById('customHttpMethod').value.trim();
             if (customHttpMethod) config['--method'] = customHttpMethod;
         }
-        
+            
         const data = document.getElementById('data').value.trim().replaceAll("\n", "\\\n");
         if (data) config['--data'] = data;
 
-        const paramDel = document.getElementById('paramDel').value.trim();
-        if (paramDel && paramDel !== "&") config['--param-del'] = paramDel;
-  
+        const string = document.getElementById('string').value.trim();
+        if (string) config['--string'] = string;
+
+        const notString = document.getElementById('notString').value.trim();
+        if (notString) config['--not-string'] = notString;
+
+        const regexp = document.getElementById('regexp').value.trim();
+        if (regexp) config['--regexp'] = regexp;
+
+        const code = document.getElementById('code').value.trim();
+        if (code && code >= 100 && code <= 599) config['--code'] = code;
+        
+        // Request options
         const host = document.getElementById('host').value.trim();
         if (host) config['--host'] = host;
+
+        const paramDel = document.getElementById('paramDel').value.trim();
+        if (paramDel && paramDel !== "&") config['--param-del'] = paramDel;
         
         const userAgent = document.getElementById('userAgent').value;
         if (userAgent && userAgent === 'random') {
@@ -494,6 +507,7 @@ class SQLMapGenerator {
             '--tor', '--check-tor', '--tor-port', '--tor-type',
             '--force-ssl', '--keep-alive', '--null-connection', '--http2',
             '--method', '--data', '--param-del',
+            '--string', '--not-string', '--regexp', '--code',
             '--host', '-A', '--mobile', '--random-agent', "--referer", "-H",
             '--cookie', '--cookie-del', '--live-cookies', '--load-cookies', '--drop-set-cookie',
             '--auth-type', '--auth-cred', '--auth-file',
@@ -763,8 +777,14 @@ class SQLMapGenerator {
                 '--method': 'method',
                 '--data': 'data',
                 '--param-del': 'paramDel',
+                '--prefix': 'prefix',
+                '--suffix': 'suffix',
                 '--host': 'host',
                 '-A': 'userAgent',
+                '--string': 'string',
+                '--not-string': 'notString',
+                '--regexp': 'regexp',
+                '--code': 'code',
                 '--mobile': 'mobileUserAgent',
                 '--random-agent': 'userAgent',
                 '--referer': 'referer',
@@ -815,8 +835,6 @@ class SQLMapGenerator {
                 '--null-connection': 'nullConnection',
                 '-o': 'optimize',
                 '--tamper': 'tamper',
-                '--prefix': 'prefix',
-                '--suffix': 'suffix',
                 '--second-url': 'secondUrl'
             };
             

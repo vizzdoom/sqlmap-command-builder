@@ -16,7 +16,7 @@
             </p>
 
             <p>
-                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250617</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9.4</a><br />
+                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250620</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9.4</a><br />
                 vizzdoom/at/gmail/dot/com
             </p>
         </header>
@@ -486,6 +486,28 @@ It is crucial when applications require specific closing characters or comments 
                                 <input type="text" id="suffix" class="form-control" placeholder="-- -">
                             </div>
 
+                            <h3>Detection</h3>
+                            <!-- --string -->
+                            <div class="form-group" title="">
+                                <label class="form-label" title="" for="string">String when query evaluated<br/><span>--string</span></label>
+                                <input type="text" id="string" class="form-control" placeholder="">
+                            </div>
+                            <!-- --not-string -->
+                            <div class="form-group" title="">
+                                <label class="form-label" title="" for="notString">String when query not evaluated<br/><span>--not-string</span></label>
+                                <input type="text" id="notString" class="form-control" placeholder="">
+                            </div>
+                            <!-- --regexp-->
+                            <div class="form-group" title="">
+                                <label class="form-label" title="" for="regexp">Regexp to match<br/><span>--regexp</span></label>
+                                <input type="text" id="regexp" class="form-control" placeholder="">
+                            </div>
+                            <!-- --code -->
+                            <div class="form-group" title="">
+                                <label class="form-label" title="" for="code">HTTP code to match<br/><span>--code</span></label>
+                                <input type="number" id="code" class="form-control" min="100", max="599", step="1" placeholder="201">
+                            </div>
+
                             <h3>Attack Optimalization</h3>
                             <!-- --level -->
                             <div class="form-group" title="Level of tests to perform (default: 1)">
@@ -650,6 +672,18 @@ The parameter is not compatible with --threads and works best when retrieving st
                                         <input type="checkbox" id="predictOutput">
                                         <span class="checkmark"></span>
                                         <span>--predict-output</span>
+                                    </label>                                    
+                                    <!-- --text-only -->
+                                    <label class="checkbox-label" title="Compare pages based only on the textual content.">
+                                        <input type="checkbox" id="predictOutput">
+                                        <span class="checkmark"></span>
+                                        <span>--text-only</span>
+                                    </label>
+                                    <!-- --titles -->
+                                    <label class="checkbox-label" title="Compare pages based only on their titles.">
+                                        <input type="checkbox" id="titles">
+                                        <span class="checkmark"></span>
+                                        <span>--titles</span>
                                     </label>
                                 </div>
                             </div>
