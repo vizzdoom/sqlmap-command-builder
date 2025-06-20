@@ -1,9 +1,13 @@
+import datetime
+
 def read_text(path):
     with open(path) as file:
         return file.read()
 
 
 def inline_assets(html, css, js):
+    compilation_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    page = html.replace(f'<span id="tool-version"></span>', '<span id="tool-version">compiled on {compilation_time}<strong></strong></span>')
     page = html.replace('<link rel="stylesheet" href="style.css">', '')
     page = page.replace('</head>', f'<style>\n{css}\n</style>\n</head>')
     page = page.replace('<script src="app.js"></script>', '')
