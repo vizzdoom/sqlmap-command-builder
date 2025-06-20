@@ -5,9 +5,9 @@
 
 ## <https://vizzdoom.github.io/sqlmap-command-builder/>
 
-**This interactive builder lets you craft advanced [SQLMap](https://github.com/sqlmapproject/sqlmap) commands without memorising dozens of CLI switches.**
+**This interactive builder lets you craft advanced SQLMap commands without memorising dozens of switches.**
 
-Project is build pure in vanila HTML/JS/CSS, so it works completely offline to keeps your data private.
+Project is build with vanila HTML/JS/CSS – it works completely offline and keeps your data private.
 
 ## Building
 
