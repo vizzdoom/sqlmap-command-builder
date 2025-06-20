@@ -8,7 +8,7 @@ def read_text(path):
 
 def inline_assets(html, css, js):
     compilation_time =  datetime.datetime.now().astimezone(pytz.timezone('Europe/Warsaw')).strftime("%Y-%m-%d %H:%M")
-    html = html.replace(f'<span id="tool-version"></span>', f'<span id="tool-version">compiled on {compilation_time}<strong></strong></span>')
+    html = html.replace(f'<span id="tool-version"></span>', f'<span id="tool-version">compiled on <strong>{compilation_time}</strong></span>')
     html = html.replace(f'<link rel="stylesheet" href="style.css">', f'')
     html = html.replace(f'</head>', f'<style>\n{css}\n</style>\n</head>')
     html = html.replace(f'<script src="app.js"></script>', f'')
