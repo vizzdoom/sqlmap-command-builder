@@ -46,9 +46,8 @@
   /* Typography */
   --font-family-base: "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-family-mono: 'Courier New', monospace;
-  --font-size-xs: 11px;
-  --font-size-s: 12px;
-  --font-size-base: 13px;
+  --font-size-xs: 10px;
+  --font-size-s: 11px;
   --font-size-m: 13px;
   --font-size-l: 16px;
   --font-size-xl: 18px;
@@ -90,7 +89,7 @@
     inset 0 -1px 0 rgba(0, 0, 0, 0.03);
 
   /* Animation */
-  --duration-fast: 250ms;
+  --duration-fast: 200ms;
   --duration-normal: 500ms;
   --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -152,7 +151,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-s) var(--space-s);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-s);
   width: 135px;
   max-width: 135px;
   height: 55px;
@@ -168,6 +167,7 @@
 @media (min-width: 600px) {
   .btn {
     padding: var(--space-m) var(--space-l);
+    font-size: var(--font-size-s);
     width: 240px;
     max-width: 240px;
     height: 40px;
@@ -200,10 +200,6 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-m);
-}
-
-.form-grid-tamper label.checkbox-label-tamper  { 
-  font-size: var(--font-size-sm) !important;
 }
 
 
@@ -246,7 +242,7 @@ label span.checkbox-label-tamper__title {
 
 /* Base styles */
 html {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-m);
   font-family: var(--font-family-base);
   line-height: var(--line-height-normal);
   color: var(--color-text);
@@ -316,7 +312,7 @@ a:hover {
 code,
 pre {
   font-family: var(--font-family-mono);
-  font-size: calc(var(--font-size-base) * 0.95);
+  font-size: calc(var(--font-size-m) * 0.95);
   background-color: var(--color-secondary);
   border-radius: var(--radius-s);
 }
@@ -416,7 +412,7 @@ pre code {
   display: block;
   width: 100%;
   padding: var(--space-s) var(--space-m);
-  font-size: var(--font-size-m);
+  font-size: var(--font-size-s);
   line-height: 1.5;
   color: var(--color-text);
   background-color: var(--color-surface);
@@ -437,7 +433,7 @@ pre code {
   color: var(--hacker-primary);
   font-weight: bold;
   margin-bottom: var(--space-s);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-s);
   letter-spacing: 0.7px;
 }
 
@@ -466,7 +462,7 @@ pre code {
 
 textarea.form-control {
   font-family: var(--font-family-mono);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-s);
   resize: vertical;
   min-height: 39px;
 }

@@ -714,19 +714,64 @@ The parameter is not compatible with --threads and works best when retrieving st
                 <div class="card">
                     <div class="card__body">
                         <div class="form-grid">
+                            <!-- -D -->
                             <div class="form-group">
                                 <label class="form-label" title="DBMS database to enumerate" for="database">DATABASE(S) NAME FOR ENUMERATION<br/><span>-D</span></label>
                                 <input type="text" id="database" class="form-control" placeholder="database_name1,database_name2">
                             </div>
+                            <!-- -T -->
                             <div class="form-group">
                                 <label class="form-label" title="DBMS database table(s) to enumerate" for="table">TABLE(S) NAME FOR ENUMERATION<br/><span>-T</span></label>
                                 <input type="text" id="table" class="form-control" placeholder="table_name1,table_name2">
                             </div>
+                            <!-- -C -->
                             <div class="form-group">
                                 <label class="form-label" title="DBMS database table column(s) to enumerate" for="column">COLUMN(S) NAME FOR ENUMERATION<br/><span>-C</span></label>
                                 <input type="text" id="column" class="form-control" placeholder="column_name1,column_name2">
+                            </div>                            
+                            <!-- -X -->
+                            <div class="form-group">
+                                <label class="form-label" title="DBMS database identifier(s) to not enumerate" for="exclude">DBMS(S) TO NOT ENUMARATE<br/><span>-X</span></label>
+                                <input type="text" id="exclude" class="form-control" placeholder="dbname">
                             </div>
-                            <div class="checkbox-grid" title="These options can be used to enumerate the back-end database management system information, structure and data contained in the tables">
+                            <!-- -U -->
+                            <div class="form-group">
+                                <label class="form-label" title="DBMS user to enumerate (can be used with --roles and --passwords)" for="user">USER NAME FOR ENUMERATION<br/><span>-U</span></label>
+                                <input type="text" id="user" class="form-control" placeholder="username">
+                            </div>                            
+                            <!-- --pivot-column -->
+                            <div class="form-group">
+                                <label class="form-label" title="Sometimes (e.g. for Microsoft SQL Server) it is not possible to dump the table rows straightforward by using OFFSET m, n mechanism because of lack of similar. In such cases sqlmap dumps the content by determining the most suitable pivot column (the one with most unique values) whose values are used later on for retrieval of other column values. 
+If it is necessary to enforce the usage of particular pivot column because the automatically chosen one is not suitable (e.g. because of lack of table dump results) you can use option --pivot-column (e.g. --pivot-column=id)." for="pivotColumn">PIVOT COLUMN NAME<br/><span>--pivot-column</span></label>
+                                <input type="text" id="pivotColumn" class="form-control" placeholder="column_name">
+                            </div>                            
+                            <!-- --where -->
+                            <div class="form-group">
+                                <label class="form-label" title='In case that you want to constraint the --dump to specific column values (or ranges) you can use option --where. Provided logical operation will be automatically used inside the WHERE clause. For example, if you use --where="id>3" only table rows having value of column id greater than 3 will be retrieved (by appending WHERE id>3 to used dumping queries).' for="where">DUMP FILTER CONDITION<br/><span>--where</span></label>
+                                <input type="text" id="where" class="form-control" placeholder="SQL CONDITION">
+                            </div>
+                            <!-- --start -->
+                            <div class="form-group">
+                                <label class="form-label" title='If you want to dump only a range of entries, then you can provide options --start and/or --stop to respectively start to dump from a certain entry and stop the dump at a certain entry. For instance, if you want to dump only the first entry, provide --stop 1 in your command line. Vice versa if, for instance, you want to dump only the second and third entry, provide --start 1 --stop 3.' for="start">FIRST DUMP TABLE ENTRY<br/><span>--start</span></label>
+                                <input type="number" id="start" class="form-control" placeholder="1">
+                            </div>
+                            <!-- --stop -->
+                            <div class="form-group">
+                                <label class="form-label" title='If you want to dump only a range of entries, then you can provide options --start and/or --stop to respectively start to dump from a certain entry and stop the dump at a certain entry. For instance, if you want to dump only the first entry, provide --stop 1 in your command line. Vice versa if, for instance, you want to dump only the second and third entry, provide --start 1 --stop 3.' for="stop">LAST DUMP TABLE ENTRY<br/><span>--stop</span></label>
+                                <input type="number" id="stop" class="form-control" placeholder="3">
+                            </div>
+                            <!-- --first -->
+                            <div class="form-group">
+                                <label class="form-label" title="It is possible to specify which single character or range of characters to dump with options --first and --last. For instance, if you want to dump columns' entries from the third to the fifth character, provide --first 3 --last 5. This feature only applies to the blind SQL injection techniques because for error-based and UNION query SQL injection techniques the number of requests is exactly the same, regardless of the length of the column's entry output to dump." for="first">FIRST DUMP TABLE ENTRY<br/><span>--first</span></label>
+                                <input type="number" id="first" class="form-control" placeholder="3">
+                            </div>
+                            <!-- --last -->
+                            <div class="form-group">
+                                <label class="form-label" title="It is possible to specify which single character or range of characters to dump with options --first and --last. For instance, if you want to dump columns' entries from the third to the fifth character, provide --first 3 --last 5. This feature only applies to the blind SQL injection techniques because for error-based and UNION query SQL injection techniques the number of requests is exactly the same, regardless of the length of the column's entry output to dump." for="last">LAST DUMP TABLE ENTRY<br/><span>--last</span></label>
+                                <input type="number" id="last" class="form-control" placeholder="5">
+                            </div>
+                            <!-- ENUMERATION -->
+                            <div class="checkbox-grid" style="grid-row-start: 1; grid-row-end: 6;" title="These options can be used to enumerate the back-end database management system information, structure and data contained in the tables">
                                 <label class="form-label">ENUMERATION AND DATA EXFILTRATION</label>
                                 <label class="checkbox-label" title="Retrieve everything">
                                     <input type="checkbox" id="all">

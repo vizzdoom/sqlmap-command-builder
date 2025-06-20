@@ -1,4 +1,7 @@
-![SQLMAP COMMAND BUILDER](logo-white.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./logo.png">
+  <img alt="SQLMAP COMMAND BUILDER" src="./logo-white.png">
+</picture>
 
 **Take control of SQLMap with a single page app.** This interactive builder lets you craft advanced [SQLMap](https://github.com/sqlmapproject/sqlmap) commands without memorising dozens of CLI switches. 
 

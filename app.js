@@ -509,7 +509,31 @@ class SQLMapGenerator {
         if (table) config['-T'] = table;
         
         const column = document.getElementById('column').value.trim();
-        if (column) config['-C'] = column;
+        if (column) config['-C'] = column;        
+
+        const exclude = document.getElementById('exclude').value.trim();
+        if (exclude) config['-X'] = exclude;
+        
+        const user = document.getElementById('user').value.trim();
+        if (user) config['-U'] = user;        
+        
+        const pivotColumn = document.getElementById('pivotColumn').value.trim();
+        if (pivotColumn) config['--pivot-column'] = pivotColumn;        
+
+        const where = document.getElementById('where').value.trim();
+        if (where) config['--where'] = where;
+
+        const start = document.getElementById('start').value.trim();
+        if (start) config['--start'] = start;
+        
+        const stop = document.getElementById('stop').value.trim();
+        if (stop) config['--stop'] = stop;
+        
+        const first = document.getElementById('first').value.trim();
+        if (first) config['--first'] = first;
+        
+        const last = document.getElementById('last').value.trim();
+        if (last) config['--last'] = last;
         
         return config;
     }
@@ -536,7 +560,7 @@ class SQLMapGenerator {
             '--batch', '-v', '-t', '--parse-errors', '--test-filter',
             '--all', '--banner', '--columns', '--comments', '--count', '--current-user', '--current-db', '--dbs', '--dump', '--dump-all', 
             '--hostname', '--is-dba', '--passwords', '--privileges', '--roles', '--schema', '--search', '--statements', '--tables', '--users',
-            '-D', '-T', '-C', '-o',
+            '-D', '-T', '-C', '-X', '-U', '--pivot-column', '--where', '--start', '--stop', '--first', '--last',
             '--tamper', '--prefix', '--suffix', '--csrf-token', '--csrf-url', '--second-url'
         ];
         
@@ -867,8 +891,15 @@ class SQLMapGenerator {
                 '-D': 'database',
                 '-T': 'table',
                 '-C': 'column',
+                '-X': 'exclude',
+                '-U': 'user',
+                '--where': 'where',
+                '--start': 'start',
+                '--stop': 'stop',
+                '--first': 'first',
+                '--last': 'last',
+                '--pivot-column': 'pivotColumn',
                 '--null-connection': 'nullConnection',
-                '-o': 'optimize',
                 '--tamper': 'tamper',
                 '--second-url': 'secondUrl'
             };
