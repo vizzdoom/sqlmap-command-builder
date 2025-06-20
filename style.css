@@ -442,14 +442,6 @@ pre code {
   color: var(--hacker-secondary);
 }
 
-.form-control {
-  
-  
-
-  
-  
-}
-
 .form-control:focus {
   border-color: var(--hacker-primary);
   box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
