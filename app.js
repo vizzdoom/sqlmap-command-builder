@@ -322,6 +322,12 @@ class SQLMapGenerator {
 
         const code = document.getElementById('code').value.trim();
         if (code && code >= 100 && code <= 599) config['--code'] = code;
+
+        const textOnly = document.getElementById('textOnly').checked
+        if (textOnly) config['--text-only'] = textOnly;
+
+        const titles = document.getElementById('titles').checked
+        if (titles) config['--titles'] = titles;
         
         // Request options
         const host = document.getElementById('host').value.trim();
@@ -507,7 +513,7 @@ class SQLMapGenerator {
             '--tor', '--check-tor', '--tor-port', '--tor-type',
             '--force-ssl', '--keep-alive', '--null-connection', '--http2',
             '--method', '--data', '--param-del',
-            '--string', '--not-string', '--regexp', '--code',
+            '--string', '--not-string', '--regexp', '--code', '--text-only', '--titles',
             '--host', '-A', '--mobile', '--random-agent', "--referer", "-H",
             '--cookie', '--cookie-del', '--live-cookies', '--load-cookies', '--drop-set-cookie',
             '--auth-type', '--auth-cred', '--auth-file',
@@ -785,6 +791,8 @@ class SQLMapGenerator {
                 '--not-string': 'notString',
                 '--regexp': 'regexp',
                 '--code': 'code',
+                '--titles': 'titles',
+                '--text-only': 'textOnly',
                 '--mobile': 'mobileUserAgent',
                 '--random-agent': 'userAgent',
                 '--referer': 'referer',

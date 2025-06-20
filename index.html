@@ -16,7 +16,7 @@
             </p>
 
             <p>
-                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250620</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9.4</a><br />
+                <a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">Github Repository v.20250620b</a> for <a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9.4</a><br />
                 vizzdoom/at/gmail/dot/com
             </p>
         </header>
@@ -469,44 +469,72 @@ For instance, to skip testing for parameters which contain string token or sessi
                             <div class="form-group" title="The --param-filter parameter restrict scans to specific components of HTTP requests, improving efficiency and reducing noise. Accepted comma-separated values include GET (URL parameters), POST (request body), COOKIE, HOST, USER-AGENT, and REFERER.
 This switch can isolate high-risk areas like API endpoints (test only POST body parameters) or speed-up headers injection testing (specifying COOKIE,HOST,USER-AGENT,REFERER filter with --level=5 focuses scans on headers, ignoring GET/POST parameters).
 The filter reduces scan times by 30-40% in header-rich environments and minimizes false positives from unnecessary parameters.">
-                                <label class="form-label" title="Skip testing for given parameter(s)" for="paramFilter">PARAMETERS SCAN CATEGORY ALLOWLIST<br/><span>--param-filter</span></label>
+                                <label class="form-label" for="paramFilter">PARAMETERS SCAN CATEGORY ALLOWLIST<br/><span>--param-filter</span></label>
                                 <input type="text" id="paramFilter" class="form-control" placeholder="GET,POST,COOKIE,USER-AGENT...">
                             </div>
                             <!-- --prefix -->
                             <div class="form-group" title="The --prefix parameter allows you to prepend a custom string to every SQL injection payload before it is sent to the target application.
                                  This parameter is essential when applications require specific SQL syntax or characters before the actual injection payload to construct a valid query.
                                  It is particularly useful when dealing with applications that embed parameters within complex SQL queries requiring specific opening syntax, such as closing quotes or parentheses before the injection point.">
-                                <label class="form-label" title="Injection payload prefix string" for="prefix">Prefix<br/><span>--prefix</span></label>
+                                <label class="form-label" for="prefix">Prefix<br/><span>--prefix</span></label>
                                 <input type="text" id="prefix" class="form-control" placeholder="')">
                             </div>
                             <!-- --suffix -->
                             <div class="form-group" title="The --suffix parameter enables you to append a custom string to every SQL injection payload after the main injection code.
 It is crucial when applications require specific closing characters or comments to prevent SQL syntax errors, such as SQL comments (--) or closing parentheses to maintain query validity.">
-                                <label class="form-label" title="Injection payload suffix string" for="suffix">Suffix<br/><span>--suffix</span></label>
+                                <label class="form-label" for="suffix">Suffix<br/><span>--suffix</span></label>
                                 <input type="text" id="suffix" class="form-control" placeholder="-- -">
                             </div>
 
                             <h3>Detection</h3>
                             <!-- --string -->
-                            <div class="form-group" title="">
-                                <label class="form-label" title="" for="string">String when query evaluated<br/><span>--string</span></label>
+                            <div class="form-group" title="By default the distinction of a True query from a False  is done by comparing the injected requests page content with the original not injected page content. Not always this concept works because sometimes the page content changes at each refresh even not injecting anything, for instance when the page has a counter, a dynamic advertisement banner or any other part of the HTML which is rendered dynamically and might change in time not only consequently to user's input. 
+The user can provide a string (--string option) which should be present on original page (though it is not a requirement) and on all True injected query pages, but that it is not on the False ones.
+Instead of --string, the user can use a --regexp.
+Alternatively, user can provide a --not-string option which should not present on original page and not on all True injected query pages, but appears always on False ones.">
+                                <label class="form-label" for="string">String when query evaluated<br/><span>--string</span></label>
                                 <input type="text" id="string" class="form-control" placeholder="">
                             </div>
-                            <!-- --not-string -->
-                            <div class="form-group" title="">
-                                <label class="form-label" title="" for="notString">String when query not evaluated<br/><span>--not-string</span></label>
-                                <input type="text" id="notString" class="form-control" placeholder="">
-                            </div>
                             <!-- --regexp-->
-                            <div class="form-group" title="">
-                                <label class="form-label" title="" for="regexp">Regexp to match<br/><span>--regexp</span></label>
+                            <div class="form-group" title="By default the distinction of a True query from a False  is done by comparing the injected requests page content with the original not injected page content. Not always this concept works because sometimes the page content changes at each refresh even not injecting anything, for instance when the page has a counter, a dynamic advertisement banner or any other part of the HTML which is rendered dynamically and might change in time not only consequently to user's input. 
+The user can provide a string (--string option) which should be present on original page (though it is not a requirement) and on all True injected query pages, but that it is not on the False ones.
+Instead of --string, the user can use a --regexp.
+Alternatively, user can provide a --not-string option which should not present on original page and not on all True injected query pages, but appears always on False ones.">
+                                <label class="form-label" for="regexp">Regexp to match<br/><span>--regexp</span></label>
                                 <input type="text" id="regexp" class="form-control" placeholder="">
                             </div>
+                            <!-- --not-string -->
+                            <div class="form-group" title="By default the distinction of a True query from a False  is done by comparing the injected requests page content with the original not injected page content. Not always this concept works because sometimes the page content changes at each refresh even not injecting anything, for instance when the page has a counter, a dynamic advertisement banner or any other part of the HTML which is rendered dynamically and might change in time not only consequently to user's input. 
+The user can provide a string (--string option) which should be present on original page (though it is not a requirement) and on all True injected query pages, but that it is not on the False ones.
+Instead of --string, the user can use a --regexp.
+Alternatively, user can provide a --not-string option which should not present on original page and not on all True injected query pages, but appears always on False ones.">
+                                <label class="form-label" for="notString">String when query not evaluated<br/><span>--not-string</span></label>
+                                <input type="text" id="notString" class="form-control" placeholder="">
+                            </div>
                             <!-- --code -->
-                            <div class="form-group" title="">
-                                <label class="form-label" title="" for="code">HTTP code to match<br/><span>--code</span></label>
+                            <div class="form-group" title="Use this in cases when you know that the distinction of a True query from a False one can be done using HTTP code.">
+                                <label class="form-label" for="code">HTTP code to match<br/><span>--code</span></label>
                                 <input type="number" id="code" class="form-control" min="100", max="599", step="1" placeholder="201">
                             </div>
+                            <!-- --titles -->
+                            <div class="form-group" title="Turn on when you knows that the distinction of a True query from a False one can be done using HTML title (e.g. Welcome for True and Forbidden for False).">
+                                <label class="form-label">DETECT COMPARING TITLES</label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="titles">
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-label__text">--titles</span>
+                                </label>
+                            </div>
+                            <!-- --text-only -->
+                            <div class="form-group" title="In cases with lot of active content (e.g. scripts, embeds, etc.) in the HTTP responses' body, you can filter pages (switch --text-only) just for their textual content. 
+This way, in a good number of cases, you can automatically tune the detection engine.">
+                                <label class="form-label">FILTER ACTIVE CONTENT</label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="textOnly">
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-label__text">--text-only</span>
+                                </label>
+                            </div>                            
 
                             <h3>Attack Optimalization</h3>
                             <!-- --level -->
@@ -584,6 +612,7 @@ You can point sqlmap a request file for sending to the server where results are 
                                 <label class="form-label" for="secondUrl">SECOND ORDER REQUEST FILE<br/><span>--second-req</span></label>
                                 <input type="text" id="secondReq" class="form-control" placeholder="second-order-request.txt">
                             </div>
+
                             <!-- Attack techniques -->
                             <div class="form-group">
                                 <label class="form-label" title="">ATTACK TECHNIQUES<br/><span>--technique</span></label>
@@ -673,18 +702,6 @@ The parameter is not compatible with --threads and works best when retrieving st
                                         <span class="checkmark"></span>
                                         <span>--predict-output</span>
                                     </label>                                    
-                                    <!-- --text-only -->
-                                    <label class="checkbox-label" title="Compare pages based only on the textual content.">
-                                        <input type="checkbox" id="predictOutput">
-                                        <span class="checkmark"></span>
-                                        <span>--text-only</span>
-                                    </label>
-                                    <!-- --titles -->
-                                    <label class="checkbox-label" title="Compare pages based only on their titles.">
-                                        <input type="checkbox" id="titles">
-                                        <span class="checkmark"></span>
-                                        <span>--titles</span>
-                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -697,6 +714,18 @@ The parameter is not compatible with --threads and works best when retrieving st
                 <div class="card">
                     <div class="card__body">
                         <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" title="DBMS database to enumerate" for="database">DATABASE(S) NAME FOR ENUMERATION<br/><span>-D</span></label>
+                                <input type="text" id="database" class="form-control" placeholder="database_name1,database_name2">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="DBMS database table(s) to enumerate" for="table">TABLE(S) NAME FOR ENUMERATION<br/><span>-T</span></label>
+                                <input type="text" id="table" class="form-control" placeholder="table_name1,table_name2">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" title="DBMS database table column(s) to enumerate" for="column">COLUMN(S) NAME FOR ENUMERATION<br/><span>-C</span></label>
+                                <input type="text" id="column" class="form-control" placeholder="column_name1,column_name2">
+                            </div>
                             <div class="checkbox-grid" title="These options can be used to enumerate the back-end database management system information, structure and data contained in the tables">
                                 <label class="form-label">ENUMERATION AND DATA EXFILTRATION</label>
                                 <label class="checkbox-label" title="Retrieve DBMS current user">
@@ -734,18 +763,6 @@ The parameter is not compatible with --threads and works best when retrieving st
                                     <span class="checkmark"></span>
                                     <span>--dump-all</span>
                                 </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="DBMS database to enumerate" for="database">DATABASE(S) NAME FOR ENUMERATION<br/><span>-D</span></label>
-                                <input type="text" id="database" class="form-control" placeholder="database_name1,database_name2">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="DBMS database table(s) to enumerate" for="table">TABLE(S) NAME FOR ENUMERATION<br/><span>-T</span></label>
-                                <input type="text" id="table" class="form-control" placeholder="table_name1,table_name2">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" title="DBMS database table column(s) to enumerate" for="column">COLUMN(S) NAME FOR ENUMERATION<br/><span>-C</span></label>
-                                <input type="text" id="column" class="form-control" placeholder="column_name1,column_name2">
                             </div>
                         </div>
                     </div>
