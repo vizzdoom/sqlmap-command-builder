@@ -45,7 +45,7 @@
 
   /* Typography */
   --font-family-base: "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-family-mono: 'Courier New', monospace;
   --font-size-xs: 11px;
   --font-size-s: 12px;
   --font-size-base: 13px;
@@ -281,7 +281,7 @@ h1 {
   margin-bottom: var(--space-l);
   color: var(--hacker-primary);
   text-shadow: 0 0 20px var(--color-border);
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-family-mono);
 }
 h2 {
   font-size: var(--font-size-3xl);
@@ -423,7 +423,7 @@ pre code {
   border: 1px solid var(--hacker-border);
   border-radius: var(--radius-m);
   background: var(--hacker-bg-dark);
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-family-mono);
   transition: all var(--duration-fast) var(--ease-standard);
 }
 
@@ -465,7 +465,7 @@ pre code {
 }
 
 textarea.form-control {
-  font-family: var(--font-family-base);
+  font-family: var(--font-family-mono);
   font-size: var(--font-size-base);
   resize: vertical;
   min-height: 39px;
@@ -650,7 +650,7 @@ select.form-control {
 body {
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
   min-height: 100vh;
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-family-mono);
 }
 
 
@@ -703,7 +703,7 @@ body {
   background: none;
   border: none;
   color: var(--color-text);
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-family-mono);
   font-size: var(--font-size-m);
   white-space: pre-wrap;
   word-break: break-all;
