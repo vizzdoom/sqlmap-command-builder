@@ -728,6 +728,31 @@ The parameter is not compatible with --threads and works best when retrieving st
                             </div>
                             <div class="checkbox-grid" title="These options can be used to enumerate the back-end database management system information, structure and data contained in the tables">
                                 <label class="form-label">ENUMERATION AND DATA EXFILTRATION</label>
+                                <label class="checkbox-label" title="Retrieve everything">
+                                    <input type="checkbox" id="all">
+                                    <span class="checkmark"></span>
+                                    <span>--all</span>
+                                </label>                                
+                                <label class="checkbox-label" title="Retrieve DBMS banner">
+                                    <input type="checkbox" id="banner">
+                                    <span class="checkmark"></span>
+                                    <span>--banner</span>
+                                </label>
+                                <label class="checkbox-label" title="Enumerate DBMS database table columns">
+                                    <input type="checkbox" id="columns">
+                                    <span class="checkmark"></span>
+                                    <span>--columns</span>
+                                </label>
+                                <label class="checkbox-label" title="Enumerate DBMS database table columns">
+                                    <input type="checkbox" id="comments">
+                                    <span class="checkmark"></span>
+                                    <span>--comments</span>
+                                </label>                                
+                                <label class="checkbox-label" title="Enumerate DBMS database table columns">
+                                    <input type="checkbox" id="count">
+                                    <span class="checkmark"></span>
+                                    <span>--count</span>
+                                </label>
                                 <label class="checkbox-label" title="Retrieve DBMS current user">
                                     <input type="checkbox" id="currentUser">
                                     <span class="checkmark"></span>
@@ -742,26 +767,66 @@ The parameter is not compatible with --threads and works best when retrieving st
                                     <input type="checkbox" id="dbs">
                                     <span class="checkmark"></span>
                                     <span>--dbs</span>
-                                </label>
-                                <label class="checkbox-label" title="Enumerate DBMS database tables">
-                                    <input type="checkbox" id="tables">
+                                </label>                                
+                                <label class="checkbox-label" title="Dump all DBMS databases tables entries">
+                                    <input type="checkbox" id="dump">
                                     <span class="checkmark"></span>
-                                    <span>--tables</span>
-                                </label>
-                                <label class="checkbox-label" title="Enumerate DBMS database table columns">
-                                    <input type="checkbox" id="columns">
+                                    <span>--dump</span>
+                                </label>                                
+                                <label class="checkbox-label" title="Dump all DBMS databases tables entries">
+                                    <input type="checkbox" id="dumpAll">
                                     <span class="checkmark"></span>
-                                    <span>--columns</span>
+                                    <span>--dump-all</span>
+                                </label>                                     
+                                <label class="checkbox-label" title="Retrieve DBMS server hostname">
+                                    <input type="checkbox" id="hostname">
+                                    <span class="checkmark"></span>
+                                    <span>--hostname</span>
+                                </label>
+                                <label class="checkbox-label" title="Detect if the DBMS current user is DBA">
+                                    <input type="checkbox" id="isDba">
+                                    <span class="checkmark"></span>
+                                    <span>--is-dba</span>
+                                </label>
+                                <label class="checkbox-label" title="Enumerate DBMS users password hashes">
+                                    <input type="checkbox" id="passwords">
+                                    <span class="checkmark"></span>
+                                    <span>--passwords</span>
+                                </label>
+                                <label class="checkbox-label" title="Enumerate DBMS users privileges">
+                                    <input type="checkbox" id="privileges">
+                                    <span class="checkmark"></span>
+                                    <span>--privileges</span>
+                                </label>
+                                <label class="checkbox-label" title="Enumerate DBMS users roles">
+                                    <input type="checkbox" id="roles">
+                                    <span class="checkmark"></span>
+                                    <span>--roles</span>
                                 </label>
                                 <label class="checkbox-label" title="Enumerate DBMS schema">
                                     <input type="checkbox" id="schema">
                                     <span class="checkmark"></span>
                                     <span>--schema</span>
                                 </label>
-                                <label class="checkbox-label" title="Dump all DBMS databases tables entries">
-                                    <input type="checkbox" id="dumpAll">
+                                <label class="checkbox-label" title="Search column(s), table(s) and/or database name(s)">
+                                    <input type="checkbox" id="search">
                                     <span class="checkmark"></span>
-                                    <span>--dump-all</span>
+                                    <span>--search</span>
+                                </label>
+                                <label class="checkbox-label" title="Retrieve SQL statements being run on DBMS">
+                                    <input type="checkbox" id="statements">
+                                    <span class="checkmark"></span>
+                                    <span>--statements</span>
+                                </label>                                
+                                <label class="checkbox-label" title="Retrieve SQL statements being run on DBMS">
+                                    <input type="checkbox" id="tables">
+                                    <span class="checkmark"></span>
+                                    <span>--tables</span>
+                                </label>
+                                <label class="checkbox-label" title="Enumerate DBMS users">
+                                    <input type="checkbox" id="users">
+                                    <span class="checkmark"></span>
+                                    <span>--users</span>
                                 </label>
                             </div>
                         </div>

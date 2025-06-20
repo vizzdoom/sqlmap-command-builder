@@ -481,13 +481,26 @@ class SQLMapGenerator {
         if (document.getElementById('parseErrors').checked) config['--parse-errors'] = true;
         
         // Post-exploitation options
+        if (document.getElementById('all').checked) config['--all'] = true;
+        if (document.getElementById('banner').checked) config['--banner'] = true;
+        if (document.getElementById('columns').checked) config['--columns'] = true;
+        if (document.getElementById('comments').checked) config['--comments'] = true;
+        if (document.getElementById('count').checked) config['--count'] = true;
         if (document.getElementById('currentUser').checked) config['--current-user'] = true;
         if (document.getElementById('currentDb').checked) config['--current-db'] = true;
         if (document.getElementById('dbs').checked) config['--dbs'] = true;
-        if (document.getElementById('tables').checked) config['--tables'] = true;
-        if (document.getElementById('columns').checked) config['--columns'] = true;
-        if (document.getElementById('schema').checked) config['--schema'] = true;
+        if (document.getElementById('dump').checked) config['--dump'] = true;
         if (document.getElementById('dumpAll').checked) config['--dump-all'] = true;
+        if (document.getElementById('hostname').checked) config['--hostname'] = true;
+        if (document.getElementById('isDba').checked) config['--is-dba'] = true;
+        if (document.getElementById('passwords').checked) config['--passwords'] = true;
+        if (document.getElementById('privileges').checked) config['--privileges'] = true;
+        if (document.getElementById('roles').checked) config['--roles'] = true;
+        if (document.getElementById('schema').checked) config['--schema'] = true;
+        if (document.getElementById('search').checked) config['--search'] = true;
+        if (document.getElementById('statements').checked) config['--statements'] = true;
+        if (document.getElementById('tables').checked) config['--tables'] = true;
+        if (document.getElementById('users').checked) config['--users'] = true;
         
         const database = document.getElementById('database').value.trim();
         if (database) config['-D'] = database;
@@ -521,7 +534,8 @@ class SQLMapGenerator {
             '-p', '--skip', '--param-exclude', '--param-filter', '--level', '--risk', '--dbms', '--os',
             '--technique', '--invalid-bignum', '--invalid-logical', '--invalid-string', '--no-cast', '--no-escape', '--predict-output',
             '--batch', '-v', '-t', '--parse-errors', '--test-filter',
-            '--current-user', '--current-db', '--dbs', '--tables', '--columns', '--schema', '--dump-all',
+            '--all', '--banner', '--columns', '--comments', '--count', '--current-user', '--current-db', '--dbs', '--dump', '--dump-all', 
+            '--hostname', '--is-dba', '--passwords', '--privileges', '--roles', '--schema', '--search', '--statements', '--tables', '--users',
             '-D', '-T', '-C', '-o',
             '--tamper', '--prefix', '--suffix', '--csrf-token', '--csrf-url', '--second-url'
         ];
@@ -830,13 +844,26 @@ class SQLMapGenerator {
                 '-t': 'trafficFile',
                 '--parse-errors': 'parseErrors',
                 '--test-filter': 'testFilter',
+                '--all': 'all',
+                '--banner': 'banner',
+                '--columns': 'columns',
+                '--comments': 'comments',
+                '--count': 'count',
                 '--current-user': 'currentUser',
                 '--current-db': 'currentDb',
                 '--dbs': 'dbs',
-                '--tables': 'tables',
-                '--columns': 'columns',
-                '--schema': 'schema',
+                '--dump': 'dump',
                 '--dump-all': 'dumpAll',
+                '--hostname': 'hostname',
+                '--is-dba': 'isDba',
+                '--passwords': 'passwords',
+                '--privileges': 'privileges',
+                '--roles': 'roles',
+                '--schema': 'schema',
+                '--search': 'search',
+                '--statements': 'statements',
+                '--tables': 'tables',
+                '--users': 'users',
                 '-D': 'database',
                 '-T': 'table',
                 '-C': 'column',
