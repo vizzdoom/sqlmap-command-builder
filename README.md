@@ -1,5 +1,5 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./logo.png">
+  <source media="(prefers-color-scheme: dark)" srcset="./logo-dark.png">
   <img alt="SQLMAP COMMAND BUILDER" src="./logo-white.png">
 </picture>
 
