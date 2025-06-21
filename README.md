@@ -1,6 +1,6 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./logo-dark.png">
-  <img height=350 alt="SQLMAP COMMAND BUILDER" src="./logo-white.png">
+  <img height=350 alt="SQLMAP COMMAND BUILDER" src="./logo-light.png">
 </picture>
 
 ## <https://vizzdoom.github.io/sqlmap-command-builder/>
