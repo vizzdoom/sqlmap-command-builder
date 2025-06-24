@@ -50,9 +50,9 @@
   --font-size-s: 11px;
   --font-size-m: 13px;
   --font-size-l: 16px;
-  --font-size-xl: 18px;
-  --font-size-2xl: 20px;
-  --font-size-3xl: 24px;
+  --font-size-xl: 19px;
+  --font-size-2xl: 22px;
+  --font-size-3xl: 26px;
   --font-size-4xl: 30px;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
@@ -64,9 +64,9 @@
 
   /* Spacing */
   --space-0:    0;
-  --space-xs:   4px;
-  --space-s:    8px;
-  --space-m:    12px;
+  --space-xs:   5px;
+  --space-s:    10px;
+  --space-m:    13px;
   --space-l:    16px;
   --space-xl:   20px;
   --space-2xl:  24px;
@@ -495,10 +495,20 @@ select.form-control {
 
 
 /* Status indicators - simplified with CSS variables */
+#status-container {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  position: fixed;
+  top: 20px;
+  right: 30px;
+}
+
 .status {
   display: inline-flex;
   align-items: center;
-  padding: var(--space-s) var(--space-m);
+  padding: var(--space-m) var(--space-m);
+  margin: var(--space-xs) 0;
   border-radius: var(--radius-full);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-s);
@@ -803,21 +813,12 @@ body {
 .card h3 {
     grid-column: 1 / -1;
     color: var(--hacker-secondary);
-    font-size: var(--font-size-2xl);
-    border-bottom-color: var(--hacker-primary);
-    border-bottom-style: dashed;
+    font-size: var(--font-size-xl);
+    border-bottom-color: var(--hacker-secondary);
+    border-bottom-style: dotted;
     border-bottom-width: 1px;
-    padding: var(--space-m) 0;
+    padding: var(--space-xs) 0 var(--space-s) 0;
 }
-
-
-
-
-
-
-
-
-
 
 /* Sliders */
 .slider {

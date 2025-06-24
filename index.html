@@ -770,6 +770,16 @@ If it is necessary to enforce the usage of particular pivot column because the a
                             <div class="form-group">
                                 <label class="form-label" title="It is possible to specify which single character or range of characters to dump with options --first and --last. For instance, if you want to dump columns' entries from the third to the fifth character, provide --first 3 --last 5. This feature only applies to the blind SQL injection techniques because for error-based and UNION query SQL injection techniques the number of requests is exactly the same, regardless of the length of the column's entry output to dump." for="last">LAST DUMP TABLE ENTRY<br/><span>--last</span></label>
                                 <input type="number" id="last" class="form-control" placeholder="5">
+                            </div>                            
+                            <!-- --sql-query -->
+                            <div class="form-group">
+                                <label class="form-label" title="SQL statement to be executed" for="sqlQuery">SQL STATEMENT FOR EXECUTION<br/><span>--sql-query</span></label>
+                                <input type="text" id="sqlQuery" class="form-control" placeholder="SELECT 1 FROM DUAL">
+                            </div>                            
+                            <!-- --sql-file -->
+                            <div class="form-group">
+                                <label class="form-label" title="SQL statement to be executed" for="sqlFile">FILE WITH SQL STATEMENTS<br/><span>--sql-file</span></label>
+                                <input type="text" id="sqlFile" class="form-control" placeholder="statements.sql">
                             </div>
                             <!-- ENUMERATION -->
                             <div class="checkbox-grid" style="grid-row-start: 1; grid-row-end: 6;" title="These options can be used to enumerate the back-end database management system information, structure and data contained in the tables">
@@ -823,7 +833,12 @@ If it is necessary to enforce the usage of particular pivot column because the a
                                     <input type="checkbox" id="dumpAll">
                                     <span class="checkmark"></span>
                                     <span>--dump-all</span>
-                                </label>                                     
+                                </label>                  
+                                <label class="checkbox-label" title="Exclude system databases from enumeration">
+                                    <input type="checkbox" id="excludeSysdbs">
+                                    <span class="checkmark"></span>
+                                    <span>--exclude-sysdbs</span>
+                                </label>
                                 <label class="checkbox-label" title="Retrieve DBMS server hostname">
                                     <input type="checkbox" id="hostname">
                                     <span class="checkmark"></span>
@@ -1437,6 +1452,8 @@ If it is necessary to enforce the usage of particular pivot column because the a
                 </div>
             </div>
         </div>
+
+        <div id="status-container"></div>
 
         <script src="app.js"></script>
     </body>

@@ -1,6 +1,130 @@
 class SQLMapGenerator {
     constructor() {
         this.config = {};
+
+        this.paramMapping = {
+            '-u': 'url',
+            '-d': 'directDb',
+            '-g': 'googleDork',
+            '-m': 'targetsFile',
+            '-l': 'burpFile',
+            '--scope': 'burpFileScope',
+
+            '--timeout': 'timeout',
+            '--delay': 'delay',
+            '--threads': 'threads',
+            '--force-ssl': 'forceSsl',
+            '--keep-alive': 'keepAlive',
+            '--null-connection': 'nullConnection',
+
+            '--proxy': 'proxy',
+            '--proxy-cred': 'proxyCred',
+            '--proxy-file': 'proxyFile',
+            '--proxy-freq': 'proxyFreq',
+            '--ignore-proxy': 'proxyIgnore',
+            '--tor': 'tor',
+            '--check-tor': 'checkTor',
+            '--tor-port': 'torPort',
+            '--tor-type': 'torType',
+
+            '--method': 'method',
+            '--param-del': 'paramDel',
+            '-r': 'requestFile',
+            '--data': 'data',
+            
+            '--host': 'host',
+            '-A': 'userAgent',
+            '--random-agent': 'userAgent',
+            '--mobile': 'mobileUserAgent',
+            '--referer': 'referer',
+            '-H': 'headers',
+
+            '--cookie': 'cookie',
+            '--cookie-del': 'cookieDel',
+            '--live-cookies': 'cookieLive',
+            '--load-cookies': 'cookieLoad',
+            '--drop-set-cookie': 'cookieDrop',
+            '--auth-type': 'authType',
+            '--auth-cred': 'authCred',
+            '--auth-file': 'authFile',
+
+            '--csrf-token': 'csrfToken',
+            '--csrf-method': 'csrfMethod',
+            '--csrf-url': 'csrfUrl',
+            '--csrf-retries': 'csrfRetries',
+            
+            '-p': 'paramTest',
+            '--skip': 'paramSkip',
+            '--param-exclude': 'paramExclude',
+            '--param-filter': 'paramFilter',
+            '--prefix': 'prefix',
+            '--suffix': 'suffix',
+            
+            '--string': 'string',
+            '--regexp': 'regexp',
+            '--not-string': 'notString',
+            '--code': 'code',
+            '--titles': 'titles',
+            '--text-only': 'textOnly',
+            '--level': 'level',
+
+            '--risk': 'risk',
+            '--dbms': 'dbms',
+            '--os': 'os',
+            '--second-url': 'secondUrl',
+            '--second-req': 'secondReq',
+            '--technique': 'technique',
+            '--invalid-bignum': 'invalidBignum',
+            '--invalid-logical': 'invalidLogical', 
+            '--invalid-string': 'invalidString',
+            '--no-cast': 'noCast',
+            '--no-escape': 'noEscape',
+            '--predict-output':'predictOutput',
+
+            '--all': 'all',
+            '--banner': 'banner',
+            '--columns': 'columns',
+            '--comments': 'comments',
+            '--count': 'count',
+            '--current-user': 'currentUser',
+            '--current-db': 'currentDb',
+            '--dbs': 'dbs',
+            '--dump': 'dump',
+            '--dump-all': 'dumpAll',
+            '--exclude-sysdbs': 'excludeSysdbs',
+            '--hostname': 'hostname',
+            '--is-dba': 'isDba',
+            '--passwords': 'passwords',
+            '--privileges': 'privileges',
+            '--roles': 'roles',
+            '--schema': 'schema',
+            '--search': 'search',
+            '--statements': 'statements',
+            '--tables': 'tables',
+            '--users': 'users',
+            
+            '-D': 'database',
+            '-T': 'table',
+            '-C': 'column',
+            '-X': 'exclude',
+            '-U': 'user',
+            '--pivot-column': 'pivotColumn',
+            '--where': 'where',
+            '--start': 'start',
+            '--stop': 'stop',
+            '--first': 'first',
+            '--last': 'last',
+            '--sql-query': 'sqlQuery',
+            '--sql-file': 'sqlFile',
+
+            '--tamper': 'tamper',
+
+            '-v': 'verbose',
+            '-t': 'trafficFile',
+            '--batch': 'batch',
+            '--parse-errors': 'parseErrors'
+        };
+
         this.tamperScriptList = [
             "0eunion",
             "apostrophemask",
@@ -431,7 +555,10 @@ class SQLMapGenerator {
         if (suffix) config['--suffix'] = suffix;
 
         const secondUrl = document.getElementById('secondUrl').value.trim();
-        if (secondUrl) config['--second-url'] = secondUrl;
+        if (secondUrl) config['--second-url'] = secondUrl;        
+        
+        const secondReq = document.getElementById('secondReq').value.trim();
+        if (secondReq) config['--second-req'] = secondReq;
         
         // Techniques
         const techniques = [];
@@ -493,6 +620,7 @@ class SQLMapGenerator {
         if (document.getElementById('dumpAll').checked) config['--dump-all'] = true;
         if (document.getElementById('hostname').checked) config['--hostname'] = true;
         if (document.getElementById('isDba').checked) config['--is-dba'] = true;
+        if (document.getElementById('excludeSysdbs').checked) config['--exclude-sysdbs'] = true;
         if (document.getElementById('passwords').checked) config['--passwords'] = true;
         if (document.getElementById('privileges').checked) config['--privileges'] = true;
         if (document.getElementById('roles').checked) config['--roles'] = true;
@@ -530,10 +658,16 @@ class SQLMapGenerator {
         if (stop) config['--stop'] = stop;
         
         const first = document.getElementById('first').value.trim();
-        if (first) config['--first'] = first;
+        if (first) config['--first'] = first;        
         
         const last = document.getElementById('last').value.trim();
         if (last) config['--last'] = last;
+        
+        const sqlQuery = document.getElementById('sqlQuery').value.trim();
+        if (sqlQuery) config['--sql-query'] = sqlQuery;        
+        
+        const sqlFile = document.getElementById('sqlFile').value.trim();
+        if (sqlFile) config['--sql-file'] = sqlFile;
         
         return config;
     }
@@ -543,26 +677,7 @@ class SQLMapGenerator {
         let command = 'sqlmap';
         
         // Order of parameters for better readability
-        const paramOrder = [
-            '-u', '-d', '-r', '-m', '-l', '--scope', '-g',
-             '--timeout', '--delay', '--threads',
-            '--proxy', '--proxy-cred', '--proxy-file', '--proxy-freq', '--ignore-proxy',
-            '--tor', '--check-tor', '--tor-port', '--tor-type',
-            '--force-ssl', '--keep-alive', '--null-connection', '--http2',
-            '--method', '--data', '--param-del',
-            '--string', '--not-string', '--regexp', '--code', '--text-only', '--titles',
-            '--host', '-A', '--mobile', '--random-agent', "--referer", "-H",
-            '--cookie', '--cookie-del', '--live-cookies', '--load-cookies', '--drop-set-cookie',
-            '--auth-type', '--auth-cred', '--auth-file',
-            '--csrf-token', '--csrf-url', '--csrf-method', '--csrf-retries',
-            '-p', '--skip', '--param-exclude', '--param-filter', '--level', '--risk', '--dbms', '--os',
-            '--technique', '--invalid-bignum', '--invalid-logical', '--invalid-string', '--no-cast', '--no-escape', '--predict-output',
-            '--batch', '-v', '-t', '--parse-errors', '--test-filter',
-            '--all', '--banner', '--columns', '--comments', '--count', '--current-user', '--current-db', '--dbs', '--dump', '--dump-all', 
-            '--hostname', '--is-dba', '--passwords', '--privileges', '--roles', '--schema', '--search', '--statements', '--tables', '--users',
-            '-D', '-T', '-C', '-X', '-U', '--pivot-column', '--where', '--start', '--stop', '--first', '--last',
-            '--tamper', '--prefix', '--suffix', '--csrf-token', '--csrf-url', '--second-url'
-        ];
+        const paramOrder = Object.keys(this.paramMapping);
         
         // Add parameters in order
         paramOrder.forEach(param => {
@@ -592,9 +707,10 @@ class SQLMapGenerator {
         // Check if we have hashtag with proper config and load it if so
         try {
             let hashtag = location.hash.substr(1);
-            if (hashtag.length > 0) {
+            if (hashtag.length > 0 && hashtag !== "e30=") {
                 let hashtagCmd = JSON.parse(atob(hashtag));
                 this.applyConfiguration(hashtagCmd);
+                this.showMessage("Configuration loaded from URL", 'success');
             }
         } catch (ex) {
             console.log(ex);
@@ -792,119 +908,12 @@ class SQLMapGenerator {
 
     applyConfiguration(config) {
         // Reset form first
-        this.resetConfiguration();
+        this.resetConfiguration(true);
         
         // Apply configuration
         Object.entries(config).forEach(([param, value]) => {
-            // Map parameters to form element IDs
-            const paramMapping = {
-                '-u': 'url',
-                '-d': 'directDb',
-                '-r': 'requestFile',
-                '-m': 'targetsFile',
-                '-l': 'burpFile',
-                '--scope': 'burpFileScope',
-                '-g': 'googleDork',
-                '--force-ssl': 'forceSsl',
-                '--timeout': 'timeout',
-                '--delay': 'delay',
-                '--threads': 'threads',
-                '--proxy': 'proxy',
-                '--proxy-cred': 'proxyCred',
-                '--proxy-file': 'proxyFile',
-                '--proxy-freq': 'proxyFreq',
-                '--ignore-proxy': 'proxyIgnore',
-                '--tor': 'tor',
-                '--check-tor': 'checkTor',
-                '--tor-port': 'torPort',
-                '--tor-type': 'torType',
-                '--method': 'method',
-                '--data': 'data',
-                '--param-del': 'paramDel',
-                '--prefix': 'prefix',
-                '--suffix': 'suffix',
-                '--host': 'host',
-                '-A': 'userAgent',
-                '--string': 'string',
-                '--not-string': 'notString',
-                '--regexp': 'regexp',
-                '--code': 'code',
-                '--titles': 'titles',
-                '--text-only': 'textOnly',
-                '--mobile': 'mobileUserAgent',
-                '--random-agent': 'userAgent',
-                '--referer': 'referer',
-                '-H': 'headers',
-                '--cookie': 'cookie',
-                '--cookie-del': 'cookieDel',
-                '--live-cookies': 'cookieLive',
-                '--drop-set-cookie': 'cookieDrop',
-                '--load-cookies': 'cookieLoad',
-                '--auth-type': 'authType',
-                '--auth-cred': 'authCred',
-                '--auth-file': 'authFile',
-                '--csrf-token': 'csrfToken',
-                '--csrf-url': 'csrfUrl',
-                '--csrf-method': 'csrfMethod',
-                '--csrf-retries': 'csrfRetries',
-                '-p': 'paramTest',
-                '--skip': 'paramSkip',
-                '--param-exclude': 'paramExclude',
-                '--param-filter': 'paramFilter',
-                '--level': 'level',
-                '--risk': 'risk',
-                '--dbms': 'dbms',
-                '--os': 'os',
-                '--technique': 'technique',
-                '--invalid-bignum': 'invalidBignum',
-                '--invalid-logical': 'invalidLogical', 
-                '--invalid-string': 'invalidString',
-                '--no-cast': 'noCast',
-                '--no-escape': 'noEscape',
-                '--predict-output':'predictOutput',
-                '--keep-alive': 'keepAlive',
-                '--batch': 'batch',
-                '-v': 'verbose',
-                '-t': 'trafficFile',
-                '--parse-errors': 'parseErrors',
-                '--test-filter': 'testFilter',
-                '--all': 'all',
-                '--banner': 'banner',
-                '--columns': 'columns',
-                '--comments': 'comments',
-                '--count': 'count',
-                '--current-user': 'currentUser',
-                '--current-db': 'currentDb',
-                '--dbs': 'dbs',
-                '--dump': 'dump',
-                '--dump-all': 'dumpAll',
-                '--hostname': 'hostname',
-                '--is-dba': 'isDba',
-                '--passwords': 'passwords',
-                '--privileges': 'privileges',
-                '--roles': 'roles',
-                '--schema': 'schema',
-                '--search': 'search',
-                '--statements': 'statements',
-                '--tables': 'tables',
-                '--users': 'users',
-                '-D': 'database',
-                '-T': 'table',
-                '-C': 'column',
-                '-X': 'exclude',
-                '-U': 'user',
-                '--where': 'where',
-                '--start': 'start',
-                '--stop': 'stop',
-                '--first': 'first',
-                '--last': 'last',
-                '--pivot-column': 'pivotColumn',
-                '--null-connection': 'nullConnection',
-                '--tamper': 'tamper',
-                '--second-url': 'secondUrl'
-            };
             
-            const elementId = paramMapping[param];
+            const elementId = this.paramMapping[param];
             if (elementId) {
                 const element = document.getElementById(elementId);
                 if (element) {
@@ -947,7 +956,7 @@ class SQLMapGenerator {
         this.updateCommand();
     }
 
-    resetConfiguration() {
+    resetConfiguration(skipResetAlert = false) {
         // Reset all form fields
         document.querySelectorAll('input, select, textarea').forEach(element => {
             if (element.type === 'checkbox') {
@@ -974,7 +983,9 @@ class SQLMapGenerator {
         document.getElementById('customCsrfMethodGroup').style.display = 'none';
         
         this.updateCommand();
-        this.showMessage('Configuration deleted', 'info');
+        if (!skipResetAlert) {
+            this.showMessage('Configuration loaded', 'info');
+        }
     }
 
     showMessage(message, type = 'info') {
@@ -982,21 +993,15 @@ class SQLMapGenerator {
         const messageEl = document.createElement('div');
         messageEl.className = `status status--${type}`;
         messageEl.textContent = message;
-        messageEl.style.position = 'fixed';
-        messageEl.style.top = '20px';
-        messageEl.style.right = '20px';
-        messageEl.style.zIndex = '1000';
-        messageEl.style.minWidth = '300px';
-        messageEl.style.padding = '12px 16px';
         
-        document.body.appendChild(messageEl);
+        document.getElementById("status-container").appendChild(messageEl);
         
-        // Remove after 10 seconds
+        // Remove after 6 seconds
         setTimeout(() => {
             if (messageEl.parentNode) {
                 messageEl.parentNode.removeChild(messageEl);
             }
-        }, 10000);
+        }, 6000);
     }
 }
 
