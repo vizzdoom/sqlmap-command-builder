@@ -27,6 +27,6 @@ Above built artifact is automatically deployed to the project's GitLab Page.
 
 _This software is exclusively designed for educational purposes._
 
-_The developer are not liable for any damages or misuse that may result from using this tool._
+_The developer is not liable for any damages or misuse that may result from using this tool._
 
 _You have to accept this term to use or distribute this software._
