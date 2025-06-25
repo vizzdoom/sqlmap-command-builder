@@ -165,10 +165,11 @@
   margin-right: var(--space-xs);
 }
 .btn svg {
-  height: 14px; 
-  width: 14px;
-  top: 3px; 
-  left: -2px; 
+  height: var(--font-size-m); 
+  width: var(--font-size-m);
+
+  margin-left: var(--space-xs);
+  margin-right: var(--space-xs);
   position: relative;
 }
 @media (min-width: 600px) {
