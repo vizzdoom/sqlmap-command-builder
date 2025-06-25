@@ -536,7 +536,7 @@ select.form-control {
   border-radius: var(--radius-l);
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-s);
-  width: 250px;
+  width: 275px;
   height: 60px;
   text-align: center;
 }
