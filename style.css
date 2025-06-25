@@ -324,7 +324,7 @@ a {
 }
 
 a:hover {
-  color: var(--color-primary-hover);
+  color: var(--hacker-secondary);
 }
 
 code,
