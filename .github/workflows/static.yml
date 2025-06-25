@@ -42,7 +42,7 @@ jobs:
           # Upload entire repository
           # path: '.'
           # Upload compiled html file
-          name: 'index.html'
+          path: 'index.html'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
