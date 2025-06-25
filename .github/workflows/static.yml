@@ -34,15 +34,14 @@ jobs:
       - name: Build index.html
         run: |
           python build.py
+          mkdir output
+          cp index.html output/
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          # path: '.'
-          # Upload compiled html file
-          path: 'index.html'
+          path: 'output/'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
