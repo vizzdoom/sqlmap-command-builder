@@ -710,9 +710,10 @@ class SQLMapGenerator {
             if (hashtag.length > 0 && hashtag !== "e30=") {
                 let hashtagCmd = JSON.parse(atob(hashtag));
                 this.applyConfiguration(hashtagCmd);
-                this.showMessage("Configuration loaded from URL", 'success');
+                this.showMessage("Configuration loaded from the URL", 'success');
             }
         } catch (ex) {
+            this.showMessage("Cannot load a configuration", 'error');
             console.log(ex);
         } 
     }
@@ -746,20 +747,16 @@ class SQLMapGenerator {
     async copyCommand() {
         const command = this.generateCommand();
         const copyBtn = document.getElementById('copyBtn');
-        const copyText = document.getElementById('copyText');
-        const txt_command_copy_clipboard = 'COPY COMMAND TO CLIPBOARD';
-        const txt_command_copy_copied = 'COMMAND COPIED!';
-        
-        try {
-            await navigator.clipboard.writeText(command);
+        const successMessage = "SQLMap command has been copied to your clipboard";
+
+        try 
+        {
             copyBtn.classList.add('copying');
-            copyText.textContent = txt_command_copy_copied;
-            
-            setTimeout(() => {
-                copyBtn.classList.remove('copying');
-                copyText.textContent = txt_command_copy_clipboard;
-            }, 3000);
-        } catch (err) {
+            await navigator.clipboard.writeText(command);
+            this.showMessage(successMessage, "success");
+        } 
+        catch (err) 
+        {
             // Fallback for older browsers
             const textArea = document.createElement('textarea');
             textArea.value = command;
@@ -767,47 +764,47 @@ class SQLMapGenerator {
             textArea.select();
             document.execCommand('copy');
             document.body.removeChild(textArea);
-            
-            copyText.textContent = txt_command_copy_copied;
+            this.showMessage(successMessage, "success");
+        }
+        finally 
+        {
             setTimeout(() => {
-                copyText.textContent = txt_command_copy_clipboard;
-            }, 3000);
+                copyBtn.classList.remove('copying');
+            }, 1000);
         }
     }
 
     async copyUrl() {
         const serializedCommand = btoa(JSON.stringify(this.getCurrentConfig()));
-        const command = location.href.replace(location.hash, "") + "#" + serializedCommand;
         const copyUrlBtn = document.getElementById('copyUrlBtn');
-        const copyUrlText = document.getElementById('copyUrlText');
-        const txt_command_url_clipboard = 'COPY CONFIG URL';
-        const txt_command_url_copied = 'URL COPIED!';
-
-        try {
-            await navigator.clipboard.writeText(command);
-            copyUrlBtn.classList.add('copying');
-            copyUrlText.textContent = txt_command_url_copied;
-
-            setTimeout(() => {
-                copyUrlBtn.classList.remove('copying');
-                copyUrlText.textContent = txt_command_url_clipboard;
-            }, 3000);
+        const successMessage = "URL with configuration has been copied to your clipboard";
+        if (serializedCommand == "e30=") {
+            location.replace("#");
+        }
+        else {
             location.replace("#" + serializedCommand);
+        }
 
-        } catch (err) {
+        try 
+        {
+            copyUrlBtn.classList.add('copying');
+            await navigator.clipboard.writeText(location.href);
+            this.showMessage(successMessage, "success");
+        } 
+        catch (err) {
             // Fallback for older browsers
             const textArea = document.createElement('textarea');
-            textArea.value = command;
+            textArea.value = location.href;
             document.body.appendChild(textArea);
             textArea.select();
             document.execCommand('copy');
             document.body.removeChild(textArea);
-
-            copyUrlText.textContent = txt_command_url_copied;
+            this.showMessage(successMessage, "success");
+        } 
+        finally {
             setTimeout(() => {
-                copyUrlText.textContent = txt_command_url_clipboard;
-            }, 3000);
-            location.replace("#" + serializedCommand);
+                copyUrlBtn.classList.remove('copying');
+            }, 1000);
         }
     }
 
@@ -984,7 +981,7 @@ class SQLMapGenerator {
         
         this.updateCommand();
         if (!skipResetAlert) {
-            this.showMessage('Configuration loaded', 'info');
+            this.showMessage('The configuration has been cleared', 'success');
         }
     }
 
