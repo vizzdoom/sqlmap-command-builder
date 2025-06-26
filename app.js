@@ -199,29 +199,6 @@ class SQLMapGenerator {
             "versionedmorekeywords",
             "xforwardedfor"
         ];
-
-        this.templates = {
-            basic_get: {
-                name: "tbd",
-                description: "tbd",
-                options: {url: "", batch: true, dbs: true}
-            },
-            post_form: {
-                name: "tbd", 
-                description: "tbd",
-                options: {url: "", data: "", batch: true}
-            },
-            burp_request: {
-                name: "Burp Request",
-                description: "tbd",
-                options: {requestFile: "", batch: true}
-            },
-            advanced: {
-                name: "tbd",
-                description: "tbd",
-                options: {url: "", level: 3, risk: 2, randomAgent: true, batch: true}
-            }
-        };
         
         this.init();
     }
@@ -234,7 +211,7 @@ class SQLMapGenerator {
         this.updateCommand();
     }
 
-    setStandardConfigItem_Input(config, confkey) {
+    setStandardConfigItem(config, confkey) {
         var id = this.paramMapping[confkey];
         var elem = document.getElementById(id);
         var value = null;
@@ -257,11 +234,11 @@ class SQLMapGenerator {
         const config = {};
         
         // # TARGET TAB
-        this.setStandardConfigItem_Input(config, '-u');
-        this.setStandardConfigItem_Input(config, '-d');
-        this.setStandardConfigItem_Input(config, '-g');
-        this.setStandardConfigItem_Input(config, '-m');
-        this.setStandardConfigItem_Input(config, '-l');
+        this.setStandardConfigItem(config, '-u');
+        this.setStandardConfigItem(config, '-d');
+        this.setStandardConfigItem(config, '-g');
+        this.setStandardConfigItem(config, '-m');
+        this.setStandardConfigItem(config, '-l');
         
         const burpFileScope = document.getElementById('burpFileScope').value.trim();
         if (burpFileScope) config['--scope'] = burpFileScope;
@@ -278,24 +255,24 @@ class SQLMapGenerator {
         const threads = document.getElementById('threads').value;
         if (threads && threads > 1) config['--threads'] = threads;
 
-        this.setStandardConfigItem_Input(config, '--force-ssl');
-        this.setStandardConfigItem_Input(config, '--keep-alive');
-        this.setStandardConfigItem_Input(config, '--null-connection');
-        this.setStandardConfigItem_Input(config, '--http2');
+        this.setStandardConfigItem(config, '--force-ssl');
+        this.setStandardConfigItem(config, '--keep-alive');
+        this.setStandardConfigItem(config, '--null-connection');
+        this.setStandardConfigItem(config, '--http2');
 
         // ## Proxy Options
-        this.setStandardConfigItem_Input(config, '--proxy');
-        this.setStandardConfigItem_Input(config, '--proxy-cred');
-        this.setStandardConfigItem_Input(config, '--proxy-file');
+        this.setStandardConfigItem(config, '--proxy');
+        this.setStandardConfigItem(config, '--proxy-cred');
+        this.setStandardConfigItem(config, '--proxy-file');
         
         const proxyFreq = document.getElementById('proxyFreq').value.trim();
         if (proxyFreq && proxyFreq >= 1) config['--proxy-freq'] = proxyFreq;
         
-        this.setStandardConfigItem_Input(config, '--http2');
-        this.setStandardConfigItem_Input(config, '--ignore-proxy');
-        this.setStandardConfigItem_Input(config, '--tor');
-        this.setStandardConfigItem_Input(config, '--check-tor');  
-        this.setStandardConfigItem_Input(config, '--tor-port');   
+        this.setStandardConfigItem(config, '--http2');
+        this.setStandardConfigItem(config, '--ignore-proxy');
+        this.setStandardConfigItem(config, '--tor');
+        this.setStandardConfigItem(config, '--check-tor');  
+        this.setStandardConfigItem(config, '--tor-port');   
 
         const torType = document.getElementById('torType').value.trim();
         if (torType && torType !== "SOCKS5") config['--tor-type'] = torType;        
@@ -313,11 +290,11 @@ class SQLMapGenerator {
         const paramDel = document.getElementById('paramDel').value.trim();
         if (paramDel && paramDel !== "&") config['--param-del'] = paramDel;
 
-        this.setStandardConfigItem_Input(config, '-r');   
-        this.setStandardConfigItem_Input(config, '--data');   
+        this.setStandardConfigItem(config, '-r');   
+        this.setStandardConfigItem(config, '--data');   
 
         // ## Request Headers
-        this.setStandardConfigItem_Input(config, '--host');   
+        this.setStandardConfigItem(config, '--host');   
         
         const userAgent = document.getElementById('userAgent').value;
         if (userAgent && userAgent === 'random') {
@@ -334,16 +311,16 @@ class SQLMapGenerator {
             config['-A'] = userAgent;
         }
 
-        this.setStandardConfigItem_Input(config, '--referer');  
-        this.setStandardConfigItem_Input(config, '-H');  
+        this.setStandardConfigItem(config, '--referer');  
+        this.setStandardConfigItem(config, '-H');  
 
         // ## Authentication
-        this.setStandardConfigItem_Input(config, '--cookie'); 
-        this.setStandardConfigItem_Input(config, '--cookie-del'); 
-        this.setStandardConfigItem_Input(config, '--live-cookies'); 
-        this.setStandardConfigItem_Input(config, '--load-cookies'); 
+        this.setStandardConfigItem(config, '--cookie'); 
+        this.setStandardConfigItem(config, '--cookie-del'); 
+        this.setStandardConfigItem(config, '--live-cookies'); 
+        this.setStandardConfigItem(config, '--load-cookies'); 
 
-        this.setStandardConfigItem_Input(config, '--drop-set-cookie');   
+        this.setStandardConfigItem(config, '--drop-set-cookie');   
         
         const authType = document.getElementById('authType').value;
         const authCred = document.getElementById('authCred').value.trim();
@@ -352,11 +329,11 @@ class SQLMapGenerator {
             config['--auth-cred'] = authCred;
         }
         
-        this.setStandardConfigItem_Input(config, '--auth-file'); 
+        this.setStandardConfigItem(config, '--auth-file'); 
 
         // ## CSRF Tokens Control
-        this.setStandardConfigItem_Input(config, '--csrf-token'); 
-        this.setStandardConfigItem_Input(config, '--csrf-url'); 
+        this.setStandardConfigItem(config, '--csrf-token'); 
+        this.setStandardConfigItem(config, '--csrf-url'); 
 
         const csrfMethod = document.getElementById('csrfMethod').value;
         if (csrfMethod && csrfMethod !== 'custom') {
@@ -371,23 +348,23 @@ class SQLMapGenerator {
 
         // # INJECTION TAB
         // ## Parameters
-        this.setStandardConfigItem_Input(config, '-p'); 
-        this.setStandardConfigItem_Input(config, '--skip'); 
-        this.setStandardConfigItem_Input(config, '--param-exclude'); 
-        this.setStandardConfigItem_Input(config, '--param-filter'); 
-        this.setStandardConfigItem_Input(config, '--prefix'); 
-        this.setStandardConfigItem_Input(config, '--suffix'); 
+        this.setStandardConfigItem(config, '-p'); 
+        this.setStandardConfigItem(config, '--skip'); 
+        this.setStandardConfigItem(config, '--param-exclude'); 
+        this.setStandardConfigItem(config, '--param-filter'); 
+        this.setStandardConfigItem(config, '--prefix'); 
+        this.setStandardConfigItem(config, '--suffix'); 
 
         // ## Detection
-        this.setStandardConfigItem_Input(config, '--string');
-        this.setStandardConfigItem_Input(config, '--regexp');    
-        this.setStandardConfigItem_Input(config, '--not-string');
+        this.setStandardConfigItem(config, '--string');
+        this.setStandardConfigItem(config, '--regexp');    
+        this.setStandardConfigItem(config, '--not-string');
        
         const code = document.getElementById('code').value.trim();
         if (code && code >= 100 && code <= 599) config['--code'] = code;
 
-        this.setStandardConfigItem_Input(config, '--text-only');  
-        this.setStandardConfigItem_Input(config, '--titles');  
+        this.setStandardConfigItem(config, '--text-only');  
+        this.setStandardConfigItem(config, '--titles');  
         
         // ## Attack Optimalization
         const level = document.getElementById('level').value;
@@ -396,10 +373,10 @@ class SQLMapGenerator {
         const risk = document.getElementById('risk').value;
         if (risk > 1) config['--risk'] = risk;
 
-        this.setStandardConfigItem_Input(config, '--dbms'); 
-        this.setStandardConfigItem_Input(config, '--os'); 
-        this.setStandardConfigItem_Input(config, '--second-url');
-        this.setStandardConfigItem_Input(config, '--second-req');
+        this.setStandardConfigItem(config, '--dbms'); 
+        this.setStandardConfigItem(config, '--os'); 
+        this.setStandardConfigItem(config, '--second-url');
+        this.setStandardConfigItem(config, '--second-req');
         
         const techniques = [];
         if (document.getElementById('techB').checked) techniques.push('B');
@@ -410,51 +387,51 @@ class SQLMapGenerator {
         if (document.getElementById('techQ').checked) techniques.push('Q');
         if (techniques.length > 0) config['--technique'] = techniques.join('');
 
-        this.setStandardConfigItem_Input(config, '--invalid-bignum');
-        this.setStandardConfigItem_Input(config, '--invalid-logical');
-        this.setStandardConfigItem_Input(config, '--invalid-string');
-        this.setStandardConfigItem_Input(config, '--no-cast');
-        this.setStandardConfigItem_Input(config, '--no-escape');
-        this.setStandardConfigItem_Input(config, '--predict-output');
+        this.setStandardConfigItem(config, '--invalid-bignum');
+        this.setStandardConfigItem(config, '--invalid-logical');
+        this.setStandardConfigItem(config, '--invalid-string');
+        this.setStandardConfigItem(config, '--no-cast');
+        this.setStandardConfigItem(config, '--no-escape');
+        this.setStandardConfigItem(config, '--predict-output');
 
         // # EXPLOITATION TAB
         // ## Enumeration and Data Exfiltraion
-        this.setStandardConfigItem_Input(config, '--all');
-        this.setStandardConfigItem_Input(config, '--banner');
-        this.setStandardConfigItem_Input(config, '--columns');
-        this.setStandardConfigItem_Input(config, '--comments');
-        this.setStandardConfigItem_Input(config, '--count');
-        this.setStandardConfigItem_Input(config, '--current-user');
-        this.setStandardConfigItem_Input(config, '--current-db');
-        this.setStandardConfigItem_Input(config, '--dbs');
-        this.setStandardConfigItem_Input(config, '--dump');
-        this.setStandardConfigItem_Input(config, '--dump-all');
-        this.setStandardConfigItem_Input(config, '--hostname');
-        this.setStandardConfigItem_Input(config, '--is-dba');
-        this.setStandardConfigItem_Input(config, '--exclude-sysdbs');
-        this.setStandardConfigItem_Input(config, '--passwords');
-        this.setStandardConfigItem_Input(config, '--privileges');
-        this.setStandardConfigItem_Input(config, '--roles');
-        this.setStandardConfigItem_Input(config, '--schema');
-        this.setStandardConfigItem_Input(config, '--search');
-        this.setStandardConfigItem_Input(config, '--statements');
-        this.setStandardConfigItem_Input(config, '--tables');
-        this.setStandardConfigItem_Input(config, '--users');
+        this.setStandardConfigItem(config, '--all');
+        this.setStandardConfigItem(config, '--banner');
+        this.setStandardConfigItem(config, '--columns');
+        this.setStandardConfigItem(config, '--comments');
+        this.setStandardConfigItem(config, '--count');
+        this.setStandardConfigItem(config, '--current-user');
+        this.setStandardConfigItem(config, '--current-db');
+        this.setStandardConfigItem(config, '--dbs');
+        this.setStandardConfigItem(config, '--dump');
+        this.setStandardConfigItem(config, '--dump-all');
+        this.setStandardConfigItem(config, '--hostname');
+        this.setStandardConfigItem(config, '--is-dba');
+        this.setStandardConfigItem(config, '--exclude-sysdbs');
+        this.setStandardConfigItem(config, '--passwords');
+        this.setStandardConfigItem(config, '--privileges');
+        this.setStandardConfigItem(config, '--roles');
+        this.setStandardConfigItem(config, '--schema');
+        this.setStandardConfigItem(config, '--search');
+        this.setStandardConfigItem(config, '--statements');
+        this.setStandardConfigItem(config, '--tables');
+        this.setStandardConfigItem(config, '--users');
 
         // ## Other Exploitation Options
-        this.setStandardConfigItem_Input(config, '-D');
-        this.setStandardConfigItem_Input(config, '-T');
-        this.setStandardConfigItem_Input(config, '-C');
-        this.setStandardConfigItem_Input(config, '-X');
-        this.setStandardConfigItem_Input(config, '-U');
-        this.setStandardConfigItem_Input(config, '--pivot-column');
-        this.setStandardConfigItem_Input(config, '--where');
-        this.setStandardConfigItem_Input(config, '--start');
-        this.setStandardConfigItem_Input(config, '--stop');
-        this.setStandardConfigItem_Input(config, '--first');
-        this.setStandardConfigItem_Input(config, '--last');
-        this.setStandardConfigItem_Input(config, '--sql-query');
-        this.setStandardConfigItem_Input(config, '--sql-file');
+        this.setStandardConfigItem(config, '-D');
+        this.setStandardConfigItem(config, '-T');
+        this.setStandardConfigItem(config, '-C');
+        this.setStandardConfigItem(config, '-X');
+        this.setStandardConfigItem(config, '-U');
+        this.setStandardConfigItem(config, '--pivot-column');
+        this.setStandardConfigItem(config, '--where');
+        this.setStandardConfigItem(config, '--start');
+        this.setStandardConfigItem(config, '--stop');
+        this.setStandardConfigItem(config, '--first');
+        this.setStandardConfigItem(config, '--last');
+        this.setStandardConfigItem(config, '--sql-query');
+        this.setStandardConfigItem(config, '--sql-file');
 
         // # TAMPERING TAB
         const tamperScripts = [];
@@ -470,10 +447,10 @@ class SQLMapGenerator {
         const verbose = document.getElementById('verbose').value;
         if (verbose != 1) config['-v'] = verbose;
 
-        this.setStandardConfigItem_Input(config, '-t');
-        this.setStandardConfigItem_Input(config, '-c');
-        this.setStandardConfigItem_Input(config, '--batch');
-        this.setStandardConfigItem_Input(config, '--parse-errors');
+        this.setStandardConfigItem(config, '-t');
+        this.setStandardConfigItem(config, '-c');
+        this.setStandardConfigItem(config, '--batch');
+        this.setStandardConfigItem(config, '--parse-errors');
         
         return config;
     }
@@ -728,58 +705,6 @@ class SQLMapGenerator {
                 copyUrlBtn.classList.remove('copying');
             }, 1000);
         }
-    }
-
-    loadTemplate(templateName) {
-        const template = this.templates[templateName];
-        if (!template) return;
-        
-        // Reset all form fields first
-        this.resetConfiguration();
-        
-        // Apply template options
-        Object.entries(template.options).forEach(([key, value]) => {
-            let elementId = key;
-            
-            // Map template keys to form element IDs
-            const keyMapping = {
-                'url': 'url',
-                'data': 'data',
-                'requestFile': 'requestFile',
-                'burpFile': 'burpFile',
-                'level': 'level',
-                'risk': 'risk',
-                'randomAgent': 'userAgent',
-                'batch': 'batch',
-                'dbs': 'dbs'
-            };
-            
-            if (keyMapping[key]) {
-                elementId = keyMapping[key];
-            }
-            
-            const element = document.getElementById(elementId);
-            if (element) {
-                if (element.type === 'checkbox') {
-                    element.checked = value;
-                } else if (element.type === 'range') {
-                    element.value = value;
-                    // Update slider display
-                    const displayElement = document.getElementById(elementId + 'Value');
-                    if (displayElement) {
-                        displayElement.textContent = value;
-                    }
-                } else {
-                    element.value = value;
-                }
-            }
-        });
-        
-        // Update command after loading template
-        this.updateCommand();
-        
-        // Show success message
-        this.showMessage(`Template "${template.name}" loaded`, 'success');
     }
 
     saveConfiguration() {
