@@ -16,6 +16,7 @@ class SQLMapGenerator {
             '--force-ssl': 'forceSsl',
             '--keep-alive': 'keepAlive',
             '--null-connection': 'nullConnection',
+            '--http2': 'http2',
 
             '--proxy': 'proxy',
             '--proxy-cred': 'proxyCred',
@@ -121,6 +122,7 @@ class SQLMapGenerator {
 
             '-v': 'verbose',
             '-t': 'trafficFile',
+            '-c': 'configFile',
             '--batch': 'batch',
             '--parse-errors': 'parseErrors'
         };
@@ -230,6 +232,250 @@ class SQLMapGenerator {
         this.setupSliders();
         this.handleHashtag();
         this.updateCommand();
+    }
+
+    setStandardConfigItem_Input(config, confkey) {
+        var id = this.paramMapping[confkey];
+        var elem = document.getElementById(id);
+        var value = null;
+        if (elem.type === 'checkbox') {
+            value = elem.checked;
+        } 
+        else if (elem.type === 'text' || elem.type === 'number' || elem.type === 'url' || elem.type === 'select-one') {
+            value = elem.value.trim();
+        }        
+        else if (elem.type === 'textarea') {
+            value = elem.value.trim().replaceAll("\n", "\\\n");
+        }
+
+        if (value) {
+            config[confkey] = value;
+        }
+    }
+
+    getCurrentConfig() {
+        const config = {};
+        
+        // # TARGET TAB
+        this.setStandardConfigItem_Input(config, '-u');
+        this.setStandardConfigItem_Input(config, '-d');
+        this.setStandardConfigItem_Input(config, '-g');
+        this.setStandardConfigItem_Input(config, '-m');
+        this.setStandardConfigItem_Input(config, '-l');
+        
+        const burpFileScope = document.getElementById('burpFileScope').value.trim();
+        if (burpFileScope) config['--scope'] = burpFileScope;
+        if (burpFileScope && !burpFile) document.getElementById('burpFile').value = "burp.txt";
+        
+        // # CONNECECTION TAB
+        // ## Connection Control
+        const timeout = document.getElementById('timeout').value;
+        if (timeout && timeout != 30) config['--timeout'] = timeout;
+
+        const delay = document.getElementById('delay').value;
+        if (delay && delay > 0) config['--delay'] = delay;
+
+        const threads = document.getElementById('threads').value;
+        if (threads && threads > 1) config['--threads'] = threads;
+
+        this.setStandardConfigItem_Input(config, '--force-ssl');
+        this.setStandardConfigItem_Input(config, '--keep-alive');
+        this.setStandardConfigItem_Input(config, '--null-connection');
+        this.setStandardConfigItem_Input(config, '--http2');
+
+        // ## Proxy Options
+        this.setStandardConfigItem_Input(config, '--proxy');
+        this.setStandardConfigItem_Input(config, '--proxy-cred');
+        this.setStandardConfigItem_Input(config, '--proxy-file');
+        
+        const proxyFreq = document.getElementById('proxyFreq').value.trim();
+        if (proxyFreq && proxyFreq >= 1) config['--proxy-freq'] = proxyFreq;
+        
+        this.setStandardConfigItem_Input(config, '--http2');
+        this.setStandardConfigItem_Input(config, '--ignore-proxy');
+        this.setStandardConfigItem_Input(config, '--tor');
+        this.setStandardConfigItem_Input(config, '--check-tor');  
+        this.setStandardConfigItem_Input(config, '--tor-port');   
+
+        const torType = document.getElementById('torType').value.trim();
+        if (torType && torType !== "SOCKS5") config['--tor-type'] = torType;        
+
+        // # REQUEST TAB
+        // ## Request Data
+        const method = document.getElementById('method').value;
+        if (method && method !== 'custom') {
+            config['--method'] = method;
+        } else if (method === 'custom') {
+            const customHttpMethod = document.getElementById('customHttpMethod').value.trim();
+            if (customHttpMethod) config['--method'] = customHttpMethod;
+        }
+
+        const paramDel = document.getElementById('paramDel').value.trim();
+        if (paramDel && paramDel !== "&") config['--param-del'] = paramDel;
+
+        this.setStandardConfigItem_Input(config, '-r');   
+        this.setStandardConfigItem_Input(config, '--data');   
+
+        // ## Request Headers
+        this.setStandardConfigItem_Input(config, '--host');   
+        
+        const userAgent = document.getElementById('userAgent').value;
+        if (userAgent && userAgent === 'random') {
+            config['--random-agent'] = true;
+        }
+        else if (userAgent && userAgent === 'mobile') {
+            config['--mobile'] = true;
+        }
+        else if (userAgent && userAgent === 'custom') {
+            const customUserAgent = document.getElementById('customUserAgent').value;
+            if (customUserAgent) config['-A'] = customUserAgent;
+        }
+        else if (userAgent) {
+            config['-A'] = userAgent;
+        }
+
+        this.setStandardConfigItem_Input(config, '--referer');  
+        this.setStandardConfigItem_Input(config, '-H');  
+
+        // ## Authentication
+        this.setStandardConfigItem_Input(config, '--cookie'); 
+        this.setStandardConfigItem_Input(config, '--cookie-del'); 
+        this.setStandardConfigItem_Input(config, '--live-cookies'); 
+        this.setStandardConfigItem_Input(config, '--load-cookies'); 
+
+        this.setStandardConfigItem_Input(config, '--drop-set-cookie');   
+        
+        const authType = document.getElementById('authType').value;
+        const authCred = document.getElementById('authCred').value.trim();
+        if (authType && authCred) {
+            config['--auth-type'] = authType;
+            config['--auth-cred'] = authCred;
+        }
+        
+        this.setStandardConfigItem_Input(config, '--auth-file'); 
+
+        // ## CSRF Tokens Control
+        this.setStandardConfigItem_Input(config, '--csrf-token'); 
+        this.setStandardConfigItem_Input(config, '--csrf-url'); 
+
+        const csrfMethod = document.getElementById('csrfMethod').value;
+        if (csrfMethod && csrfMethod !== 'custom') {
+            config['--csrf-method'] = csrfMethod;
+        } else if (csrfMethod === 'custom') {
+            const customCsrfMethod = document.getElementById('customCsrfMethod').value;
+            if (customCsrfMethod) config['--csrf-method'] = customCsrfMethod;
+        }
+        
+        const csrfRetries = document.getElementById('csrfRetries').value.trim();
+        if (csrfRetries && csrfRetries > 0) config['--csrf-retries'] = csrfRetries;
+
+        // # INJECTION TAB
+        // ## Parameters
+        this.setStandardConfigItem_Input(config, '-p'); 
+        this.setStandardConfigItem_Input(config, '--skip'); 
+        this.setStandardConfigItem_Input(config, '--param-exclude'); 
+        this.setStandardConfigItem_Input(config, '--param-filter'); 
+        this.setStandardConfigItem_Input(config, '--prefix'); 
+        this.setStandardConfigItem_Input(config, '--suffix'); 
+
+        // ## Detection
+        this.setStandardConfigItem_Input(config, '--string');
+        this.setStandardConfigItem_Input(config, '--regexp');    
+        this.setStandardConfigItem_Input(config, '--not-string');
+       
+        const code = document.getElementById('code').value.trim();
+        if (code && code >= 100 && code <= 599) config['--code'] = code;
+
+        this.setStandardConfigItem_Input(config, '--text-only');  
+        this.setStandardConfigItem_Input(config, '--titles');  
+        
+        // ## Attack Optimalization
+        const level = document.getElementById('level').value;
+        if (level > 1) config['--level'] = level;
+        
+        const risk = document.getElementById('risk').value;
+        if (risk > 1) config['--risk'] = risk;
+
+        this.setStandardConfigItem_Input(config, '--dbms'); 
+        this.setStandardConfigItem_Input(config, '--os'); 
+        this.setStandardConfigItem_Input(config, '--second-url');
+        this.setStandardConfigItem_Input(config, '--second-req');
+        
+        const techniques = [];
+        if (document.getElementById('techB').checked) techniques.push('B');
+        if (document.getElementById('techE').checked) techniques.push('E');
+        if (document.getElementById('techU').checked) techniques.push('U');
+        if (document.getElementById('techS').checked) techniques.push('S');
+        if (document.getElementById('techT').checked) techniques.push('T');
+        if (document.getElementById('techQ').checked) techniques.push('Q');
+        if (techniques.length > 0) config['--technique'] = techniques.join('');
+
+        this.setStandardConfigItem_Input(config, '--invalid-bignum');
+        this.setStandardConfigItem_Input(config, '--invalid-logical');
+        this.setStandardConfigItem_Input(config, '--invalid-string');
+        this.setStandardConfigItem_Input(config, '--no-cast');
+        this.setStandardConfigItem_Input(config, '--no-escape');
+        this.setStandardConfigItem_Input(config, '--predict-output');
+
+        // # EXPLOITATION TAB
+        // ## Enumeration and Data Exfiltraion
+        this.setStandardConfigItem_Input(config, '--all');
+        this.setStandardConfigItem_Input(config, '--banner');
+        this.setStandardConfigItem_Input(config, '--columns');
+        this.setStandardConfigItem_Input(config, '--comments');
+        this.setStandardConfigItem_Input(config, '--count');
+        this.setStandardConfigItem_Input(config, '--current-user');
+        this.setStandardConfigItem_Input(config, '--current-db');
+        this.setStandardConfigItem_Input(config, '--dbs');
+        this.setStandardConfigItem_Input(config, '--dump');
+        this.setStandardConfigItem_Input(config, '--dump-all');
+        this.setStandardConfigItem_Input(config, '--hostname');
+        this.setStandardConfigItem_Input(config, '--is-dba');
+        this.setStandardConfigItem_Input(config, '--exclude-sysdbs');
+        this.setStandardConfigItem_Input(config, '--passwords');
+        this.setStandardConfigItem_Input(config, '--privileges');
+        this.setStandardConfigItem_Input(config, '--roles');
+        this.setStandardConfigItem_Input(config, '--schema');
+        this.setStandardConfigItem_Input(config, '--search');
+        this.setStandardConfigItem_Input(config, '--statements');
+        this.setStandardConfigItem_Input(config, '--tables');
+        this.setStandardConfigItem_Input(config, '--users');
+
+        // ## Other Exploitation Options
+        this.setStandardConfigItem_Input(config, '-D');
+        this.setStandardConfigItem_Input(config, '-T');
+        this.setStandardConfigItem_Input(config, '-C');
+        this.setStandardConfigItem_Input(config, '-X');
+        this.setStandardConfigItem_Input(config, '-U');
+        this.setStandardConfigItem_Input(config, '--pivot-column');
+        this.setStandardConfigItem_Input(config, '--where');
+        this.setStandardConfigItem_Input(config, '--start');
+        this.setStandardConfigItem_Input(config, '--stop');
+        this.setStandardConfigItem_Input(config, '--first');
+        this.setStandardConfigItem_Input(config, '--last');
+        this.setStandardConfigItem_Input(config, '--sql-query');
+        this.setStandardConfigItem_Input(config, '--sql-file');
+
+        // # TAMPERING TAB
+        const tamperScripts = [];
+        this.tamperScriptList.forEach(s => {
+            if (document.getElementById('tamperscript-'+s).checked) tamperScripts.push(s);
+        });
+        const tamper = document.getElementById('tamper');
+        tamper.value = tamperScripts.join(',');
+        if (tamper.value.trim()) config['--tamper'] = tamper.value.trim();
+        
+        
+        // SQLMAP TAB
+        const verbose = document.getElementById('verbose').value;
+        if (verbose != 1) config['-v'] = verbose;
+
+        this.setStandardConfigItem_Input(config, '-t');
+        this.setStandardConfigItem_Input(config, '-c');
+        this.setStandardConfigItem_Input(config, '--batch');
+        this.setStandardConfigItem_Input(config, '--parse-errors');
+        
+        return config;
     }
 
     setupEventListeners() {
@@ -346,330 +592,6 @@ class SQLMapGenerator {
             }
             document.getElementById('verbose-help').textContent = verboseHelp;
         });
-    }
-
-    getCurrentConfig() {
-        const config = {};
-        
-        // Target options
-        const url = document.getElementById('url').value.trim();
-        if (url) config['-u'] = url;
-
-        const directDb = document.getElementById('directDb').value.trim();
-        if (directDb) config['-d'] = directDb;
-        
-        const requestFile = document.getElementById('requestFile').value.trim();
-        if (requestFile) config['-r'] = requestFile;
-        
-        const targetsFile = document.getElementById('targetsFile').value.trim();
-        if (targetsFile) config['-m'] = targetsFile;
-
-        const burpFile = document.getElementById('burpFile').value.trim();
-        if (burpFile) config['-l'] = burpFile;
-
-        const burpFileScope = document.getElementById('burpFileScope').value.trim();
-        if (burpFileScope) config['--scope'] = burpFileScope;
-        if (burpFileScope && !burpFile) document.getElementById('burpFile').value = "burp.txt";
-        
-        const googleDork = document.getElementById('googleDork').value.trim();
-        if (googleDork) config['-g'] = googleDork;
-
-        // Connection options
-        const timeout = document.getElementById('timeout').value;
-        if (timeout && timeout != 30) config['--timeout'] = timeout;
-
-        const delay = document.getElementById('delay').value;
-        if (delay && delay > 0) config['--delay'] = delay;
-
-        const threads = document.getElementById('threads').value;
-        if (threads && threads > 1) config['--threads'] = threads;
-
-        const forceSsl = document.getElementById('forceSsl').checked;
-        if (forceSsl) config['--force-ssl'] = forceSsl;
-
-        const keepAlive = document.getElementById('keepAlive').checked;
-        if (keepAlive) config['--keep-alive'] = keepAlive;
-
-        const nullConnection = document.getElementById('nullConnection').checked;
-        if (nullConnection) config['--null-connection'] = nullConnection;
-
-        const http2 = document.getElementById('http2').checked;
-        if (http2) config['--http2'] = http2;
-
-        const proxy = document.getElementById('proxy').value.trim();
-        if (proxy) config['--proxy'] = proxy;
-
-        const proxyCred = document.getElementById('proxyCred').value.trim();
-        if (proxyCred) config['--proxy-cred'] = proxyCred;
-        
-        const proxyFile = document.getElementById('proxyFile').value.trim();
-        if (proxyFile) config['--proxy-file'] = proxyFile;
-        
-        const proxyFreq = document.getElementById('proxyFreq').value.trim();
-        if (proxyFreq && proxyFreq >= 1) config['--proxy-freq'] = proxyFreq;
-        
-        const proxyIgnore = document.getElementById('proxyIgnore').checked
-        if (proxyIgnore) config['--ignore-proxy'] = proxyIgnore;
-
-        const tor = document.getElementById('tor').checked;
-        if (tor) config['--tor'] = tor;        
-
-        const checkTor = document.getElementById('checkTor').checked;
-        if (checkTor) config['--check-tor'] = checkTor;
-
-        const torPort = document.getElementById('torPort').value.trim();
-        if (torPort) config['--tor-port'] = torPort;        
-
-        const torType = document.getElementById('torType').value.trim();
-        if (torType && torType !== "SOCKS5") config['--tor-type'] = torType;        
-
-
-        const method = document.getElementById('method').value;
-        if (method && method !== 'custom') {
-            config['--method'] = method;
-        } else if (method === 'custom') {
-            const customHttpMethod = document.getElementById('customHttpMethod').value.trim();
-            if (customHttpMethod) config['--method'] = customHttpMethod;
-        }
-            
-        const data = document.getElementById('data').value.trim().replaceAll("\n", "\\\n");
-        if (data) config['--data'] = data;
-
-        const string = document.getElementById('string').value.trim();
-        if (string) config['--string'] = string;
-
-        const notString = document.getElementById('notString').value.trim();
-        if (notString) config['--not-string'] = notString;
-
-        const regexp = document.getElementById('regexp').value.trim();
-        if (regexp) config['--regexp'] = regexp;
-
-        const code = document.getElementById('code').value.trim();
-        if (code && code >= 100 && code <= 599) config['--code'] = code;
-
-        const textOnly = document.getElementById('textOnly').checked
-        if (textOnly) config['--text-only'] = textOnly;
-
-        const titles = document.getElementById('titles').checked
-        if (titles) config['--titles'] = titles;
-        
-        // Request options
-        const host = document.getElementById('host').value.trim();
-        if (host) config['--host'] = host;
-
-        const paramDel = document.getElementById('paramDel').value.trim();
-        if (paramDel && paramDel !== "&") config['--param-del'] = paramDel;
-        
-        const userAgent = document.getElementById('userAgent').value;
-        if (userAgent && userAgent === 'random') {
-            config['--random-agent'] = true;
-        }
-        else if (userAgent && userAgent === 'mobile') {
-            config['--mobile'] = true;
-        }
-        else if (userAgent && userAgent === 'custom') {
-            const customUserAgent = document.getElementById('customUserAgent').value;
-            if (customUserAgent) config['-A'] = customUserAgent;
-        }
-        else if (userAgent) {
-            config['-A'] = userAgent;
-        }
-
-        const referer = document.getElementById('referer').value.trim();
-        if (referer) config['--referer'] = referer;
-
-        const headers = document.getElementById('headers').value.trim().replaceAll("\n", "\\\n");
-        if (headers) config['-H'] = headers;
-        
-        const cookie = document.getElementById('cookie').value.trim();
-        if (cookie) config['--cookie'] = cookie;
-        
-        const cookieDel = document.getElementById('cookieDel').value.trim();
-        if (cookieDel) config['--cookie-del'] = cookieDel;
-        
-        const cookieLive = document.getElementById('cookieLive').value.trim();
-        if (cookieLive) config['--live-cookies'] = cookieLive;
-        
-        const cookieLoad = document.getElementById('cookieLoad').value.trim();
-        if (cookieLoad) config['--load-cookies'] = cookieLoad;
-
-        const cookieDrop = document.getElementById('cookieDrop').checked;
-        if (cookieDrop) config['--drop-set-cookie'] = cookieDrop;
-        
-        const authType = document.getElementById('authType').value;
-        const authCred = document.getElementById('authCred').value.trim();
-        if (authType && authCred) {
-            config['--auth-type'] = authType;
-            config['--auth-cred'] = authCred;
-        }
-        
-        const authFile = document.getElementById('authFile').value.trim();
-        if (authFile) config['--auth-file'] = authFile;
-        
-        const csrfToken = document.getElementById('csrfToken').value.trim();
-        if (csrfToken) config['--csrf-token'] = csrfToken;
-
-        const csrfMethod = document.getElementById('csrfMethod').value;
-        if (csrfMethod && csrfMethod !== 'custom') {
-            config['--csrf-method'] = csrfMethod;
-        } else if (csrfMethod === 'custom') {
-            const customCsrfMethod = document.getElementById('customCsrfMethod').value;
-            if (customCsrfMethod) config['--csrf-method'] = customCsrfMethod;
-        }
-        
-        const csrfUrl = document.getElementById('csrfUrl').value.trim();
-        if (csrfUrl) config['--csrf-url'] = csrfUrl;
-
-        const csrfRetries = document.getElementById('csrfRetries').value.trim();
-        if (csrfRetries && csrfRetries > 0) config['--csrf-retries'] = csrfRetries;
-        
-        // Injection options
-        const paramTest = document.getElementById('paramTest').value.trim();
-        if (paramTest) config['-p'] = paramTest;
-        
-        const paramSkip = document.getElementById('paramSkip').value.trim(); 
-        if (paramSkip) config['--skip'] = paramSkip;
-        
-        const paramExclude = document.getElementById('paramExclude').value.trim();
-        if (paramExclude) config['--param-exclude'] = paramExclude;
-        
-        const paramFilter = document.getElementById('paramFilter').value.trim();
-        if (paramFilter) config['--param-filter'] = paramFilter;
-        
-        const level = document.getElementById('level').value;
-        if (level > 1) config['--level'] = level;
-        
-        const risk = document.getElementById('risk').value;
-        if (risk > 1) config['--risk'] = risk;
-        
-        const dbms = document.getElementById('dbms').value;
-        if (dbms) config['--dbms'] = dbms;
-        
-        const os = document.getElementById('os').value;
-        if (os) config['--os'] = os;
-
-        const prefix = document.getElementById('prefix').value.trim();
-        if (prefix) config['--prefix'] = prefix;
-
-        const suffix = document.getElementById('suffix').value.trim();
-        if (suffix) config['--suffix'] = suffix;
-
-        const secondUrl = document.getElementById('secondUrl').value.trim();
-        if (secondUrl) config['--second-url'] = secondUrl;        
-        
-        const secondReq = document.getElementById('secondReq').value.trim();
-        if (secondReq) config['--second-req'] = secondReq;
-        
-        // Techniques
-        const techniques = [];
-        if (document.getElementById('techB').checked) techniques.push('B');
-        if (document.getElementById('techE').checked) techniques.push('E');
-        if (document.getElementById('techU').checked) techniques.push('U');
-        if (document.getElementById('techS').checked) techniques.push('S');
-        if (document.getElementById('techT').checked) techniques.push('T');
-        if (document.getElementById('techQ').checked) techniques.push('Q');
-        if (techniques.length > 0) config['--technique'] = techniques.join('');
-
-        const tamperScripts = [];
-        this.tamperScriptList.forEach(s => {
-            if (document.getElementById('tamperscript-'+s).checked) tamperScripts.push(s);
-        });
-        const tamper = document.getElementById('tamper');
-        tamper.value = tamperScripts.join(',');
-        if (tamper.value.trim()) config['--tamper'] = tamper.value.trim();
-        
-        const invalidBignum = document.getElementById('invalidBignum').checked;
-        if (invalidBignum) config['--invalid-bignum'] = invalidBignum;
-        
-        const invalidLogical = document.getElementById('invalidLogical').checked;
-        if (invalidLogical) config['--invalid-logical'] = invalidLogical;
-
-        const invalidString = document.getElementById('invalidString').checked;
-        if (invalidString) config['--invalid-string'] = invalidString;
-        
-        const noCast = document.getElementById('noCast').checked;
-        if (noCast) config['--no-cast'] = noCast;
-
-        const noEscape = document.getElementById('noEscape').checked;
-        if (noEscape) config['--no-escape'] = noEscape;
-
-        const predictOutput = document.getElementById('predictOutput').checked;
-        if (predictOutput) config['--predict-output'] = predictOutput;
-        
-        // SQLMAP options
-        if (document.getElementById('batch').checked) config['--batch'] = true;
-        
-        const verbose = document.getElementById('verbose').value;
-        if (verbose != 1) config['-v'] = verbose;
-        
-        const trafficFile = document.getElementById('trafficFile').value.trim();
-        if (trafficFile) config['-t'] = trafficFile;
-        
-        if (document.getElementById('parseErrors').checked) config['--parse-errors'] = true;
-        
-        // Post-exploitation options
-        if (document.getElementById('all').checked) config['--all'] = true;
-        if (document.getElementById('banner').checked) config['--banner'] = true;
-        if (document.getElementById('columns').checked) config['--columns'] = true;
-        if (document.getElementById('comments').checked) config['--comments'] = true;
-        if (document.getElementById('count').checked) config['--count'] = true;
-        if (document.getElementById('currentUser').checked) config['--current-user'] = true;
-        if (document.getElementById('currentDb').checked) config['--current-db'] = true;
-        if (document.getElementById('dbs').checked) config['--dbs'] = true;
-        if (document.getElementById('dump').checked) config['--dump'] = true;
-        if (document.getElementById('dumpAll').checked) config['--dump-all'] = true;
-        if (document.getElementById('hostname').checked) config['--hostname'] = true;
-        if (document.getElementById('isDba').checked) config['--is-dba'] = true;
-        if (document.getElementById('excludeSysdbs').checked) config['--exclude-sysdbs'] = true;
-        if (document.getElementById('passwords').checked) config['--passwords'] = true;
-        if (document.getElementById('privileges').checked) config['--privileges'] = true;
-        if (document.getElementById('roles').checked) config['--roles'] = true;
-        if (document.getElementById('schema').checked) config['--schema'] = true;
-        if (document.getElementById('search').checked) config['--search'] = true;
-        if (document.getElementById('statements').checked) config['--statements'] = true;
-        if (document.getElementById('tables').checked) config['--tables'] = true;
-        if (document.getElementById('users').checked) config['--users'] = true;
-        
-        const database = document.getElementById('database').value.trim();
-        if (database) config['-D'] = database;
-        
-        const table = document.getElementById('table').value.trim();
-        if (table) config['-T'] = table;
-        
-        const column = document.getElementById('column').value.trim();
-        if (column) config['-C'] = column;        
-
-        const exclude = document.getElementById('exclude').value.trim();
-        if (exclude) config['-X'] = exclude;
-        
-        const user = document.getElementById('user').value.trim();
-        if (user) config['-U'] = user;        
-        
-        const pivotColumn = document.getElementById('pivotColumn').value.trim();
-        if (pivotColumn) config['--pivot-column'] = pivotColumn;        
-
-        const where = document.getElementById('where').value.trim();
-        if (where) config['--where'] = where;
-
-        const start = document.getElementById('start').value.trim();
-        if (start) config['--start'] = start;
-        
-        const stop = document.getElementById('stop').value.trim();
-        if (stop) config['--stop'] = stop;
-        
-        const first = document.getElementById('first').value.trim();
-        if (first) config['--first'] = first;        
-        
-        const last = document.getElementById('last').value.trim();
-        if (last) config['--last'] = last;
-        
-        const sqlQuery = document.getElementById('sqlQuery').value.trim();
-        if (sqlQuery) config['--sql-query'] = sqlQuery;        
-        
-        const sqlFile = document.getElementById('sqlFile').value.trim();
-        if (sqlFile) config['--sql-file'] = sqlFile;
-        
-        return config;
     }
 
     generateCommand() {
