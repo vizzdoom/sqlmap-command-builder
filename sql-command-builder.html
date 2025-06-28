@@ -317,9 +317,9 @@ Note that also the HTTP Referer header is tested against SQL injection if the --
                                 <label class="form-label" title="HTTP Referer header value" for="referer">HTTP REFERER HEADER<br/><span>--referer</span></label>
                                 <input type="url" id="referer" class="form-control" placeholder="https://127.0.0.1/login">
                             </div>
-                            <!-- -H -->
+                            <!-- -headers -->
                             <div class="form-group" title="Extra HTTP headers separated by a newline.">
-                                <label class="form-label" title="Additional HTTP Headers" for="headers">EXTRA HTTP HEADERS<br/><span>-H</span></label>
+                                <label class="form-label" title="Additional HTTP Headers" for="headers">EXTRA HTTP HEADERS<br/><span>--headers</span></label>
                                 <textarea id="headers" class="form-control" rows="4" placeholder="X-Forwarded-For: 127.0.0.1&#10;Authorization: Bearer token"></textarea>
                             </div>
                             <h3>Authentication</h3>
@@ -592,7 +592,7 @@ You can point sqlmap a request file for sending to the server where results are 
 
                             <!-- Attack techniques -->
                             <div class="form-group">
-                                <label class="form-label" title="">ATTACK TECHNIQUES<br/><span>--technique</span></label>
+                                <label class="form-label">ATTACK TECHNIQUES<br/><span>--technique</span></label>
                                 <div class="checkbox-grid">
                                     <label class="checkbox-label">
                                         <input type="checkbox" id="techB" value="B">
@@ -627,8 +627,8 @@ You can point sqlmap a request file for sending to the server where results are 
                                 </div>
                             </div>
                             <!-- Attack tuning -->
-                            <div class="form-group" title="Connection optimization - using persistent HTTP(s) connections">
-                                <label class="form-label">ATTACK TUNING</label>
+                            <div class="form-group">
+                                <label class="form-label" title="Connection optimization - using persistent HTTP(s) connections">ATTACK TUNING</label>
                                 <div class="checkbox-grid">
                                     <!-- --invalid-bignum -->
                                     <label class="checkbox-label" title="This parameter forces sqlmap to use large integer numbers for invalidating original parameter values during SQL injection tests.
@@ -758,8 +758,9 @@ If it is necessary to enforce the usage of particular pivot column because the a
                                 <input type="text" id="sqlFile" class="form-control" placeholder="statements.sql">
                             </div>
                             <!-- ENUMERATION -->
-                            <div class="checkbox-grid" style="grid-row-start: 1; grid-row-end: 6;" title="These options can be used to enumerate the back-end database management system information, structure and data contained in the tables">
-                                <label class="form-label">ENUMERATION AND DATA EXFILTRATION</label>
+                            <div class="checkbox-grid" style="grid-row-start: 1; grid-row-end: 6;">
+                                <label class="form-label" title="These options can be used to enumerate the back-end database management system information, structure and data contained in the tables">
+                                    ENUMERATION AND DATA EXFILTRATION</label>
                                 <label class="checkbox-label" title="Retrieve everything">
                                     <input type="checkbox" id="all">
                                     <span class="checkmark"></span>
