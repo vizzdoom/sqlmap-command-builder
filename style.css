@@ -467,6 +467,25 @@ pre code {
   color: var(--hacker-secondary);
 }
 
+/* icon used to trigger tooltips */
+.help-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--space-xs);
+  cursor: pointer;
+  line-height: 0;
+  color: var(--hacker-secondary);
+}
+
+.help-icon svg {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2px;
+}
+
 .form-control:focus {
   border-color: var(--hacker-primary);
   box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
@@ -1080,15 +1099,16 @@ select.form-control {
 }
 
 /* Tooltip styles */
-.tooltip {
+.tooltip,
+[title] {
   position: relative;
   display: inline-block;
 }
 
-.tooltip::after {
-  content: attr(data-tooltip);
+.tooltip::after,
+[title]::after {
   position: absolute;
-  bottom: 125%;
+  bottom: calc(100% + var(--space-xs));
   left: 50%;
   transform: translateX(-50%);
   background: var(--hacker-bg-dark);
@@ -1096,15 +1116,30 @@ select.form-control {
   padding: var(--space-s);
   border-radius: var(--radius-m);
   font-size: var(--font-size-xs);
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: break-word;
+  width: max-content;
+  max-width: min(30rem, calc(100vw - 2rem));
+  box-sizing: border-box;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  display: none;
+  transition: opacity 0.3s ease;
   border: 1px solid var(--hacker-border);
   z-index: 1000;
 }
 
-.tooltip:hover::after {
+.tooltip::after {
+  content: attr(data-tooltip);
+}
+
+[title]::after {
+  content: attr(title);
+}
+
+.tooltip:hover::after,
+[title]:hover::after {
+  display: block;
   opacity: 1;
   visibility: visible;
 }
