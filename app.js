@@ -855,15 +855,9 @@ document.addEventListener('DOMContentLoaded', () => {
     sqlgen = new SQLMapGenerator();
     document.querySelectorAll('input[type=text], textarea').forEach(field => field.spellcheck = false);
 
-    document.querySelectorAll('.form-group[title]').forEach(group => {
-        const text = group.getAttribute('title');
-        group.removeAttribute('title');
-        const label = group.querySelector('.form-label');
-        if (!label || !text) return;
-        const icon = document.createElement('span');
-        icon.className = 'help-icon tooltip';
-        icon.dataset.tooltip = text;
-        icon.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
-        label.appendChild(icon);
+    document.querySelectorAll('em.tooltip').forEach(el => {
+        const text = el.textContent;
+        el.textContent = '';
+        el.dataset.tooltip = text;
     });
 });

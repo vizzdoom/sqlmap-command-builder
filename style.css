@@ -467,24 +467,6 @@ pre code {
   color: var(--hacker-secondary);
 }
 
-/* icon used to trigger tooltips */
-.help-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: var(--space-xs);
-  cursor: pointer;
-  line-height: 0;
-  color: var(--hacker-secondary);
-}
-
-.help-icon svg {
-  width: 1em;
-  height: 1em;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2px;
-}
 
 .form-control:focus {
   border-color: var(--hacker-primary);
@@ -1099,14 +1081,28 @@ select.form-control {
 }
 
 /* Tooltip styles */
-.tooltip,
-[title] {
+.tooltip {
   position: relative;
   display: inline-block;
+  margin-left: var(--space-xs);
+  cursor: pointer;
+  font-style: normal;
+  color: var(--hacker-secondary);
 }
 
-.tooltip::after,
-[title]::after {
+.tooltip::before {
+  content: "\2139"; /* info symbol */
+  font-size: 0.9em;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.tooltip:hover::before {
+  color: var(--hacker-primary);
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + var(--space-xs));
   left: 50%;
@@ -1129,16 +1125,7 @@ select.form-control {
   z-index: 1000;
 }
 
-.tooltip::after {
-  content: attr(data-tooltip);
-}
-
-[title]::after {
-  content: attr(title);
-}
-
-.tooltip:hover::after,
-[title]:hover::after {
+.tooltip:hover::after {
   display: block;
   opacity: 1;
   visibility: visible;

@@ -56,13 +56,13 @@
                     <div class="card__body">
                         <div class="form-grid">
                             <!-- -u -->
-                            <div class="form-group" title="Target URL (e.g. http://127.0.0.1/vuln.php?id=1)">
-                                <label class="form-label" for="url">TARGET URL<br/><span>-u</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="url">TARGET URL<em class="tooltip">Target URL (e.g. http://127.0.0.1/vuln.php?id=1)</em><br/><span>-u</span></label>
                                 <input type="url" id="url" class="form-control" placeholder="https://127.0.0.1/page?id=1">
                             </div>
                             <!-- -d -->
-                            <div class="form-group" title="Connection string for direct database connection">
-                                <label class="form-label" for="directDb">DATABASE CONNECTION STRING<br/><span>-d</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="directDb">DATABASE CONNECTION STRING<em class="tooltip">Connection string for direct database connection</em><br/><span>-d</span></label>
                                 <input type="text" id="directDb" class="form-control" placeholder="mysql://user:pass@host/db">
                             </div>
                             <!-- -g -->
@@ -174,20 +174,18 @@ Note that this switch is incompatible with switch --text-only.">
                                 <input type="number" id="proxyFreq" class="form-control" min="1" step="1" placeholder="3">
                             </div>
                             <!-- --ignore-proxy -->
-                            <div class="form-group row-expand" title="Run sqlmap against a target part of a local area network by ignoring the system-wide set HTTP(S) proxy server setting.">
-                                <label class="form-label">IGNORE SYSTEM PROXY SETTINGS</label>
+                            <div class="form-group row-expand">
+                                <label class="form-label">IGNORE SYSTEM PROXY SETTINGS<em class="tooltip">Run sqlmap against a target part of a local area network by ignoring the system-wide set HTTP(S) proxy server setting.</em></label>
                                 <label class="checkbox-label">
                                     <input type="checkbox" id="proxyIgnore">
                                     <span class="checkmark"></span>
                                     <span class="checkbox-label__text">--ignore-proxy</span>
                                 </label>
                             </div>
-                            <div class="form-group" title="If, for any reason, you need to stay anonymous, instead of passing by a single predefined HTTP(S) proxy server, you can configure a Tor client together with Privoxy (or similar) on your machine as explained in Tor installation guides. 
-Then you can use a switch --tor and sqlmap will try to automatically set Tor proxy connection settings.
-You are strongly advised to use --check-tor occasionally to be sure that everything was set up properly - sqlmap will check that everything works as expected by sending a single request to an official Are you using Tor? page before any target requests.">
+                            <div class="form-group">
                                 <!-- --tor -->
                                 <div class="checkbox-grid">
-                                    <label class="form-label">TOR ANONYMITY NETWORK SETTINGS</label>
+                                    <label class="form-label">TOR ANONYMITY NETWORK SETTINGS<em class="tooltip">If, for any reason, you need to stay anonymous, instead of passing by a single predefined HTTP(S) proxy server, you can configure a Tor client together with Privoxy (or similar) on your machine as explained in Tor installation guides. Then you can use a switch --tor and sqlmap will try to automatically set Tor proxy connection settings. You are strongly advised to use --check-tor occasionally to be sure that everything was set up properly - sqlmap will check that everything works as expected by sending a single request to an official Are you using Tor? page before any target requests.</em></label>
                                     <label class="checkbox-label">
                                         <input type="checkbox" id="tor">
                                         <span class="checkmark"></span>
@@ -627,8 +625,8 @@ You can point sqlmap a request file for sending to the server where results are 
                                 </div>
                             </div>
                             <!-- Attack tuning -->
-                            <div class="form-group" title="Connection optimization - using persistent HTTP(s) connections">
-                                <label class="form-label">ATTACK TUNING</label>
+                            <div class="form-group">
+                                <label class="form-label">ATTACK TUNING<em class="tooltip">Connection optimization - using persistent HTTP(s) connections</em></label>
                                 <div class="checkbox-grid">
                                     <!-- --invalid-bignum -->
                                     <label class="checkbox-label" title="This parameter forces sqlmap to use large integer numbers for invalidating original parameter values during SQL injection tests.
@@ -655,13 +653,10 @@ The parameter automatically replaces parameters with random strings during boole
                                         <span>--invalid-string</span>
                                     </label>
                                     <!-- --no-cast -->
-                                    <label class="checkbox-label" title="The switch disables sqlmap's automatic payload casting mechanism.
-Normally sqlmap adds CAST() functions to payloads for handling different DBMS data types.
-Using --no-cast is necessary when applications have payload length restrictions or when casting functions are blocked by WAF. It significantly reduces the size of generated payloads, which is critical in environments with character limits.
-It is often combined with --no-escape in environments with query length restrictions where every character matters.">
+                                    <label class="checkbox-label">
                                         <input type="checkbox" id="noCast">
                                         <span class="checkmark"></span>
-                                        <span>--no-cast</span>
+                                        <span>--no-cast</span><em class="tooltip">The switch disables sqlmap's automatic payload casting mechanism. Normally sqlmap adds CAST() functions to payloads for handling different DBMS data types. Using --no-cast is necessary when applications have payload length restrictions or when casting functions are blocked by WAF. It significantly reduces the size of generated payloads, which is critical in environments with character limits. It is often combined with --no-escape in environments with query length restrictions where every character matters.</em>
                                     </label>
                                     <!-- --no-escape -->
                                     <label class="checkbox-label" title="This parameter disables sqlmap's built-in string escaping mechanism.
@@ -855,10 +850,10 @@ If it is necessary to enforce the usage of particular pivot column because the a
                                     <span class="checkmark"></span>
                                     <span>--statements</span>
                                 </label>                                
-                                <label class="checkbox-label" title="Retrieve SQL statements being run on DBMS">
+                                <label class="checkbox-label">
                                     <input type="checkbox" id="tables">
                                     <span class="checkmark"></span>
-                                    <span>--tables</span>
+                                    <span>--tables</span><em class="tooltip">Retrieve SQL statements being run on DBMS</em>
                                 </label>
                                 <label class="checkbox-label" title="Enumerate DBMS users">
                                     <input type="checkbox" id="users">
