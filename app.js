@@ -38,7 +38,7 @@ class SQLMapGenerator {
             '--random-agent': 'userAgent',
             '--mobile': 'mobileUserAgent',
             '--referer': 'referer',
-            '-H': 'headers',
+            '--headers': 'headers',
 
             '--cookie': 'cookie',
             '--cookie-del': 'cookieDel',
@@ -312,7 +312,7 @@ class SQLMapGenerator {
         }
 
         this.setStandardConfigItem(config, '--referer');  
-        this.setStandardConfigItem(config, '-H');  
+        this.setStandardConfigItem(config, '--headers');  
 
         // ## Authentication
         this.setStandardConfigItem(config, '--cookie'); 
