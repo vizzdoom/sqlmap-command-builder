@@ -468,6 +468,7 @@ pre code {
   color: var(--hacker-secondary);
 }
 
+
 .form-control:focus {
   border-color: var(--hacker-primary);
   box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
@@ -968,20 +969,36 @@ input[type=number]::-webkit-outer-spin-button {
 .tooltip,
 [title] {
   position: relative;
+  display: inline-block;
+  margin-left: var(--space-xs);
+  cursor: pointer;
+  font-style: normal;
+  color: var(--hacker-secondary);
+}
+
+.tooltip::before {
+  content: "ⁱ";
+  font-size: 0.9em;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.tooltip:hover::before {
+  color: var(--hacker-primary);
 
 }
 
 .tooltip::after,
 [title]::after {
   position: absolute;
-  bottom: calc(100% + var(--space-xs));
+  bottom: calc(100% + var(--space-2xl));
   left: 50%;
   transform: translateX(-50%);
   background: var(--hacker-bg-dark-opacity);
   color: var(--hacker-secondary);
   padding: var(--space-s);
   border-radius: var(--radius-m);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-m);
   white-space: normal;
   overflow-wrap: break-word;
   width: max-content;
@@ -993,10 +1010,27 @@ input[type=number]::-webkit-outer-spin-button {
   transition: opacity 0.3s ease;
   border: 1px solid var(--hacker-border);
   z-index: 1000;
+  box-shadow: 6px 6px 0px 0px, 0 0 5000px 5000px #00000070;
 }
 
-.tooltip::after {
-  content: attr(data-tooltip);
+.tooltip:hover::after {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.additional-help {
+  font-size: var(--font-size-s);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-l);
+  line-height: 1.5;
+  height: 3em;
+  user-select: none;
+}
+
+.tamper--script {
+    font-weight: bold;
+
 }
 
 [title]::after {

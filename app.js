@@ -854,4 +854,10 @@ let sqlgen = null;
 document.addEventListener('DOMContentLoaded', () => {
     sqlgen = new SQLMapGenerator();
     document.querySelectorAll('input[type=text], textarea').forEach(field => field.spellcheck = false);
+
+    document.querySelectorAll('em.tooltip').forEach(el => {
+        const text = el.textContent;
+        el.textContent = '';
+        el.dataset.tooltip = text;
+    });
 });
