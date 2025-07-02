@@ -531,7 +531,7 @@ class SQLMapGenerator {
             switch (levelSlider.value) {
                 case "1": levelHelp = "1: Fastest and least intrusive testing of GET and POST parameters (default)."; break;
                 case "2": levelHelp = "2: Additionally test injections in the Cookie header."; break;
-                case "3": levelHelp = "3: Additionally test injections in User-Agent and Referer headers ."; break;
+                case "3": levelHelp = "3: Additionally test injections in User-Agent and Referer headers."; break;
                 case "4": levelHelp = "4: Additionally perform more advanced tests, such as null values and some extra payloads."; break;
                 case "5": levelHelp = "5: Additionally test Host header, using all possible payloads."; break;
             }

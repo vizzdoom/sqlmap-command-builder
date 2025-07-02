@@ -30,14 +30,12 @@
   --hacker-surface: #141d23;
   --hacker-border: #223d2b;
 
-
   /* Common style patterns - updated for dark mode */
   --focus-ring: 0 0 0 3px var(--color-card-border);
   --focus-outline: 2px solid var(--color-primary);
   --status-bg-opacity: 0.4;
   --status-border-opacity: 0.5;
-  --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2310af38' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 
   /* RGB versions for opacity control */
   --color-success-rgb: 50, 184, 198;
@@ -98,15 +96,10 @@
   --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Layout */
- 
   --container-s: 350px;
   --container-m: 900px;
   --container-l: 1500px;
 }
-
- /*****************\
-  Responsive Design 
- \*****************/
 
 /* Container layout */
 .container {
@@ -186,7 +179,6 @@
   }
 }
 
-
 /* FORM GRID */
 .form-grid {
   display: grid;
@@ -211,26 +203,13 @@
 .form-grid-tamper {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-m);
+  gap: 0;
 }
-
-
-/* @media (min-width: 625px) {
-  #tampering .form-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-  }
-}
-@media (min-width: 950px) {
-  #tampering .form-grid {
-    grid-template-columns: 1fr 2fr;
-    gap: var(--space-xl);
-  }
-} */
 
 .checkbox-label-tamper {
   line-height: 16px;
 }
+
 label span.checkbox-label-tamper__title {
   font-size: var(--font-size-s);
   font-weight: bold;
@@ -465,16 +444,16 @@ pre code {
   margin-bottom: var(--space-xs);
   font-size: var(--font-size-s);
   letter-spacing: 0.5px;
-  line-height: 0.9;
+  line-height: 1.1;
 }
 
-.form-label u, 
-.checkbox-label u {
+.form-label u {
   font-weight: normal;;
   color: var(--hacker-secondary);
   text-decoration: none;
 }
 
+/*** ⁱ TOOLTIP  */
 .form-label i,
 .checkbox-label i {
   min-width: 18px;
@@ -504,7 +483,6 @@ pre code {
   padding: var(--space-s);
   margin: var(--space-m) 0;
   border: 2px solid var(--hacker-secondary);
-  /* box-shadow: 8px 8px 0px 0px var(--hacker-primary); */
   background: var(--hacker-bg-dark);
 
   line-height: 1.15;
@@ -544,6 +522,160 @@ pre code {
   opacity: 1;
   visibility: visible;
 }
+/* ⁱ TOOLTIP ***/
+
+/*** CHECKBOXES */
+.checkbox-group {
+  flex-direction: row !important;
+  align-items: center;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0;
+}
+
+.checkbox-label {
+  line-height: 1.15;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  padding-left: var(--space-3xl);
+  padding-top: var(--space-xs);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.form-grid-tamper .checkbox-label { 
+  line-height: 1.0;
+  padding-top: var(--space-xs);
+  padding-bottom: var(--space-xs);
+}
+
+.form-grid-tamper .checkbox-label b {
+  font-size: var(--font-size-s);
+}
+
+.form-grid-tamper .checkbox-label u {
+  font-size: var(--font-size-s);
+  line-height: 1.0;
+}
+
+.checkbox-label b {
+  font-size: var(--font-size-s);
+  display: flex;
+  font-weight: bold;
+  color: var(--hacker-secondary);
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.checkbox-label u {
+  font-size: var(--font-size-s);
+  font-weight: normal;;
+  color: var(--hacker-secondary);
+  text-decoration: none;
+  line-height: 2.0;
+}
+
+.checkbox-grid .checkbox-label u {
+  font-size: var(--font-size-s);
+}
+
+.checkbox-label input[type="checkbox"], .checkbox-label-tamper input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+input[type="range"] {
+  margin-top: var(--space-m);
+  max-width: 80%;
+}
+
+input[type="range"]#level {
+  max-width: 80%;
+}
+
+input[type="range"]#risk {
+  max-width: 60%;
+}
+
+input[type="range"]#verbose {
+  max-width: 80%;
+}
+
+
+.checkbox-grid .checkbox-label .checkmark {
+  transform: none;
+}
+
+.form-label.checkbox-grid {
+  margin-bottom: var(--space-xs);
+}
+
+ /* FORCE USAGE OF HTTPS REQUESTS:hover -->> check */
+.checkbox-label:hover .checkmark {
+  border-color: var(--hacker-primary);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+input[type="checkbox"]:checked ~ .checkmark {
+  background-color: var(--hacker-primary);
+  border-color: var(--hacker-primary);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    transform: translateY(-50%);
+    height: 28px;
+    width: 28px;
+    background-color: var(--hacker-bg-dark);
+    border: 2px solid var(--hacker-border);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.checkbox-grid .checkmark {
+    position: absolute;
+    left: 0;
+    transform: translateY(-50%);
+    height: 24px;
+    width: 24px;
+    background-color: var(--hacker-bg-dark);
+    border: 2px solid var(--hacker-border);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 2px;
+  width: 10px;
+  height: 14px;
+  border: solid var(--color-btn-primary-text);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-grid .checkmark:after {
+  left: 6px;
+  top: 3px;
+  width: 8px;
+  height: 10px;
+}
+
+input[type="checkbox"]:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Checkboxes ***/
 
 .form-control:focus {
   border-color: var(--hacker-primary);
@@ -567,27 +699,16 @@ select.form-control {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: var(--select-caret-light);
+  background-image: var(--select-caret);
   background-repeat: no-repeat;
   background-position: right var(--space-m) center;
   background-size: 16px;
   padding-right: var(--space-3xl);
 }
 
-/* Add a dark mode specific caret */
-@media (prefers-color-scheme: dark) {
-  select.form-control {
-    background-image: var(--select-caret-dark);
-  }
-}
-
-/* Also handle data-color-scheme */
-[data-color-scheme="dark"] select.form-control {
-  background-image: var(--select-caret-dark);
-}
-
-[data-color-scheme="light"] select.form-control {
-  background-image: var(--select-caret-light);
+.form-control:hover {
+  border-color: var(--hacker-primary);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
 }
 
 .form-control:focus {
@@ -668,7 +789,7 @@ select.form-control {
 /* Header */
 .header {
   text-align: center;
-  margin-bottom: var(--space-3xl);
+  margin-bottom: var(--space-l);
   padding: var(--space-3xl) var(--space-s) var(--space-s) var(--space-s);
   color: var(--color-text-secondary);
   font-size: var(--font-size-m);
@@ -821,89 +942,6 @@ select.form-control {
   box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
-/* Checkboxes */
-.checkbox-group {
-  flex-direction: row !important;
-  align-items: center;
-}
-
-.checkbox-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--space-s);
-}
-/*
-.checkbox-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--space-m);
-}*/
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  color: var(--color-text);
-  font-size: var(--font-size-s);
-  font-weight: bold;
-  position: relative;
-  padding-left: var(--space-3xl);
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-input, select, textarea {
-  margin-top: var(--space-xs);
-}
-
-.checkbox-label input[type="checkbox"], .checkbox-label-tamper input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.checkmark {
-    position: absolute;
-    left: 0;
-    top: 0%;
-    transform: translateY(-50%);
-    height: 25px;
-    width: 25px;
-    background-color: var(--hacker-bg-dark);
-    border: 2px solid var(--hacker-border);
-    border-radius: 3px;
-    transition: all 0.3s ease;
-}
-
-.checkbox-label:hover ~ .checkbox-label .checkmark, /* FORCE USAGE OF HTTPS REQUESTS:hover -->> check */
-.checkbox-label:hover .checkmark {
-  border-color: var(--hacker-primary);
-  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
-}
-
-.checkbox-label input:checked ~ .checkmark {
-  background-color: var(--hacker-primary);
-  border-color: var(--hacker-primary);
-  box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
-}
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-  left: 6px;
-  top: 3px;
-  width: 8px;
-  height: 12px;
-  border: solid var(--color-btn-primary-text);
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-.checkbox-label input:checked ~ .checkmark:after {
-  display: block;
-}
-
 /* Configuration Section */
 .config-section {
   margin-top: var(--space-3xl);
@@ -914,9 +952,6 @@ input, select, textarea {
   gap: var(--space-l);
   flex-wrap: wrap;
 }
-
-
-
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
@@ -988,7 +1023,7 @@ input, select, textarea {
 
 .additional-help {
   font-size: var(--font-size-s);
-  color: var(--color-text-secondary);
+  color: var(--hacker-secondary);
   margin-top: var(--space-l);
   line-height: 1.5;
   height: 3em;
@@ -997,6 +1032,10 @@ input, select, textarea {
 
 .row-expand {
   grid-column: 1 / -1;
+}
+
+.grid-span-2 {
+  grid-column: span 2;
 }
 
 /* Hide unstylled arrows from input type number */
@@ -1009,17 +1048,16 @@ input[type=number]::-webkit-outer-spin-button {
       -webkit-appearance: none; 
 }
 
-.additional-help {
-  font-size: var(--font-size-s);
-  color: var(--color-text-secondary);
-  margin-top: var(--space-l);
-  line-height: 1.5;
-  height: 3em;
-  user-select: none;
-}
-
 .tamper--script {
     font-weight: bold;
 
 }
 
+input, select, textarea {
+  margin-top: var(--space-xs);
+}
+
+#levelValue, #riskValue {
+  color: var(--hacker-secondary);
+  font-weight: var(--font-weight-bold);
+}

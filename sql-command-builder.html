@@ -105,6 +105,7 @@
                             <!-- --timeout -->
                             <div class="form-group">
                                 <label class="form-label" for="timeout">REQUEST TIMEOUT<i tooltip="Seconds to wait before timeout connection.
+                                    
                                     Default: 30 seconds">ⁱ</i></label>
                                 <label class="form-label" for="timeout"><u>--timeout</u></label>
                                 <input type="number" id="timeout" class="form-control" min="1" max="300" placeholder="10 (seconds)">
@@ -118,6 +119,7 @@
                             <!-- --threads -->
                             <div class="form-group">
                                 <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS<i tooltip="Max number of concurrent HTTP(s) requests.
+                                    
                                     Default: 1 | Maximum: 10"> ⁱ </i></label>
                                 <label class="form-label" for="threads"><u>--threads</u></label>
                                 <input type="number" id="threads" class="form-control" min="1" max="10" placeholder="1">
@@ -126,96 +128,114 @@
                             <div></div>
                             <!-- force-ssl -->
                             <div class="form-group">
-                                <label class="checkbox-label" for="forceSsl">FORCE USAGE OF HTTPS REQUESTS</label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="forceSsl"><span class="checkmark"></span><u>--force-ssl</u><i tooltip="In case that user wants to force usage of SSL/HTTPS requests toward the target, he can use this switch.
+                                <label class="checkbox-label" for="forceSsl">
+                                    <input type="checkbox" id="forceSsl">
+                                    <b>FORCE USAGE OF HTTPS REQUESTS</b>
+                                    <u>--force-ssl</u><i tooltip="In case that user wants to force usage of SSL/HTTPS requests toward the target, he can use this switch.
                                     This can be alse useful in cases when urls are being collected by --crawl or when Burp log is being provided with option -l.">ⁱ</i>
+                                    <span class="checkmark"></span>
                                 </label>
                             </div>
                             <!-- --keep-alive -->
-                            <div class="form-group" title="Connection optimization - using persistent HTTP(s) connections">
-                                <label class="form-label">PERSISTENT CONNECTIONS OPTIMIZATION</label>
-                                <label class="checkbox-label">
+                            <div class="form-group">
+                                <label class="checkbox-label" for="keepAlive">
                                     <input type="checkbox" id="keepAlive">
+                                    <b>PERSISTENT CONNECTIONS OPTIMIZATION</b>
+                                    <u>--keep-alive</u><i tooltip="Connection optimization - using persistent HTTP(s) connections">ⁱ</i>
                                     <span class="checkmark"></span>
-                                    <span>--keep-alive</span>
                                 </label>
                             </div>
                             <!-- --null-connection -->
-                            <div class="form-group" title="Connection optimization - Retrieve page length without actual HTTP response body.
-There are special HTTP request types which can be used to retrieve HTTP response's size without getting the HTTP body. This knowledge can be used in blind injection technique to distinguish True from False responses. When this switch is provided, sqlmap will try to test and exploit two different NULL connection techniques: Range and HEAD. If any of these is supported by the target web server, speed up will come from the obvious saving of used bandwidth.
-Note that this switch is incompatible with switch --text-only.">
-                                <label class="form-label">HTTP NULL CONNECTIONS OPTIMIZATION</label>
-                                <label class="checkbox-label">
+                            <div class="form-group">
+                                <label class="checkbox-label" for="nullConnection">
                                     <input type="checkbox" id="nullConnection">
+                                    <b>HTTP NULL CONNECTIONS OPTIMIZATION</b>
+                                    <u>--null-connection</u><i tooltip="Connection optimization - Retrieve page length without actual HTTP response body.
+                                    There are special HTTP request types which can be used to retrieve HTTP response's size without getting the HTTP body. 
+                                    This knowledge can be used in blind injection technique to distinguish True from False responses. 
+                                    When this switch is provided, sqlmap will try to test and exploit two different NULL connection techniques: Range and HEAD. 
+                                    If any of these is supported by the target web server, speed up will come from the obvious saving of used bandwidth.
+                                    Remark: incompatible with --text-only.">ⁱ</i>
                                     <span class="checkmark"></span>
-                                    <span>--null-connection</span>
                                 </label>
                             </div>
                             <!-- --http2 -->
-                            <div class="form-group" title="Connection optimization - Use HTTP version 2 (experimental).">
-                                <label class="form-label">USE HTTP2 CONNECTIONS</label>
-                                <label class="checkbox-label">
+                            <div class="form-group">
+                                <label class="checkbox-label" for="http2">
                                     <input type="checkbox" id="http2">
+                                    <b>USE HTTP2 CONNECTIONS</b>
+                                    <u>--http2</u><i tooltip="Connection optimization - Use HTTP version 2 (experimental).">ⁱ</i>
                                     <span class="checkmark"></span>
-                                    <span>--http2</span>
                                 </label>
                             </div>
+
                             <h3>Proxy Options</h3>
                             <!-- --proxy -->
-                            <div class="form-group" title="Use a proxy to connect to the target URL">
-                                <label class="form-label" for="proxy">HTTP(S) PROXY<br/><span>--proxy</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="proxy">HTTP(S) PROXY<i tooltip="Use a proxy to connect to the target URL.">ⁱ</i></label>
+                                <label class="form-label" for="proxy"><u>--proxy</u></label>
                                 <input type="text" id="proxy" class="form-control" placeholder="http://127.0.0.1:8080">
                             </div>
                             <!-- --proxy-cred -->
-                            <div class="form-group" title="Use a proxy to connect to the target URL">
-                                <label class="form-label" for="proxyCred">HTTP(S) PROXY CREDENTIALS<br/><span>--proxy-cred</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="proxyCred">HTTP(S) PROXY CREDENTIAL<i tooltip="If the HTTP(S) proxy requires authentication, you can provide the credentials in the format username:password to the option --proxy-cred.">ⁱ</i></label>
+                                <label class="form-label" for="proxyCred"><u>--proxy-cred</u></label>
                                 <input type="text" id="proxyCred" class="form-control" placeholder="username:password">
                             </div>
                             <!-- --proxy-file -->
-                            <div class="form-group" title="Use a proxy to connect to the target URL">
-                                <label class="form-label" for="proxyFile">HTTP(S) PROXY FILE<br/><span>--proxy-file</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="proxyFile">HTTP(S) PROXY FILE<i tooltip="Use a proxy to connect to the target URL.">ⁱ</i></label>
+                                <label class="form-label" for="proxyFile"><u>--proxy-file</u></label>
                                 <input type="text" id="proxyFile" class="form-control" placeholder="proxy-file.txt">
                             </div>
                             <!-- --proxy-freq -->
-                            <div class="form-group" title="Requests between change of proxy from a given --proxy-file list">
-                                <label class="form-label" for="proxyFreq">PROXY ROTATION NUMBER<br/><span>--proxy-freq</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="proxyFreq">PROXY ROTATION NUMBER<i tooltip="Requests between change of proxy from a given --proxy-file list.">ⁱ</i></label>
+                                <label class="form-label" for="proxyFreq"><u>--proxy-freq</u></label>
                                 <input type="number" id="proxyFreq" class="form-control" min="1" step="1" placeholder="3">
                             </div>
                             <!-- --ignore-proxy -->
-                            <div class="form-group row-expand">
-                                <label class="form-label">IGNORE SYSTEM PROXY SETTINGS<em class="tooltip">Run sqlmap against a target part of a local area network by ignoring the system-wide set HTTP(S) proxy server setting.</em></label>
-                                <label class="checkbox-label">
+                            <div class="form-group">
+                                <label class="checkbox-label" for="proxyIgnore">
                                     <input type="checkbox" id="proxyIgnore">
+                                    <b>IGNORE SYSTEM PROXY SETTINGS</b>
+                                    <u>--ignore-proxy</u><i tooltip="Run sqlmap against a target part of a local area network by ignoring the system-wide set HTTP(S) proxy server setting.">ⁱ</i>
                                     <span class="checkmark"></span>
-                                    <span class="checkbox-label__text">--ignore-proxy</span>
                                 </label>
                             </div>
+
                             <div class="form-group">
-                                <!-- --tor -->
+                                <span class="form-label checkbox-grid">TOR ANONYMITY NETWORK SETTINGS</span>
                                 <div class="checkbox-grid">
-                                    <label class="form-label">TOR ANONYMITY NETWORK SETTINGS<em class="tooltip">If, for any reason, you need to stay anonymous, instead of passing by a single predefined HTTP(S) proxy server, you can configure a Tor client together with Privoxy (or similar) on your machine as explained in Tor installation guides. Then you can use a switch --tor and sqlmap will try to automatically set Tor proxy connection settings. You are strongly advised to use --check-tor occasionally to be sure that everything was set up properly - sqlmap will check that everything works as expected by sending a single request to an official Are you using Tor? page before any target requests.</em></label>
-                                    <label class="checkbox-label">
+                                    <!-- --tor -->
+                                    <label class="checkbox-label" for="tor">
                                         <input type="checkbox" id="tor">
+                                        <u>--tor</u><i tooltip="If, for any reason, you need to stay anonymous, instead of passing by a single predefined HTTP(S) proxy server, you can configure a Tor client together with Privoxy (or similar) on your machine as explained in Tor installation guides. 
+                                        Then you can use a switch --tor and sqlmap will try to automatically set Tor proxy connection settings.">ⁱ</i>
                                         <span class="checkmark"></span>
-                                        <span class="checkbox-label__text">--tor</span>
                                     </label>
+
                                     <!-- --check-tor -->
-                                    <label class="checkbox-label">
+                                    <label class="checkbox-label" for="checkTor">
                                         <input type="checkbox" id="checkTor">
+                                        <b></b>
+                                        <u>--check-tor</u><i tooltip="You are strongly advised to use --check-tor occasionally to be sure that everything was set up properly.
+                                        With --check-tor sqlmap will check if everything works as expected by sending a single request to an official 'Are you using Tor?' page before any target requests.">ⁱ</i>
                                         <span class="checkmark"></span>
-                                        <span class="checkbox-label__text">--check-tor</span>
                                     </label>
-                                </div>  
-                            </div>
+                                </div>
+                            </div>  
+                            
                             <!-- --tor-port -->
-                            <div class="form-group" title="In case that you want to manually set the port of used Tor proxy">
-                                <label class="form-label" for="torPort">TOR PROXY PORT<br/><span>--tor-port</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="torPort">TOR PROXY PORT<i tooltip="In case that you want to manually set the port of used Tor proxy.">ⁱ</i></label>
+                                <label class="form-label" for="torPort"><u>--tor-port</u></label>
                                 <input type="number" id="torPort" class="form-control" min="1" max="65535" placeholder="9050">
                             </div>
                             <!-- --tor-type -->
-                            <div class="form-group" title="In case that you want to manually set the type of used Tor proxy.">
-                                <label class="form-label" for="torType">TOR PROXY TYPE<br/><span>--tor-type</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="torType">TOR PROXY TYPE<i tooltip="In case that you want to manually set the type of used Tor proxy.">ⁱ</i></label>
+                                <label class="form-label" for="torType"><u>--tor-type</u></label>
                                 <select id="torType" class="form-control">
                                     <option value="">-- Choose Type --</option>
                                     <option value="SOCKS5">SOCKS5 (default)</option>
@@ -223,7 +243,6 @@ Note that this switch is incompatible with switch --text-only.">
                                     <option value="HTTP">HTTP</option>
                                 </select>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -236,8 +255,9 @@ Note that this switch is incompatible with switch --text-only.">
                         <div class="form-grid">
                             <h3>Request Data</h3>
                             <!-- --method -->
-                            <div class="form-group" title="Force usage of given HTTP method (e.g. PUT)">
-                                <label class="form-label" for="method">HTTP REQUEST METHOD<br/><span>--method</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="method">HTTP REQUEST METHOD<i tooltip="Force usage of given HTTP method (e.g. PUT).">ⁱ</i></label>
+                                <label class="form-label" for="method"><u>--method</u></label>
                                 <select id="method" class="form-control">
                                     <option value="">-- Choose HTTP Method --</option>
                                     <option value="GET">GET</option>
@@ -254,35 +274,51 @@ Note that this switch is incompatible with switch --text-only.">
                                 </div>
                             </div>
                             <!-- --param-del -->
-                            <div class="form-group" title="There are cases when default parameter delimiter (&) needs to be overwritten for sqlmap to be able to properly split and process each parameter separately (e.g. query=foobar;id=1 instead query=foobar&id=1).">
-                                <label class="form-label" for="paramDel">PARAMETER DELIMITER<br/><span>--param-del</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="paramDel">PARAMETER DELIMITER<i tooltip="There are cases when default parameter delimiter (&) needs to be overwritten for sqlmap to be able to properly split and process each parameter separately, e.g.:
+                                     query=foobar;id=1 instead query=foobar&id=1">ⁱ</i></label>
+                                <label class="form-label" for="paramDel"><u>--param-del</u></label>
                                 <input type="text" id="paramDel" class="form-control" placeholder="&">
                             </div>
                             <!-- -r -->
-                            <div class="form-group" title="Load HTTP request from a file">
-                                <label class="form-label" for="requestFile">FILE WITH AN HTTP REQUEST<br/><span>-r</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="requestFile">FILE WITH AN HTTP REQUEST<i tooltip="Load HTTP request from a file">ⁱ</i></label>
+                                <label class="form-label" for="requestFile"><u>-r</u></label>
                                 <input type="text" id="requestFile" class="form-control" placeholder="request.txt">
                             </div>
                             <!-- --data -->
-                            <div class="form-group" title="By default the HTTP method used to perform HTTP requests is GET, but you can implicitly change it to POST by providing the data to be sent in the POST requests.
-Such data, being those parameters, are tested for SQL injection as well as any provided GET parameters.">
-                                <label class="form-label" for="data">HTTP BODY DATA<br/><span>--data</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="data">HTTP BODY DATA<i tooltip="By default the HTTP method used to perform HTTP requests is GET, but you can implicitly change it to POST by providing the data to be sent in the POST requests.
+                                    
+                                    Such data, being those parameters, are tested for SQL injection as well as any provided GET parameters.">ⁱ</i></label>
+                                <label class="form-label" for="data"><u>--data</u></label>
                                 <textarea id="data" class="form-control" rows="4" placeholder="param1=value1&param2=value2"></textarea>
                             </div>
+
                             <h3>Request Headers</h3>
                             <!-- --host -->
-                            <div class="form-group" title="You can manually set HTTP Host header value. By default HTTP Host header is parsed from a provided target URL.
-Note that also the HTTP Host header is tested against SQL injection if the --level is set to 5.">
-                                <label class="form-label" for="host">CUSTOM HTTP HOST HEADER<br/><span>--host</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="host">CUSTOM HTTP HOST HEADER<i tooltip="You can manually set HTTP Host header value. 
+                                    By default HTTP Host header is parsed from a provided target URL.
+                                    
+                                    Note that also the HTTP Host header is tested against SQL injection if the --level is set to 5.">ⁱ</i></label>
+                                <label class="form-label" for="host"><u>--host</u></label>
                                 <input type="text" id="host" class="form-control" placeholder="example.com">
                             </div>
                             <!-- -A / --random-agent / --mobile -->
-                            <div class="form-group" title="By default sqlmap performs HTTP requests with the &quot;sqlmap/1.0-dev-x (http://sqlmap.org)&quot; User-Agent header, but it can changed with the option -A.
-Moreover, by providing the switch --random-agent, sqlmap will randomly select a User-Agent from the ./txt/user-agents.txt textual file and use it for all HTTP requests within the session.
-Some sites perform a server-side check of HTTP User-Agent header value and fail the HTTP response if a valid User-Agent is not provided, its value is not expected or is blacklisted by a web application firewall or similar intrusion prevention system.
-Sometimes web servers expose different interfaces toward mobile phones than to desktop computers. In such cases you can enforce usage of one of predetermined smartphone HTTP User-Agent header values by using a --mobile switch (sqlmap will ask you to pick one of popular smartphones which it will imitate in current run).
-Note that also the HTTP User-Agent header is tested against SQL injection if the --level is set to 3 or above.">
-                                <label class="form-label" for="userAgent">USER-AGENT HEADER VALUE<br/><span>--mobile / --random-agent / -A</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="userAgent">USER-AGENT HEADER VALUE<i tooltip="By default sqlmap performs HTTP requests with the &quot;sqlmap/1.0-dev-x (http://sqlmap.org)&quot; User-Agent header, but it can changed with the option -A.
+                                    
+                                    Moreover, by providing the switch --random-agent, sqlmap will randomly select a User-Agent from the ./txt/user-agents.txt textual file and use it for all HTTP requests within the session.
+                                    
+                                    Some sites perform a server-side check of HTTP User-Agent header value and fail the HTTP response if a valid User-Agent is not provided, its value is not expected or is blacklisted by a web application firewall or similar intrusion prevention system.
+                                    
+                                    Sometimes web servers expose different interfaces toward mobile phones than to desktop computers. 
+                                    
+                                    In such cases you can enforce usage of one of predetermined smartphone HTTP User-Agent header values by using a --mobile switch (sqlmap will ask you to pick one of popular smartphones which it will imitate in current run).
+                                    
+                                    Note that also the HTTP User-Agent header is tested against SQL injection if the --level is set to 3 or above.">ⁱ</i></label>
+                                <label class="form-label" for="userAgent"><u>--mobile / --random-agent / -A</u></label>
                                 <select id="userAgent" class="form-control">
                                     <option value="">Default: sqlmap/1.0-dev-x (http://sqlmap.org)</option>
                                     <option value="mobile">--mobile</option>
@@ -319,54 +355,78 @@ Note that also the HTTP User-Agent header is tested against SQL injection if the
                                 </div>
                             </div>
                             <!-- --referer -->
-                            <div class="form-group" title="By default no HTTP Referer header is sent in HTTP requests if not explicitly set by the --referer switch.
-Note that also the HTTP Referer header is tested against SQL injection if the --level is set to 3 or above.">
-                                <label class="form-label" title="HTTP Referer header value" for="referer">HTTP REFERER HEADER<br/><span>--referer</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="referer">HTTP REFERER HEADER<i tooltip="By default no HTTP Referer header is sent in HTTP requests if not explicitly set by the --referer switch.
+                                    
+                                    Note that also the HTTP Referer header is tested against SQL injection if the --level is set to 3 or above.">ⁱ</i></label>
+                                <label class="form-label" for="referer"><u>--referer</u></label>
                                 <input type="url" id="referer" class="form-control" placeholder="https://127.0.0.1/login">
                             </div>
                             <!-- -headers -->
-                            <div class="form-group" title="Extra HTTP headers separated by a newline.">
-                                <label class="form-label" title="Additional HTTP Headers" for="headers">EXTRA HTTP HEADERS<br/><span>--headers</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="headers">EXTRA HTTP HEADERS<i tooltip="Extra HTTP headers separated by a newline.">ⁱ</i></label>
+                                <label class="form-label" for="headers"><u>--headers</u></label>
                                 <textarea id="headers" class="form-control" rows="4" placeholder="X-Forwarded-For: 127.0.0.1&#10;Authorization: Bearer token"></textarea>
                             </div>
+
                             <h3>Authentication</h3>
                             <!-- --cookie -->
-                            <div class="form-group" title="HTTP Cookie header value for authentication (and for exploitation if the --level is set to 2 or above).
-If you provide a HTTP Cookie header with option --cookie and the target URL sends an HTTP Set-Cookie header at any time, sqlmap will ask you which set of cookies to use for the following HTTP requests (see also a --drop-set-cookie switch).">
-                                <label class="form-label" title="HTTP Cookie header value" for="cookie">COOKIE HEADER VALUE<br/><span>--cookie</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="cookie">COOKIE VALUE<i tooltip="HTTP Cookie header value for authentication (and for exploitation if the --level is set to 2 or above).
+                                    
+                                    If you provide a HTTP Cookie header with option --cookie and the target URL sends an HTTP Set-Cookie header at any time, sqlmap will ask you which set of cookies to use for the following HTTP requests.
+                                    
+                                    See also: --drop-set-cookie">ⁱ</i></label>
+                                <label class="form-label" for="cookie"><u>--cookie</u></label>
                                 <input id="cookie" class="form-control" placeholder="PHPSESSID=abc123; userid=1"></input>
                             </div>
                             <!-- --cookie-del -->
-                            <div class="form-group" title="the HTTP Cookie header values are usually separated by a ; character, not by an &. Sqlmap can recognize these as separate sets of parameter=value too, as well as GET and POST parameters. In case that the separation character is other than ; it can be specified by using option --cookie-del">
-                                <label class="form-label" title="HTTP Cookie header value" for="cookieDel">COOKIE DELIMITER<br/><span>--cookie-del</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="cookieDel">COOKIE DELIMITER<i tooltip="The HTTP Cookie header values are usually separated by a ; character, not by an &. 
+                                    
+                                    Sqlmap can recognize these as separate sets of parameter=value too, as well as GET and POST parameters. 
+                                    In case that the separation character is other than ; it can be specified by using option --cookie-del">ⁱ</i></label>
+                                <label class="form-label" for="cookieDel"><u>--cookie-del</u></label>
                                 <input type="text" id="cookieDel" class="form-control" placeholder=";">
                             </div>
                             <!-- --live-cookies -->
-                            <div class="form-group" title="Option --live-cookies can be used to provide a cookies file which will be used for loading of up-to-date values. This means that that same file will be read prior to each request to get the latest value for HTTP Cookie header.
-It should point to a file with fresh/up-to-date cookie values. Trick is that once you delete its content, sqlmap immediately will stop and wait for the update of its content. Same applies if you just modify its content in-place. You can do this indefinitely number of times during a run. In your case, you can just run sqlmap in one terminal, with --live-cookies pointing to a file containing starting cookie value, while in another terminal you can do a periodic deletion and filling of that same file.">
-                                <label class="form-label" title="HTTP Cookie header value" for="cookieLive">LIVE COOKIES FILE<br/><span>--live-cookies</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="cookieLive">LIVE COOKIES FILE<i tooltip="Option --live-cookies can be used to provide a cookies file which will be used for loading of up-to-date values. 
+                                    This means that that same file will be read prior to each request to get the latest value for HTTP Cookie header. It should point to a file with fresh/up-to-date cookie values. 
+                                    
+                                    Trick is that once you delete its content, sqlmap immediately will stop and wait for the update of its content. Same applies if you just modify its content in-place.You can do this indefinitely number of times during a run. 
+                                    
+                                    In your case, you can just run sqlmap in one terminal with --live-cookies pointing to a file containing starting cookie value, while in another terminal you can do a periodic deletion and filling of that same file.">ⁱ</i></label>
+                                <label class="form-label" for="cookieLive"><u>--live-cookies</u></label>
                                 <input type="text" id="cookieLive" class="form-control" placeholder="live-cookies.txt">
                             </div>
                             <!-- --load-cookies -->
-                            <div class="form-group" title="An option --load-cookies can be used to provide a special file containing Netscape/wget formatted cookies. This format includes not only cookie names and values but also their domains, paths, expiry, and security attributes.
-Unlike the --cookie or -H options which requires to manually enter raw cookie strings, --load-cookies reads structures cookie data, which can help fully replicate a browser session.">
-                                <label class="form-label" title="HTTP Cookie header value" for="cookieLoad">RAW COOKIE FILE<br/><span>--load-cookies</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="cookieLoad">RAW COOKIE FILE<i tooltip="An option --load-cookies can be used to provide a special file containing Netscape/wget formatted cookies. 
+                                    
+                                    This format includes not only cookie names and values but also their domains, paths, expiry, and security attributes.
+
+                                    Unlike the --cookie or -H options which requires to manually enter raw cookie strings, the --load-cookies reads structures cookie data, which can help fully replicate a browser session.">ⁱ</i></label>
+                                <label class="form-label" for="cookieLoad"><u>--load-cookies</u></label>
                                 <input type="text" id="cookieLoad" class="form-control" placeholder="load-cookies.txt">
                             </div>
                             <!-- --drop-set-cookie -->
-                            <div class="form-group" title="If the web application responds with Set-Cookie headers, sqlmap will automatically use its value in all further HTTP requests as the Cookie header. Sqlmap will also automatically test those values for SQL injection.
-This can be avoided by providing the switch --drop-set-cookie. Therefore, an sqlmap will ignore any coming Set-Cookie header.">
-                                <label class="form-label">IGNORE Set-Cookie HEADER</label>
-                                <label class="checkbox-label">
+                            <div class="form-group">
+                                <label class="checkbox-label" for="cookieDrop">
                                     <input type="checkbox" id="cookieDrop">
+                                    <b>IGNORE Set-Cookie HEADER</b>
+                                    <u>--drop-set-cookie</u><i tooltip="If the web application responds with Set-Cookie headers, sqlmap will automatically use its value in all further HTTP requests as the Cookie header. Sqlmap will also automatically test those values for SQL injection.
+                                    
+                                    This can be avoided by providing the switch --drop-set-cookie. 
+                                    Therefore, an sqlmap will ignore any coming Set-Cookie header.">ⁱ</i>
                                     <span class="checkmark"></span>
-                                    <span class="checkbox-label__text">--drop-set-cookie</span>
                                 </label>
                             </div>
                             <div></div>
                             <!-- --auth-type/--auth-cred -->
-                            <div class="form-group" title="These options can be used to specify which HTTP protocol authentication back-end web server implements and the valid credentials to be used to perform all HTTP requests to the target application.">
-                                <label class="form-label" for="authType">HTTP PROTOCOL AUTHENTICATION<br/><span>--auth-type / --auth-cred</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="authCred">HTTP PROTOCOL AUTHENTICATION<i tooltip="These options can be used to specify which HTTP protocol authentication back-end web server implements and the valid credentials to be used to perform all HTTP requests to the target application.">ⁱ</i></label>
+                                <label class="form-label" for="authCred"><u>--auth-type / --auth-cred</u></label>
                                 <select id="authType" class="form-control">
                                     <option value="">-- Choose auth method --</option>
                                     <option value="Basic">Basic</option>
@@ -378,25 +438,35 @@ This can be avoided by providing the switch --drop-set-cookie. Therefore, an sql
                                 </div>
                             </div>
                             <!-- --auth-file -->
-                            <div class="form-group" title="This option should be used in cases when the web server requires proper client-side certificate and a private key for authentication.
-Supplied value should be a PEM formatted key_file that contains your certificate and a private key.">
-                                <label class="form-label" for="authFile">PRIVATE KEY AUTHENTICATION<br/><span>--auth-file</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="authFile">PRIVATE KEY AUTHENTICATION<i tooltip="This option should be used in cases when the web server requires proper client-side certificate and a private key for authentication.
+                                    
+                                    Supplied value should be a PEM formatted key_file that contains your certificate and a private key.">ⁱ</i></label>
+                                <label class="form-label" for="authFile"><u>--auth-file</u></label>
                                 <input type="text" id="authFile" class="form-control" placeholder="auth_file.key">
                             </div>
+
                             <h3>CSRF Tokens Control</h3>
                             <!-- --csrf-token -->
-                            <div class="form-group" title="Option --csrf-token can be used to set the name of the hidden value that contains the randomized token. This is useful in cases when web sites use non-standard names for such fields.">
-                                <label class="form-label" for="csrfToken">ANTI-CSRF TOKEN FIELD<br/><span>--csrf-token</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="csrfToken">ANTI-CSRF TOKEN FIEL<i tooltip="Option --csrf-token can be used to set the name of the hidden value that contains the randomized token. 
+                                    
+                                    This is useful in cases when web sites use non-standard names for such fields.">ⁱ</i></label>
+                                <label class="form-label" for="csrfToken"><u>--csrf-token</u></label>
                                 <input type="text" id="csrfToken" class="form-control" placeholder="anti-csrf">
                             </div>
                             <!-- --csrf-url -->
-                            <div class="form-group" title="Option --csrf-url can be used for retrieval of the token value from arbitrary URL address. This is useful if the vulnerable target URL doesn't contain the necessary token value in the first place, but it is required to extract it from some other location.">
-                                <label class="form-label" for="csrfUrl">TOKEN EXTRACTION URL<br/><span>--csrf-url</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="csrfUrl">TOKEN EXTRACTION URL<i tooltip="Option --csrf-url can be used for retrieval of the token value from arbitrary URL address. 
+                                    
+                                    This is useful if the vulnerable target URL doesn't contain the necessary token value in the first place, but it is required to extract it from some other location.">ⁱ</i></label>
+                                <label class="form-label" for="csrfUrl"><u>--csrf-url</u></label>
                                 <input type="url" id="csrfUrl" class="form-control" placeholder="https://example.com/profile/">
                             </div>
                             <!-- --csrf-method -->
-                            <div class="form-group" title="Force usage of given HTTP method (e.g. PUT) during anti-CSRF token page visit https://vocus.cc/article/641c1527fd89780001447d2e">
-                                <label class="form-label" for="csrfMethod">HTTP METHOD FOR TOKEN RETRIEVAL<br/><span>--csrf-method</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="csrfMethod">HTTP METHOD FOR TOKEN RETRIEVAL<i tooltip="HTTP method for token extraction.">ⁱ</i></label>
+                                <label class="form-label" for="csrfMethod"><u>--csrf-method</u></label>
                                 <select id="csrfMethod" class="form-control">
                                     <option value="">-- Choose HTTP method --</option>
                                     <option value="GET">GET</option>
@@ -409,12 +479,15 @@ Supplied value should be a PEM formatted key_file that contains your certificate
                                     <option value="custom">--Custom--</option>
                                 </select>
                                 <div class="form-group" id="customCsrfMethodGroup">
-                                    <input type="text" id="customCsrfMethod" class="form-control" placeholder="HTTP method for token extraction">
+                                    <input type="text" id="customCsrfMethod" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <!-- --csrf-retries -->
-                            <div class="form-group" title="Retries for anti-CSRF token retrieval (default 0)">
-                                <label class="form-label" for="csrfRetries">RETRIES DURING TOKEN RETRIEVAL<br/><span>--csrf-retries</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="csrfRetries">RETRIES DURING TOKEN RETRIEVAL<i tooltip="Retries for anti-CSRF token retrieval.
+                                    
+                                    Default: 0">ⁱ</i></label>
+                                <label class="form-label" for="csrfRetries"><u>--csrf-retries</u></label>
                                 <input type="number" id="csrfRetries" class="form-control" placeholder="0" min="0" step="1">
                             </div>
                         </div>
@@ -430,112 +503,153 @@ Supplied value should be a PEM formatted key_file that contains your certificate
 
                             <h3>Parameters</h3>
                             <!-- -p -->
-                            <div class="form-group" title="Comma separated parameters for testing. By default sqlmap tests all GET parameters and POST parameters.
-When the value of --level is &gt;= 2 it tests also HTTP Cookie header values. When this value is &gt;= 3 it tests also HTTP User-Agent and HTTP Referer header value for SQL injections.
-It is however possible to manually specify a comma-separated list of parameter(s) that you want sqlmap to test. This will bypass the dependence on value of --level too.
-For instance, to test for GET parameter id and for HTTP User-Agent only, provide -p &quot;id,user-agent&quot;.">
-                                <label class="form-label" for="paramTest">TESTABLE PARAMETERS<br/><span>-p</span></label>
+                            <label class="form-group" for="paramTest">
+                                <div class="form-label" >TESTABLE PARAMETERS<i tooltip="Comma separated parameters for testing. By default sqlmap tests all GET parameters and POST parameters.
+                                    
+                                    When the value of --level is &gt;= 2 it tests also HTTP Cookie header values. When this value is &gt;= 3 it tests also HTTP User-Agent and HTTP Referer header value for SQL injections.
+                                    
+                                    It is however possible to manually specify a comma-separated list of parameter(s) that you want sqlmap to test. This will bypass the dependence on value of --level too.
+                                    
+                                    For instance, to test for GET parameter id and for HTTP User-Agent only, provide -p &quot;id,user-agent&quot;.">ⁱ</i></div>
+                                <div class="form-label" for="paramTest"><u>-p</u></div>
                                 <input type="text" id="paramTest" class="form-control" placeholder="id,user-agent">
-                            </div>
+                            </label>
+
                             <!-- --skip -->
-                            <div class="form-group" title="Skip testing for given parameter(s). That is especially useful in cases when you want to use higher value for --level and test all available parameters excluding some of HTTP headers normally being tested.
-For instance, to skip testing for HTTP header User-Agent and HTTP header Referer at --level=5, provide --skip=&quot;user-agent,referer&quot;.">
-                                <label class="form-label" for="paramSkip">FORBIDDEN PARAMETERS<br/><span>--skip</span></label>
+                            <label class="form-group" for="paramSkip">
+                                <div class="form-label" >FORBIDDEN PARAMETERS<i tooltip="Skip testing for given parameter(s). That is especially useful in cases when you want to use higher value for --level and test all available parameters excluding some of HTTP headers normally being tested.
+                                    
+                                    For instance, to skip testing for HTTP header User-Agent and HTTP header Referer at --level=5, provide --skip=&quot;user-agent,referer&quot;.">ⁱ</i></div>
+                                <div class="form-label" for="paramSkip"><u>--skip</u></div>
                                 <input type="text" id="paramSkip" class="form-control" placeholder="csrf_token,session_id">
-                            </div>
+                            </label>
                             <!-- --param-exclude -->
-                            <div class="form-group" title="Skip testing for given parameter(s). This is the same as --skip, but this switch is based on a regular expressions.
-For instance, to skip testing for parameters which contain string token or session in their names, provide --param-exclude=&quot;token|session&quot;">
-                                <label class="form-label" for="paramExclude">FORBIDDEN PARAMETERS REGEX<br/><span>--param-exclude</span></label>
+                            <label class="form-group" for="paramExclude">
+                                <div class="form-label">FORBIDDEN PARAMETERS REGEX<i tooltip="Skip testing for given parameter(s). This is the same as --skip, but this switch is based on a regular expressions.
+
+                                    For instance, to skip testing for parameters which contain string token or session in their names, provide --param-exclude=&quot;token|session&quot;">ⁱ</i></div>
+                                <div class="form-label"><u>--param-exclude</u></div>
                                 <input type="text" id="paramExclude" class="form-control" placeholder="token|session">
-                            </div>
+                            </label>
                             <!-- --param-filter -->
-                            <div class="form-group" title="The --param-filter parameter restrict scans to specific components of HTTP requests, improving efficiency and reducing noise. Accepted comma-separated values include GET (URL parameters), POST (request body), COOKIE, HOST, USER-AGENT, and REFERER.
-This switch can isolate high-risk areas like API endpoints (test only POST body parameters) or speed-up headers injection testing (specifying COOKIE,HOST,USER-AGENT,REFERER filter with --level=5 focuses scans on headers, ignoring GET/POST parameters).
-The filter reduces scan times by 30-40% in header-rich environments and minimizes false positives from unnecessary parameters.">
-                                <label class="form-label" for="paramFilter">PARAMETERS SCAN CATEGORY ALLOWLIST<br/><span>--param-filter</span></label>
+                            <label class="form-group" for="paramFilter">
+                                <div class="form-label">PARAMETERS SCAN CATEGORY ALLOWLIST<i tooltip="The --param-filter parameter restrict scans to specific components of HTTP requests, improving efficiency and reducing noise. 
+                                    
+                                    Accepted comma-separated values include GET (URL parameters), POST (request body), COOKIE, HOST, USER-AGENT, and REFERER.
+
+                                    This switch can isolate high-risk areas like API endpoints (test only POST body parameters) or speed-up headers injection testing (specifying COOKIE,HOST,USER-AGENT,REFERER filter with --level=5 focuses scans on headers, ignoring GET/POST parameters).
+
+                                    The filter reduces scan times by 30-40% in header-rich environments and minimizes false positives from unnecessary parameters.">ⁱ</i></div>
+                                <div class="form-label"><u>--param-filter</u></div>
                                 <input type="text" id="paramFilter" class="form-control" placeholder="GET,POST,COOKIE,USER-AGENT...">
-                            </div>
+                            </label>
                             <!-- --prefix -->
-                            <div class="form-group" title="The --prefix parameter allows you to prepend a custom string to every SQL injection payload before it is sent to the target application.
-                                 This parameter is essential when applications require specific SQL syntax or characters before the actual injection payload to construct a valid query.
-                                 It is particularly useful when dealing with applications that embed parameters within complex SQL queries requiring specific opening syntax, such as closing quotes or parentheses before the injection point.">
-                                <label class="form-label" for="prefix">Prefix<br/><span>--prefix</span></label>
+                            <label class="form-group" for="prefix">
+                                <div class="form-label">PREFIX TO PREPEND<i tooltip="The --prefix parameter allows you to prepend a custom string to every SQL injection payload before it is sent to the target application.
+                                    
+                                    This parameter is essential when applications require specific SQL syntax or characters before the actual injection payload to construct a valid query.
+                                    
+                                    It is particularly useful when dealing with applications that embed parameters within complex SQL queries requiring specific opening syntax, such as closing quotes or parentheses before the injection point.">ⁱ</i></div>
+                                <div class="form-label"><u>--prefix</u></div>
                                 <input type="text" id="prefix" class="form-control" placeholder="')">
-                            </div>
+                            </label>
                             <!-- --suffix -->
-                            <div class="form-group" title="The --suffix parameter enables you to append a custom string to every SQL injection payload after the main injection code.
-It is crucial when applications require specific closing characters or comments to prevent SQL syntax errors, such as SQL comments (--) or closing parentheses to maintain query validity.">
-                                <label class="form-label" for="suffix">Suffix<br/><span>--suffix</span></label>
+                            <label class="form-group" for="suffix">
+                                <div class="form-label">SUFFIX TO APPEND<i tooltip="The --suffix parameter enables you to append a custom string to every SQL injection payload after the main injection code.
+                                    
+                                    It is crucial when applications require specific closing characters or comments to prevent SQL syntax errors, such as SQL comments (--) or closing parentheses to maintain query validity.">ⁱ</i></div>
+                                <div class="form-label"><u>--suffix</u></div>
                                 <input type="text" id="suffix" class="form-control" placeholder="-- -">
-                            </div>
+                            </label>
 
                             <h3>Detection</h3>
                             <!-- --string -->
-                            <div class="form-group" title="By default the distinction of a True query from a False  is done by comparing the injected requests page content with the original not injected page content. Not always this concept works because sometimes the page content changes at each refresh even not injecting anything, for instance when the page has a counter, a dynamic advertisement banner or any other part of the HTML which is rendered dynamically and might change in time not only consequently to user's input. 
-The user can provide a string (--string option) which should be present on original page (though it is not a requirement) and on all True injected query pages, but that it is not on the False ones.
-Instead of --string, the user can use a --regexp.
-Alternatively, user can provide a --not-string option which should not present on original page and not on all True injected query pages, but appears always on False ones.">
-                                <label class="form-label" for="string">String when query evaluated<br/><span>--string</span></label>
+                            <label class="form-group" for="string">
+                                <div class="form-label">TRUE DETECTION STRING<i tooltip="By default the distinction of a True query from a False is done by comparing the injected requests page content with the original not injected page content. 
+                            
+                                    Not always this concept works because sometimes the page content changes at each refresh even not injecting anything, for instance when the page has a counter, a dynamic advertisement banner or any other part of the HTML which is rendered dynamically and might change in time not only consequently to user's input. 
+        
+                                    The user can provide a string (--string option) which should be present on original page (though it is not a requirement) and on all True injected query pages, but that it is not on the False ones.
+                                    
+                                    Instead of --string, the user can use a --regexp.
+                                    
+                                    Alternatively, user can provide a --not-string option which should not present on original page and not on all True injected query pages, but appears always on False ones.">ⁱ</i></div>
+                                <div class="form-label"><u>--string</u></div>
                                 <input type="text" id="string" class="form-control" placeholder="">
-                            </div>
+                            </label>
                             <!-- --regexp-->
-                            <div class="form-group" title="By default the distinction of a True query from a False  is done by comparing the injected requests page content with the original not injected page content. Not always this concept works because sometimes the page content changes at each refresh even not injecting anything, for instance when the page has a counter, a dynamic advertisement banner or any other part of the HTML which is rendered dynamically and might change in time not only consequently to user's input. 
-The user can provide a string (--string option) which should be present on original page (though it is not a requirement) and on all True injected query pages, but that it is not on the False ones.
-Instead of --string, the user can use a --regexp.
-Alternatively, user can provide a --not-string option which should not present on original page and not on all True injected query pages, but appears always on False ones.">
-                                <label class="form-label" for="regexp">Regexp to match<br/><span>--regexp</span></label>
+                            <label class="form-group" for="regexp">
+                                <div class="form-label">TRUE DETECTION REGEXP<i tooltip="By default the distinction of a True query from a False  is done by comparing the injected requests page content with the original not injected page content. 
+                                    
+                                    Not always this concept works because sometimes the page content changes at each refresh even not injecting anything, for instance when the page has a counter, a dynamic advertisement banner or any other part of the HTML which is rendered dynamically and might change in time not only consequently to user's input. 
+                                    
+                                    The user can provide a string (--string option) which should be present on original page (though it is not a requirement) and on all True injected query pages, but that it is not on the False ones.
+                                    
+                                    Instead of --string, the user can use a --regexp.
+                                    
+                                    Alternatively, user can provide a --not-string option which should not present on original page and not on all True injected query pages, but appears always on False ones.">ⁱ</i></div>
+                                <div class="form-label"><u>--regexp</u></div>
                                 <input type="text" id="regexp" class="form-control" placeholder="">
-                            </div>
+                            </label>
                             <!-- --not-string -->
-                            <div class="form-group" title="By default the distinction of a True query from a False  is done by comparing the injected requests page content with the original not injected page content. Not always this concept works because sometimes the page content changes at each refresh even not injecting anything, for instance when the page has a counter, a dynamic advertisement banner or any other part of the HTML which is rendered dynamically and might change in time not only consequently to user's input. 
-The user can provide a string (--string option) which should be present on original page (though it is not a requirement) and on all True injected query pages, but that it is not on the False ones.
-Instead of --string, the user can use a --regexp.
-Alternatively, user can provide a --not-string option which should not present on original page and not on all True injected query pages, but appears always on False ones.">
-                                <label class="form-label" for="notString">String when query not evaluated<br/><span>--not-string</span></label>
+                            <label class="form-group" for="notString">
+                                <div class="form-label">FALSE DETECTION STRING<i tooltip="By default the distinction of a True query from a False is done by comparing the injected requests page content with the original not injected page content. 
+                            
+                                    Not always this concept works because sometimes the page content changes at each refresh even not injecting anything, for instance when the page has a counter, a dynamic advertisement banner or any other part of the HTML which is rendered dynamically and might change in time not only consequently to user's input. 
+        
+                                    The user can provide a string (--string option) which should be present on original page (though it is not a requirement) and on all True injected query pages, but that it is not on the False ones.
+                                    
+                                    Instead of --string, the user can use a --regexp.
+                                    
+                                    Alternatively, user can provide a --not-string option which should not present on original page and not on all True injected query pages, but appears always on False ones.">ⁱ</i></div>
+                                <div class="form-label"><u>--not-string</u></div>
                                 <input type="text" id="notString" class="form-control" placeholder="">
-                            </div>
+                            </label>
                             <!-- --code -->
-                            <div class="form-group" title="Use this in cases when you know that the distinction of a True query from a False one can be done using HTTP code.">
-                                <label class="form-label" for="code">HTTP code to match<br/><span>--code</span></label>
+                            <label class="form-group" for="code">
+                                <div class="form-label">EXPECTED HTTP CODE<i tooltip="Use this in cases when you know that the distinction of a True query from a False one can be done using HTTP code.">ⁱ</i></div>
+                                <div class="form-label"><u>--code</u></div>
                                 <input type="number" id="code" class="form-control" min="100", max="599", step="1" placeholder="201">
-                            </div>
+                            </label>
                             <!-- --titles -->
-                            <div class="form-group" title="Turn on when you knows that the distinction of a True query from a False one can be done using HTML title (e.g. Welcome for True and Forbidden for False).">
-                                <label class="form-label">DETECT COMPARING TITLES</label>
-                                <label class="checkbox-label">
+                            <div class="form-group">
+                                <label class="checkbox-label" for="titles">
                                     <input type="checkbox" id="titles">
+                                    <b>DETECT COMPARING TITLES</b>
+                                    <u>--titles</u><i tooltip="Turn on when you knows that the distinction of a True query from a False one can be done using HTML title (e.g. &quot;Welcome&quot; for True and &quot;Forbidden&quot; for False).">ⁱ</i>
                                     <span class="checkmark"></span>
-                                    <span class="checkbox-label__text">--titles</span>
                                 </label>
                             </div>
                             <!-- --text-only -->
-                            <div class="form-group" title="In cases with lot of active content (e.g. scripts, embeds, etc.) in the HTTP responses' body, you can filter pages (switch --text-only) just for their textual content. 
-This way, in a good number of cases, you can automatically tune the detection engine.">
-                                <label class="form-label">FILTER ACTIVE CONTENT</label>
-                                <label class="checkbox-label">
+                            <div class="form-group">
+                                <label class="checkbox-label" for="textOnly">
                                     <input type="checkbox" id="textOnly">
+                                    <b>FILTER ACTIVE CONTENT</b>
+                                    <u>--text-only</u><i tooltip="In cases with lot of active content (e.g. scripts, embeds, etc.) in the HTTP responses' body, you can filter pages (--text-only) just for their textual content. 
+                                    
+                                    This way, in a good number of cases, you can automatically tune the detection engine.">ⁱ</i>
                                     <span class="checkmark"></span>
-                                    <span class="checkbox-label__text">--text-only</span>
                                 </label>
-                            </div>                            
+                            </div>                         
 
                             <h3>Attack Optimalization</h3>
                             <!-- --level -->
-                            <div class="form-group" title="Level of tests to perform (default: 1)">
-                                <label class="form-label" for="level">ATTACK <span>--level</span> <span id="levelValue">1</span></label>
+                            <label class="form-group grid-span-2" for="level">
+                                <div class="form-label">ATTACK <u>--level</u> <span id="levelValue">1</span></div>
                                 <input type="range" id="level" class="slider" min="1" max="5" value="1">
                                 <div class="additional-help" id="level-help">1: Show also information and warning messages (default).</div>
-                            </div>
+                            </label>
                             <!-- --risk -->
-                            <div class="form-group" title="Risk of tests to perform (default: 1)">
-                                <label class="form-label" for="risk">ATTACK <span>--risk</span> <span id="riskValue">1</span></label>
+                            <label class="form-group grid-span-2" for="risk">
+                                <div class="form-label">ATTACK <u>--risk</u> <span id="riskValue">1</span></div>
                                 <input type="range" id="risk" class="slider" min="1" max="3" value="1">
                                 <div class="additional-help" id="risk-help">1: Innocuous test for the majority of SQL injection points (default).</div>
-                            </div>
+                            </label>
+
                             <!-- --dbms -->
-                            <div class="form-group" title="Force back-end database engine">
-                                <label class="form-label" for="dbms">FORCE TARGET DATABASE ENGINE<br/><span>--dbms</span></label>
+                            <label class="form-group" for="dbms">
+                                <div class="form-label">FORCE TARGET DATABASE ENGINE<i tooltip="Greatly reduces scan time by minimalizing number of requests, using payloads appropriate only for the selected database engine.">ⁱ</i></div>
+                                <div class="form-label"><u>--dbms</u></div>
                                 <select id="dbms" class="form-control">
                                     <option value="">Auto-detect</option>
                                     <option value="MySQL">MySQL</option>
@@ -574,117 +688,165 @@ This way, in a good number of cases, you can automatically tune the detection en
                                     <option value="eXtremeDB">eXtremeDB</option>
                                     <option value="FrontBase">FrontBase</option>
                                 </select>
-                            </div>
+                            </label>
                             <!-- --os -->
-                            <div class="form-group" title="By default sqlmap automatically detects the web application's back-end database management system underlying operating system when this information is a dependence of any other provided switch or option. It is possible to force the operating system name if you already know it so that sqlmap will avoid doing it itself. Note that this option is not mandatory and it is strongly recommended to use it only if you are absolutely sure about the back-end database management system underlying operating system. If you do not know it, let sqlmap automatically identify it for you.">
-                                <label class="form-label" for="os">FORCE TARGET OS<br/><span>--os</span></label>
+                            <label class="form-group" for="os">
+                                <div class="form-label">FORCE TARGET OS<i tooltip="By default sqlmap automatically detects the web application's back-end database management system underlying operating system when this information is a dependence of any other provided switch or option. 
+                                    
+                                    It is possible to force the operating system name by --os switch, if you already know it so that sqlmap will avoid doing it itself. 
+                                    
+                                    Note that this option is not mandatory and it is strongly recommended to use it only if you are absolutely sure about the back-end database management system underlying operating system. 
+                                    
+                                    If you do not know it, let sqlmap automatically identify it for you.">ⁱ</i></div>
+                                <div class="form-label"><u>--os</u></div>
                                 <select id="os" class="form-control">
                                     <option value="">Auto-detect</option>
                                     <option value="Linux">Linux</option>
                                     <option value="Windows">Windows</option>
                                 </select>
-                            </div>
+                            </label>
                             <!-- --second-url -->
-                            <div class="form-group" title="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
-You can point sqlmap a resulting page URL searched for second-order response to test for this type of SQL injection by using option --second-order.">
-                                <label class="form-label" for="secondUrl">SECOND ORDER PAGE URL<br/><span>--second-url</span></label>
+                            <label class="form-group" for="secondUrl">
+                                <div class="form-label">SECOND ORDER PAGE URL<i tooltip="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
+
+                                    You can point sqlmap a resulting page URL searched for second-order response to test for this type of SQL injection by using option --second-order.">ⁱ</i></div>
+                                <div class="form-label"><u>--second-url</u></div>
                                 <input type="url" id="secondUrl" class="form-control" placeholder="https://example.com/profile">
-                            </div>
+                            </label>
                             <!-- --second-req -->
-                            <div class="form-group" title="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
-You can point sqlmap a request file for sending to the server where results are being shown to test by using option --second-req.">
-                                <label class="form-label" for="secondUrl">SECOND ORDER REQUEST FILE<br/><span>--second-req</span></label>
+                            <label class="form-group" for="secondReq">
+                                <div class="form-label">SECOND ORDER REQUEST FILE<i tooltip="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
+
+                                    You can point sqlmap a request file for sending to the server where results are being shown to test by using option --second-req.">ⁱ</i></div>
+                                <div class="form-label"><u>--second-req</u></div>
                                 <input type="text" id="secondReq" class="form-control" placeholder="second-order-request.txt">
-                            </div>
+                            </label>
 
                             <!-- Attack techniques -->
                             <div class="form-group">
-                                <label class="form-label">ATTACK TECHNIQUES<br/><span>--technique</span></label>
+                                <span class="form-label checkbox-grid">ATTACK TECHNIQUES</span>
                                 <div class="checkbox-grid">
-                                    <label class="checkbox-label">
+
+                                    <label class="checkbox-label" for="techB">
                                         <input type="checkbox" id="techB" value="B">
+                                        <u>Boolean-based blind (B)</u>
                                         <span class="checkmark"></span>
-                                        Boolean-based blind
                                     </label>
-                                    <label class="checkbox-label">
+                            
+                                    <label class="checkbox-label" for="techE">
                                         <input type="checkbox" id="techE" value="E">
+                                        <u>Error-based (E)</u>
                                         <span class="checkmark"></span>
-                                        Error-based
                                     </label>
-                                    <label class="checkbox-label">
+                            
+                                    <label class="checkbox-label" for="techU">
                                         <input type="checkbox" id="techU" value="U">
+                                        <u>Union query-based (U)</u>
                                         <span class="checkmark"></span>
-                                        Union query-based
                                     </label>
-                                    <label class="checkbox-label">
+                            
+                                    <label class="checkbox-label" for="techS">
                                         <input type="checkbox" id="techS" value="S">
+                                        <u>Stacked queries (S)</u>
                                         <span class="checkmark"></span>
-                                        Stacked queries
                                     </label>
-                                    <label class="checkbox-label">
+                            
+                                    <label class="checkbox-label" for="techT">
                                         <input type="checkbox" id="techT" value="T">
+                                        <u>Time-based blind (T)</u>
                                         <span class="checkmark"></span>
-                                        Time-based blind
-                                    </label>
-                                    <label class="checkbox-label">
+                                    </label>                                    
+                                    
+                                    <label class="checkbox-label" for="techQ">
                                         <input type="checkbox" id="techQ" value="Q">
+                                        <u>Inline queries (Q)</u>
                                         <span class="checkmark"></span>
-                                        Inline queries
                                     </label>
+                            
                                 </div>
-                            </div>
+                            </div>  
+
                             <!-- Attack tuning -->
                             <div class="form-group">
-                                <label class="form-label">ATTACK TUNING<em class="tooltip">Connection optimization - using persistent HTTP(s) connections</em></label>
+                                <span class="form-label checkbox-grid">ATTACK TUNING</span>
                                 <div class="checkbox-grid">
+                            
                                     <!-- --invalid-bignum -->
-                                    <label class="checkbox-label" title="This parameter forces sqlmap to use large integer numbers for invalidating original parameter values during SQL injection tests.
-Instead of standard invalidation methods (e.g., negative values), sqlmap replaces original values with very large numbers, which can bypass application filters that block typical techniques.
-It is particularly useful when applications filter standard parameter invalidation methods but may not properly handle extremely large numeric values.">
+                                    <label class="checkbox-label" for="invalidBignum">
                                         <input type="checkbox" id="invalidBignum">
+                                        <u>--invalid-bignum</u><i tooltip="This parameter forces sqlmap to use large integer numbers for invalidating original parameter values during SQL injection tests.
+                                        
+                                        Instead of standard invalidation methods (e.g., negative values), sqlmap replaces original values with very large numbers, which can bypass application filters that block typical techniques.
+                                        
+                                        It is particularly useful when applications filter standard parameter invalidation methods but may not properly handle extremely large numeric values.">ⁱ</i>
                                         <span class="checkmark"></span>
-                                        <span>--invalid-bignum</span>
                                     </label>
+                            
                                     <!-- --invalid-logical -->
-                                    <label class="checkbox-label" title="The switch enables the use of logical operations to invalidate parameter values.
-Sqlmap replaces original values with logical expressions that always return false (e.g., id=(1=0)).
-This method is effective when applications expect logical values or block other invalidation techniques. The parameter serves as an alternative for standard invalidation methods in environments with advanced filtering mechanisms.">
+                                    <label class="checkbox-label" for="invalidLogical">
                                         <input type="checkbox" id="invalidLogical">
+                                        <u>--invalid-logical</u><i tooltip="The switch enables the use of logical operations to invalidate parameter values.
+                                       
+                                        Sqlmap replaces original values with logical expressions that always return false (e.g., id=(1=0)).
+                                        
+                                        This method is effective when applications expect logical values or block other invalidation techniques. 
+                                        
+                                        The parameter serves as an alternative for standard invalidation methods in environments with advanced filtering mechanisms.">ⁱ</i>
                                         <span class="checkmark"></span>
-                                        <span>--invalid-logical</span>
                                     </label>
+                            
                                     <!-- --invalid-string -->
-                                    <label class="checkbox-label" title="This parameter causes sqlmap to use random character strings for parameter value invalidation. Sqlmap generates random strings instead of original values, bypassing application filters focused on numeric values.
-It is useful when applications have special validation mechanisms for numbers but do not check string inputs.
-The parameter automatically replaces parameters with random strings during boolean-based injection tests.">
+                                    <label class="checkbox-label" for="invalidString">
                                         <input type="checkbox" id="invalidString">
+                                        <u>--invalid-string</u><i tooltip="This parameter causes sqlmap to use random character strings for parameter value invalidation. Sqlmap generates random strings instead of original values, bypassing application filters focused on numeric values.
+                                        
+                                        It is useful when applications have special validation mechanisms for numbers but do not check string inputs.
+                                        
+                                        The parameter automatically replaces parameters with random strings during boolean-based injection tests.">ⁱ</i>
                                         <span class="checkmark"></span>
-                                        <span>--invalid-string</span>
                                     </label>
+                            
                                     <!-- --no-cast -->
-                                    <label class="checkbox-label">
+                                    <label class="checkbox-label" for="noCast">
                                         <input type="checkbox" id="noCast">
+                                        <u>--no-cast</u><i tooltip="The switch disables sqlmap's automatic payload casting mechanism. 
+                                        
+                                        Normally sqlmap adds CAST() functions to payloads for handling different DBMS data types. 
+                                        
+                                        Using --no-cast is necessary when applications have payload length restrictions or when casting functions are blocked by WAF. 
+                                        
+                                        It significantly reduces the size of generated payloads, which is critical in environments with character limits. 
+                                        
+                                        It is often combined with --no-escape in environments with query length restrictions where every character matters.">ⁱ</i>
                                         <span class="checkmark"></span>
-                                        <span>--no-cast</span><em class="tooltip">The switch disables sqlmap's automatic payload casting mechanism. Normally sqlmap adds CAST() functions to payloads for handling different DBMS data types. Using --no-cast is necessary when applications have payload length restrictions or when casting functions are blocked by WAF. It significantly reduces the size of generated payloads, which is critical in environments with character limits. It is often combined with --no-escape in environments with query length restrictions where every character matters.</em>
                                     </label>
+                            
                                     <!-- --no-escape -->
-                                    <label class="checkbox-label" title="This parameter disables sqlmap's built-in string escaping mechanism.
-By default sqlmap automatically escapes special characters in payloads (adds backslash before apostrophes). This switch is useful when applications have their own escaping mechanisms or when automatic escaping breaks payloads.
-It is often combined with --no-cast in environments with query length restrictions where every character matters.">
+                                    <label class="checkbox-label" for="noEscape">
                                         <input type="checkbox" id="noEscape">
+                                        <u>--no-escape</u><i tooltip="This parameter disables sqlmap's built-in string escaping mechanism.
+                                        
+                                        By default sqlmap automatically escapes special characters in payloads (adds backslash before apostrophes). This switch is useful when applications have their own escaping mechanisms or when automatic escaping breaks payloads.
+                                        
+                                        It is often combined with --no-cast in environments with query length restrictions where every character matters.">ⁱ</i>
                                         <span class="checkmark"></span>
-                                        <span>--no-escape</span>
                                     </label>
+                            
                                     <!-- --predict-output -->
-                                    <label class="checkbox-label" title="The switch enables a statistical algorithm for predicting query results in inference techniques.
-Sqlmap builds statistical tables of most probable character values based on the txt/common-outputs.txt file and current enumeration knowledge. It significantly speeds up data retrieval when values belong to common patterns (system table names, privileges).
-The parameter is not compatible with --threads and works best when retrieving standard DBMS entities.">
+                                    <label class="checkbox-label" for="predictOutput">
                                         <input type="checkbox" id="predictOutput">
+                                        <u>--predict-output</u><i tooltip="The switch enables a statistical algorithm for predicting query results in inference techniques.
+                                        
+                                        Sqlmap builds statistical tables of most probable character values based on the txt/common-outputs.txt file and current enumeration knowledge. 
+                                        
+                                        It significantly speeds up data retrieval when values belong to common patterns (system table names, privileges).
+                                        
+                                        The parameter is not compatible with --threads and works best when retrieving standard DBMS entities.">ⁱ</i>
                                         <span class="checkmark"></span>
-                                        <span>--predict-output</span>
-                                    </label>                                    
+                                    </label>
+
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                     </div>
                 </div>
@@ -695,182 +857,236 @@ The parameter is not compatible with --threads and works best when retrieving st
                 <div class="card">
                     <div class="card__body">
                         <div class="form-grid">
+
                             <!-- -D -->
-                            <div class="form-group">
-                                <label class="form-label" title="DBMS database to enumerate" for="database">DATABASE(S) NAME FOR ENUMERATION<br/><span>-D</span></label>
+                            <label class="form-group" for="database">
+                                <div class="form-label">DATABASE(S) NAME FOR ENUMERATION<i tooltip="DBMS database to enumerate.">ⁱ</i></div>
+                                <div class="form-label"><u>-D</u></div>
                                 <input type="text" id="database" class="form-control" placeholder="database_name1,database_name2">
-                            </div>
+                            </label>
                             <!-- -T -->
-                            <div class="form-group">
-                                <label class="form-label" title="DBMS database table(s) to enumerate" for="table">TABLE(S) NAME FOR ENUMERATION<br/><span>-T</span></label>
+                            <label class="form-group" for="table">
+                                <div class="form-label">TABLE(S) NAME FOR ENUMERATION<i tooltip="DBMS database table(s) to enumerate.">ⁱ</i></div>
+                                <div class="form-label"><u>-T</u></div>
                                 <input type="text" id="table" class="form-control" placeholder="table_name1,table_name2">
-                            </div>
+                            </label>
                             <!-- -C -->
-                            <div class="form-group">
-                                <label class="form-label" title="DBMS database table column(s) to enumerate" for="column">COLUMN(S) NAME FOR ENUMERATION<br/><span>-C</span></label>
+                            <label class="form-group" for="column">
+                                <div class="form-label">COLUMN(S) NAME FOR ENUMERATION<i tooltip="DBMS database table column(s) to enumerate.">ⁱ</i></div>
+                                <div class="form-label"><u>-C</u></div>
                                 <input type="text" id="column" class="form-control" placeholder="column_name1,column_name2">
-                            </div>                            
+                            </label>                         
                             <!-- -X -->
-                            <div class="form-group">
-                                <label class="form-label" title="DBMS database identifier(s) to not enumerate" for="exclude">DBMS(S) TO NOT ENUMARATE<br/><span>-X</span></label>
+                            <label class="form-group" for="exclude">
+                                <div class="form-label">DBMS(S) TO NOT ENUMARATE<i tooltip="DBMS database identifier(s) to not enumerate.">ⁱ</i></div>
+                                <div class="form-label"><u>-X</u></div>
                                 <input type="text" id="exclude" class="form-control" placeholder="dbname">
-                            </div>
+                            </label>
                             <!-- -U -->
-                            <div class="form-group">
-                                <label class="form-label" title="DBMS user to enumerate (can be used with --roles and --passwords)" for="user">USER NAME FOR ENUMERATION<br/><span>-U</span></label>
+                            <label class="form-group" for="user">
+                                <div class="form-label">USER NAME FOR ENUMERATION<i tooltip="DBMS user to enumerate (can be used with --roles and --passwords).">ⁱ</i></div>
+                                <div class="form-label"><u>-U</u></div>
                                 <input type="text" id="user" class="form-control" placeholder="username">
-                            </div>                            
+                            </label>                           
                             <!-- --pivot-column -->
-                            <div class="form-group">
-                                <label class="form-label" title="Sometimes (e.g. for Microsoft SQL Server) it is not possible to dump the table rows straightforward by using OFFSET m, n mechanism because of lack of similar. In such cases sqlmap dumps the content by determining the most suitable pivot column (the one with most unique values) whose values are used later on for retrieval of other column values. 
-If it is necessary to enforce the usage of particular pivot column because the automatically chosen one is not suitable (e.g. because of lack of table dump results) you can use option --pivot-column (e.g. --pivot-column=id)." for="pivotColumn">PIVOT COLUMN NAME<br/><span>--pivot-column</span></label>
+                            <label class="form-group" for="pivotColumn">
+                                <div class="form-label">PIVOT COLUMN NAME<i tooltip="Sometimes (e.g. for Microsoft SQL Server) it is not possible to dump the table rows straightforward by using OFFSET m, n mechanism because of lack of similar. 
+                                    
+                                    In such cases sqlmap dumps the content by determining the most suitable pivot column (the one with most unique values) whose values are used later on for retrieval of other column values. 
+                                    
+                                    If it is necessary to enforce the usage of particular pivot column because the automatically chosen one is not suitable (e.g. because of lack of table dump results) you can use option --pivot-column (e.g. --pivot-column=id).">ⁱ</i></div>
+                                <div class="form-label"><u>--pivot</u></div>
                                 <input type="text" id="pivotColumn" class="form-control" placeholder="column_name">
-                            </div>                            
+                            </label>                      
                             <!-- --where -->
-                            <div class="form-group">
-                                <label class="form-label" title='In case that you want to constraint the --dump to specific column values (or ranges) you can use option --where. Provided logical operation will be automatically used inside the WHERE clause. For example, if you use --where="id>3" only table rows having value of column id greater than 3 will be retrieved (by appending WHERE id>3 to used dumping queries).' for="where">DUMP FILTER CONDITION<br/><span>--where</span></label>
+                            <label class="form-group" for="where">
+                                <div class="form-label">DUMP FILTER CONDITION<i tooltip="In case that you want to constraint the --dump to specific column values (or ranges) you can use option --where. Provided logical operation will be automatically used inside the WHERE clause. 
+                                    
+                                    For example, if you use --where=id>3 only table rows having value of column id greater than 3 will be retrieved (by appending WHERE id>3 to used dumping queries).">ⁱ</i></div>
+                                <div class="form-label"><u>--where</u></div>
                                 <input type="text" id="where" class="form-control" placeholder="SQL CONDITION">
-                            </div>
+                            </label>
                             <!-- --start -->
-                            <div class="form-group">
-                                <label class="form-label" title='If you want to dump only a range of entries, then you can provide options --start and/or --stop to respectively start to dump from a certain entry and stop the dump at a certain entry. For instance, if you want to dump only the first entry, provide --stop 1 in your command line. Vice versa if, for instance, you want to dump only the second and third entry, provide --start 1 --stop 3.' for="start">FIRST DUMP TABLE ENTRY<br/><span>--start</span></label>
+                            <label class="form-group" for="start">
+                                <div class="form-label">DUMP STARTING ENTRY NUMBER<i tooltip="If you want to dump only a range of entries, then you can provide options --start and/or --stop to respectively start to dump from a certain entry and stop the dump at a certain entry. 
+                                    
+                                    For instance, if you want to dump only the first entry, provide --stop 1 in your command line. Vice versa if, for instance, you want to dump only the second and third entry, provide --start 1 --stop 3.">ⁱ</i></div>
+                                <div class="form-label"><u>--start</u></div>
                                 <input type="number" id="start" class="form-control" placeholder="1">
-                            </div>
+                            </label>
                             <!-- --stop -->
-                            <div class="form-group">
-                                <label class="form-label" title='If you want to dump only a range of entries, then you can provide options --start and/or --stop to respectively start to dump from a certain entry and stop the dump at a certain entry. For instance, if you want to dump only the first entry, provide --stop 1 in your command line. Vice versa if, for instance, you want to dump only the second and third entry, provide --start 1 --stop 3.' for="stop">LAST DUMP TABLE ENTRY<br/><span>--stop</span></label>
+                            <label class="form-group" for="stop">
+                                <div class="form-label">DUMP STOP ENTRY NUMBER<i tooltip="If you want to dump only a range of entries, then you can provide options --start and/or --stop to respectively start to dump from a certain entry and stop the dump at a certain entry. 
+                                    
+                                    For instance, if you want to dump only the first entry, provide --stop 1 in your command line. Vice versa if, for instance, you want to dump only the second and third entry, provide --start 1 --stop 3.">ⁱ</i></div>
+                                <div class="form-label"><u>--stop</u></div>
                                 <input type="number" id="stop" class="form-control" placeholder="3">
-                            </div>
+                            </label>
                             <!-- --first -->
-                            <div class="form-group">
-                                <label class="form-label" title="It is possible to specify which single character or range of characters to dump with options --first and --last. For instance, if you want to dump columns' entries from the third to the fifth character, provide --first 3 --last 5. This feature only applies to the blind SQL injection techniques because for error-based and UNION query SQL injection techniques the number of requests is exactly the same, regardless of the length of the column's entry output to dump." for="first">FIRST DUMP TABLE ENTRY<br/><span>--first</span></label>
+                            <label class="form-group" for="first">
+                                <div class="form-label">DUMP STARTING FROM THE N-TH CHARACTER<i tooltip="It is possible to specify which single character or range of characters to dump with options --first and --last. 
+                                    
+                                    For instance, if you want to dump columns' entries from the third to the fifth character, provide --first 3 --last 5. This feature only applies to the blind SQL injection techniques because for error-based and UNION query SQL injection techniques the number of requests is exactly the same, regardless of the length of the column's entry output to dump.">ⁱ</i></div>
+                                <div class="form-label"><u>--first</u></div>
                                 <input type="number" id="first" class="form-control" placeholder="3">
-                            </div>
+                            </label>
                             <!-- --last -->
-                            <div class="form-group">
-                                <label class="form-label" title="It is possible to specify which single character or range of characters to dump with options --first and --last. For instance, if you want to dump columns' entries from the third to the fifth character, provide --first 3 --last 5. This feature only applies to the blind SQL injection techniques because for error-based and UNION query SQL injection techniques the number of requests is exactly the same, regardless of the length of the column's entry output to dump." for="last">LAST DUMP TABLE ENTRY<br/><span>--last</span></label>
+                            <label class="form-group" for="last">
+                                <div class="form-label">DUMP ENDING AT THE N-TH CHARACTER<i tooltip="It is possible to specify which single character or range of characters to dump with options --first and --last. 
+                                    
+                                    For instance, if you want to dump columns' entries from the third to the fifth character, provide --first 3 --last 5. 
+                                    
+                                    This feature only applies to the blind SQL injection techniques because for error-based and UNION query SQL injection techniques the number of requests is exactly the same, regardless of the length of the column's entry output to dump.">ⁱ</i></div>
+                                <div class="form-label"><u>--last</u></div>
                                 <input type="number" id="last" class="form-control" placeholder="5">
-                            </div>                            
+                            </label>                 
                             <!-- --sql-query -->
-                            <div class="form-group">
-                                <label class="form-label" title="SQL statement to be executed" for="sqlQuery">SQL STATEMENT FOR EXECUTION<br/><span>--sql-query</span></label>
+                            <label class="form-group" for="sqlQuery">
+                                <div class="form-label">SQL STATEMENT FOR EXECUTION<i tooltip="SQL statement to be executed.">ⁱ</i></div>
+                                <div class="form-label"><u>--sql-query</u></div>
                                 <input type="text" id="sqlQuery" class="form-control" placeholder="SELECT 1 FROM DUAL">
-                            </div>                            
+                            </label>                           
                             <!-- --sql-file -->
-                            <div class="form-group">
-                                <label class="form-label" title="SQL statement to be executed" for="sqlFile">FILE WITH SQL STATEMENTS<br/><span>--sql-file</span></label>
+                            <label class="form-group" for="sqlFile">
+                                <div class="form-label">FILE WITH SQL STATEMENTS<i tooltip="SQL statement to be executed.">ⁱ</i></div>
+                                <div class="form-label"><u>--sql-file</u></div>
                                 <input type="text" id="sqlFile" class="form-control" placeholder="statements.sql">
-                            </div>
+                            </label>
+
                             <!-- ENUMERATION -->
-                            <div class="checkbox-grid" style="grid-row-start: 1; grid-row-end: 6;">
-                                <label class="form-label" title="These options can be used to enumerate the back-end database management system information, structure and data contained in the tables">
-                                    ENUMERATION AND DATA EXFILTRATION</label>
-                                <label class="checkbox-label" title="Retrieve everything">
-                                    <input type="checkbox" id="all">
-                                    <span class="checkmark"></span>
-                                    <span>--all</span>
-                                </label>                                
-                                <label class="checkbox-label" title="Retrieve DBMS banner">
-                                    <input type="checkbox" id="banner">
-                                    <span class="checkmark"></span>
-                                    <span>--banner</span>
-                                </label>
-                                <label class="checkbox-label" title="Enumerate DBMS database table columns">
-                                    <input type="checkbox" id="columns">
-                                    <span class="checkmark"></span>
-                                    <span>--columns</span>
-                                </label>
-                                <label class="checkbox-label" title="Enumerate DBMS database table columns">
-                                    <input type="checkbox" id="comments">
-                                    <span class="checkmark"></span>
-                                    <span>--comments</span>
-                                </label>                                
-                                <label class="checkbox-label" title="Enumerate DBMS database table columns">
-                                    <input type="checkbox" id="count">
-                                    <span class="checkmark"></span>
-                                    <span>--count</span>
-                                </label>
-                                <label class="checkbox-label" title="Retrieve DBMS current user">
-                                    <input type="checkbox" id="currentUser">
-                                    <span class="checkmark"></span>
-                                    <span>--current-user</span>
-                                </label>
-                                <label class="checkbox-label" title="Retrieve DBMS current database">
-                                    <input type="checkbox" id="currentDb">
-                                    <span class="checkmark"></span>
-                                    <span>--current-db</span>
-                                </label>
-                                <label class="checkbox-label" title="Enumerate DBMS databases">
-                                    <input type="checkbox" id="dbs">
-                                    <span class="checkmark"></span>
-                                    <span>--dbs</span>
-                                </label>                                
-                                <label class="checkbox-label" title="Dump all DBMS databases tables entries">
-                                    <input type="checkbox" id="dump">
-                                    <span class="checkmark"></span>
-                                    <span>--dump</span>
-                                </label>                                
-                                <label class="checkbox-label" title="Dump all DBMS databases tables entries">
-                                    <input type="checkbox" id="dumpAll">
-                                    <span class="checkmark"></span>
-                                    <span>--dump-all</span>
-                                </label>                  
-                                <label class="checkbox-label" title="Exclude system databases from enumeration">
-                                    <input type="checkbox" id="excludeSysdbs">
-                                    <span class="checkmark"></span>
-                                    <span>--exclude-sysdbs</span>
-                                </label>
-                                <label class="checkbox-label" title="Retrieve DBMS server hostname">
-                                    <input type="checkbox" id="hostname">
-                                    <span class="checkmark"></span>
-                                    <span>--hostname</span>
-                                </label>
-                                <label class="checkbox-label" title="Detect if the DBMS current user is DBA">
-                                    <input type="checkbox" id="isDba">
-                                    <span class="checkmark"></span>
-                                    <span>--is-dba</span>
-                                </label>
-                                <label class="checkbox-label" title="Enumerate DBMS users password hashes">
-                                    <input type="checkbox" id="passwords">
-                                    <span class="checkmark"></span>
-                                    <span>--passwords</span>
-                                </label>
-                                <label class="checkbox-label" title="Enumerate DBMS users privileges">
-                                    <input type="checkbox" id="privileges">
-                                    <span class="checkmark"></span>
-                                    <span>--privileges</span>
-                                </label>
-                                <label class="checkbox-label" title="Enumerate DBMS users roles">
-                                    <input type="checkbox" id="roles">
-                                    <span class="checkmark"></span>
-                                    <span>--roles</span>
-                                </label>
-                                <label class="checkbox-label" title="Enumerate DBMS schema">
-                                    <input type="checkbox" id="schema">
-                                    <span class="checkmark"></span>
-                                    <span>--schema</span>
-                                </label>
-                                <label class="checkbox-label" title="Search column(s), table(s) and/or database name(s)">
-                                    <input type="checkbox" id="search">
-                                    <span class="checkmark"></span>
-                                    <span>--search</span>
-                                </label>
-                                <label class="checkbox-label" title="Retrieve SQL statements being run on DBMS">
-                                    <input type="checkbox" id="statements">
-                                    <span class="checkmark"></span>
-                                    <span>--statements</span>
-                                </label>                                
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="tables">
-                                    <span class="checkmark"></span>
-                                    <span>--tables</span><em class="tooltip">Retrieve SQL statements being run on DBMS</em>
-                                </label>
-                                <label class="checkbox-label" title="Enumerate DBMS users">
-                                    <input type="checkbox" id="users">
-                                    <span class="checkmark"></span>
-                                    <span>--users</span>
-                                </label>
-                            </div>
+                            <div class="form-group" style="grid-row-start: 1; grid-row-end: 6;">
+                                <span class="form-label checkbox-grid">ENUMERATION AND DATA EXFILTRATION</span>
+                                <div class="checkbox-grid">
+                            
+                                    <!-- --all -->
+                                    <label class="checkbox-label" for="all">
+                                        <input type="checkbox" id="all">
+                                        <u>--all</u><i tooltip="Retrieve everything.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --banner -->
+                                    <label class="checkbox-label" for="banner">
+                                        <input type="checkbox" id="banner">
+                                        <u>--banner</u><i tooltip="Retrieve DBMS banner.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --columns -->
+                                    <label class="checkbox-label" for="columns">
+                                        <input type="checkbox" id="columns">
+                                        <u>--columns</u><i tooltip="Enumerate DBMS database table columns.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --comments -->
+                                    <label class="checkbox-label" for="comments">
+                                        <input type="checkbox" id="comments">
+                                        <u>--comments</u><i tooltip="Check for DBMS comments during enumeration.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --count -->
+                                    <label class="checkbox-label" for="count">
+                                        <input type="checkbox" id="count">
+                                        <u>--count</u><i tooltip="Retrieve number of entries for table(s).">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --currentUser -->
+                                    <label class="checkbox-label" for="currentUser">
+                                        <input type="checkbox" id="currentUser">
+                                        <u>--current-user</u><i tooltip="Retrieve DBMS current user.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --currentDb -->
+                                    <label class="checkbox-label" for="currentDb">
+                                        <input type="checkbox" id="currentDb">
+                                        <u>--current-db</u><i tooltip="Retrieve DBMS current database.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --dbs -->
+                                    <label class="checkbox-label" for="dbs">
+                                        <input type="checkbox" id="dbs">
+                                        <u>--dbs</u><i tooltip="Enumerate DBMS databases.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --dump -->
+                                    <label class="checkbox-label" for="dump">
+                                        <input type="checkbox" id="dump">
+                                        <u>--dump</u><i tooltip="Dump all DBMS databases tables entries.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --dumpAll -->
+                                    <label class="checkbox-label" for="dumpAll">
+                                        <input type="checkbox" id="dumpAll">
+                                        <u>--dump-all</u><i tooltip="Dump all DBMS databases tables entries.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --exclude-sysdbs -->
+                                    <label class="checkbox-label" for="excludeSysdbs">
+                                        <input type="checkbox" id="excludeSysdbs">
+                                        <u>--exclude-sysdbs</u><i tooltip="Exclude system databases from enumeration.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --hostname -->
+                                    <label class="checkbox-label" for="hostname">
+                                        <input type="checkbox" id="hostname">
+                                        <u>--hostname</u><i tooltip="Retrieve DBMS server hostname.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --is-dba -->
+                                    <label class="checkbox-label" for="isDba">
+                                        <input type="checkbox" id="isDba">
+                                        <u>--is-dba</u><i tooltip="Detect if the DBMS current user is DBA.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --passwords -->
+                                    <label class="checkbox-label" for="passwords">
+                                        <input type="checkbox" id="passwords">
+                                        <u>--passwords</u><i tooltip="Enumerate DBMS users password hashes.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --privileges -->
+                                    <label class="checkbox-label" for="privileges">
+                                        <input type="checkbox" id="privileges">
+                                        <u>--privileges</u><i tooltip="Enumerate DBMS users privileges.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --roles -->
+                                    <label class="checkbox-label" for="roles">
+                                        <input type="checkbox" id="roles">
+                                        <u>--roles</u><i tooltip="Enumerate DBMS users roles.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --schema -->
+                                    <label class="checkbox-label" for="schema">
+                                        <input type="checkbox" id="schema">
+                                        <u>--schema</u><i tooltip="Enumerate DBMS schema.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --search -->
+                                    <label class="checkbox-label" for="search">
+                                        <input type="checkbox" id="search">
+                                        <u>--search</u><i tooltip="Search column(s), table(s) and/or database name(s).">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --statements -->
+                                    <label class="checkbox-label" for="statements">
+                                        <input type="checkbox" id="statements">
+                                        <u>--statements</u><i tooltip="Retrieve SQL statements being run on DBMS.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --tables -->
+                                    <label class="checkbox-label" for="tables">
+                                        <input type="checkbox" id="tables">
+                                        <u>--tables</u><i tooltip="Retrieve SQL statements being run on DBMS.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <!-- --users -->
+                                    <label class="checkbox-label" for="users">
+                                        <input type="checkbox" id="users">
+                                        <u>--users</u><i tooltip="Enumerate DBMS users.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                            
+                                </div>
+                            </div>  
                         </div>
                     </div>
                 </div>
@@ -880,503 +1096,500 @@ If it is necessary to enforce the usage of particular pivot column because the a
         <div class="tab-content" id="tampering">
             <div class="card">
                 <div class="card__body">
-                    <div class="form-grid form-grid-tamper">
+                    <div class="form-group form-grid-tamper">
 
-                                <!-- <label class="form-label" title="Use given script(s) for tampering injection data" for="tamper">TAMPER SCRIPTS</label> -->
-                                <input type="text" id="tamper" class="form-control" placeholder="between,randomcase,space2comment" style="display: none;">
+                        <input type="text" id="tamper" class="form-control" placeholder="between,randomcase,space2comment" style="display: none;">
 
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-0eunion">
                             <input type="checkbox" id="tamperscript-0eunion">
+                            <b>0eunion.py</b>
+                            <u>Replaces instances of UNION with e0UNION to bypass certain filters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">0eunion.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances of UNION with e0UNION to bypass certain filters
-                                </span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-apostrophemask">
                             <input type="checkbox" id="tamperscript-apostrophemask">
+                            <b>apostrophemask.py</b>
+                            <u>Replaces apostrophe character with its UTF-8 full width counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">apostrophemask.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces apostrophe character with its UTF-8 full width counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-apostrophenullencode">
                             <input type="checkbox" id="tamperscript-apostrophenullencode">
+                            <b>apostrophenullencode.py</b>
+                            <u>Replaces apostrophe character with its illegal double unicode counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">apostrophenullencode.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces apostrophe character with its illegal double unicode counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-appendnullbyte">
                             <input type="checkbox" id="tamperscript-appendnullbyte">
+                            <b>appendnullbyte.py</b>
+                            <u>Appends encoded NULL byte character at the end of payload</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">appendnullbyte.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Appends encoded NULL byte character at the end of payload</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-base64encode">
                             <input type="checkbox" id="tamperscript-base64encode">
+                            <b>base64encode.py</b>
+                            <u>Base64 encodes all characters in a given payload</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">base64encode.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Base64 encodes all characters in a given payload</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-between">
                             <input type="checkbox" id="tamperscript-between">
+                            <b>between.py</b>
+                            <u>Replaces greater than operator ('>') with 'NOT BETWEEN 0 AND #' and equals with 'BETWEEN # AND #'</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">between.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces greater than operator ('>') with 'NOT BETWEEN 0 AND #' and equals with 'BETWEEN # AND #'</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-binary">
                             <input type="checkbox" id="tamperscript-binary">
+                            <b>binary.py</b>
+                            <u>Converts string values to their binary representation for payload obfuscation</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">binary.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Converts string values to their binary representation for payload obfuscation</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-bluecoat">
                             <input type="checkbox" id="tamperscript-bluecoat">
+                            <b>bluecoat.py</b>
+                            <u>Replaces space character after SQL statement with a valid random blank character and = with LIKE operator</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">bluecoat.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character after SQL statement with a valid random blank character and = with LIKE operator</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-chardoubleencode">
                             <input type="checkbox" id="tamperscript-chardoubleencode">
+                            <b>chardoubleencode.py</b>
+                            <u>Double URL-encodes all characters in a given payload (not processing already encoded)</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">chardoubleencode.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Double URL-encodes all characters in a given payload (not processing already encoded)</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-charencode">
                             <input type="checkbox" id="tamperscript-charencode">
+                            <b>charencode.py</b>
+                            <u>URL-encodes all characters in a given payload (not processing already encoded)</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">charencode.py
-                                <br/><span class="checkbox-label-tamper__subtitle">URL-encodes all characters in a given payload (not processing already encoded)</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-charunicodeencode">
                             <input type="checkbox" id="tamperscript-charunicodeencode">
+                            <b>charunicodeencode.py</b>
+                            <u>Unicode-URL-encodes non-encoded characters in a given payload</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">charunicodeencode.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Unicode-URL-encodes non-encoded characters in a given payload</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-charunicodeescape">
                             <input type="checkbox" id="tamperscript-charunicodeescape">
+                            <b>charunicodeescape.py</b>
+                            <u>Unicode-escapes non-encoded characters in a given payload using \uXXXX format</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">charunicodeescape.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Unicode-escapes non-encoded characters in a given payload using \\uXXXX format</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-commalesslimit">
                             <input type="checkbox" id="tamperscript-commalesslimit">
+                            <b>commalesslimit.py</b>
+                            <u>Replaces instances like 'LIMIT M, N' with 'LIMIT N OFFSET M' counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">commalesslimit.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'LIMIT M, N' with 'LIMIT N OFFSET M' counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-commalessmid">
                             <input type="checkbox" id="tamperscript-commalessmid">
+                            <b>commalessmid.py</b>
+                            <u>Replaces instances like 'MID(A, B, C)' with 'MID(A FROM B FOR C)' counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">commalessmid.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'MID(A, B, C)' with 'MID(A FROM B FOR C)' counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-commentbeforeparentheses">
                             <input type="checkbox" id="tamperscript-commentbeforeparentheses">
+                            <b>commentbeforeparentheses.py</b>
+                            <u>Adds comments before opening parentheses to bypass certain filters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">commentbeforeparentheses.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Adds comments before opening parentheses to bypass certain filters</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-concat2concatws">
                             <input type="checkbox" id="tamperscript-concat2concatws">
+                            <b>concat2concatws.py</b>
+                            <u>Replaces instances like 'CONCAT(A, B)' with 'CONCAT_WS(MID(CHAR(0), 0, 0), A, B)' counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">concat2concatws.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'CONCAT(A, B)' with 'CONCAT_WS(MID(CHAR(0), 0, 0), A, B)' counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-decentities">
                             <input type="checkbox" id="tamperscript-decentities">
+                            <b>decentities.py</b>
+                            <u>HTML decimal-encodes all non-alphanumeric characters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">decentities.py
-                                <br/><span class="checkbox-label-tamper__subtitle">HTML decimal-encodes all non-alphanumeric characters</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-dunion">
                             <input type="checkbox" id="tamperscript-dunion">
+                            <b>dunion.py</b>
+                            <u>Replaces instances of UNION with DISTINCTROW UNION to bypass certain filters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">dunion.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances of UNION with DISTINCTROW UNION to bypass certain filters</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-equaltolike">
                             <input type="checkbox" id="tamperscript-equaltolike">
+                            <b>equaltolike.py</b>
+                            <u>Replaces all occurrences of operator equal ('=') with 'LIKE' counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">equaltolike.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces all occurrences of operator equal ('=') with 'LIKE' counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-equaltorlike">
                             <input type="checkbox" id="tamperscript-equaltorlike">
+                            <b>equaltorlike.py</b>
+                            <u>Replaces all occurrences of operator equal ('=') with 'RLIKE' counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">equaltorlike.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces all occurrences of operator equal ('=') with 'RLIKE' counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-escapequotes">
                             <input type="checkbox" id="tamperscript-escapequotes">
+                            <b>escapequotes.py</b>
+                            <u>Slash escapes quotes (' and ") in payload</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">escapequotes.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Slash escape quotes (' and ") in payload</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-greatest">
                             <input type="checkbox" id="tamperscript-greatest">
+                            <b>greatest.py</b>
+                            <u>Replaces greater than operator ('>') with 'GREATEST' counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">greatest.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces greater than operator ('>') with 'GREATEST' counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-halfversionedmorekeywords">
                             <input type="checkbox" id="tamperscript-halfversionedmorekeywords">
+                            <b>halfversionedmorekeywords.py</b>
+                            <u>Adds MySQL versioned comment before each keyword</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">halfversionedmorekeywords.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Adds MySQL versioned comment before each keyword</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-hex2char">
                             <input type="checkbox" id="tamperscript-hex2char">
+                            <b>hex2char.py</b>
+                            <u>Replaces each (MySQL) 0x encoded string with equivalent CHAR() counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">hex2char.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces each (MySQL) 0x encoded string with equivalent CHAR() counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-hexentities">
                             <input type="checkbox" id="tamperscript-hexentities">
+                            <b>hexentities.py</b>
+                            <u>HTML hex-encodes all non-alphanumeric characters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">hexentities.py
-                                <br/><span class="checkbox-label-tamper__subtitle">HTML hex-encodes all non-alphanumeric characters</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-htmlencode">
                             <input type="checkbox" id="tamperscript-htmlencode">
+                            <b>htmlencode.py</b>
+                            <u>HTML-encodes all non-alphanumeric characters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">htmlencode.py
-                                <br/><span class="checkbox-label-tamper__subtitle">HTML-encodes all non-alphanumeric characters</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-if2case">
                             <input type="checkbox" id="tamperscript-if2case">
+                            <b>if2case.py</b>
+                            <u>Replaces instances like 'IF(A, B, C)' with 'CASE WHEN (A) THEN (B) ELSE (C) END' counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">if2case.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'IF(A, B, C)' with 'CASE WHEN (A) THEN (B) ELSE (C) END' counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-ifnull2casewhenisnull">
                             <input type="checkbox" id="tamperscript-ifnull2casewhenisnull">
+                            <b>ifnull2casewhenisnull.py</b>
+                            <u>Replaces instances like 'IFNULL(A, B)' with 'CASE WHEN ISNULL(A) THEN (B) ELSE (A) END' counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">ifnull2casewhenisnull.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'IFNULL(A, B)' with 'CASE WHEN ISNULL(A) THEN (B) ELSE (A) END' counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-ifnull2ifisnull">
                             <input type="checkbox" id="tamperscript-ifnull2ifisnull">
+                            <b>ifnull2ifisnull.py</b>
+                            <u>Replaces instances like 'IFNULL(A, B)' with 'IF(ISNULL(A), B, A)' counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">ifnull2ifisnull.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances like 'IFNULL(A, B)' with 'IF(ISNULL(A), B, A)' counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-informationschemacomment">
                             <input type="checkbox" id="tamperscript-informationschemacomment">
+                            <b>informationschemacomment.py</b>
+                            <u>Adds MySQL comment to INFORMATION_SCHEMA for bypassing certain filters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">informationschemacomment.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Adds MySQL comment to INFORMATION_SCHEMA for bypassing certain filters</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-least">
                             <input type="checkbox" id="tamperscript-least">
+                            <b>least.py</b>
+                            <u>Replaces greater than operator ('>') with 'LEAST' counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">least.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces greater than operator ('>') with 'LEAST' counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-lowercase">
                             <input type="checkbox" id="tamperscript-lowercase">
+                            <b>lowercase.py</b>
+                            <u>Replaces each keyword character with lowercase value</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">lowercase.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces each keyword character with lowercase value</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-luanginx">
                             <input type="checkbox" id="tamperscript-luanginx">
+                            <b>luanginx.py</b>
+                            <u>Bypasses LUA/Nginx web application firewall using specific encoding techniques</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">luanginx.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Bypasses LUA/Nginx web application firewall using specific encoding techniques</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-luanginxmore">
                             <input type="checkbox" id="tamperscript-luanginxmore">
+                            <b>luanginxmore.py</b>
+                            <u>Advanced bypassing for LUA/Nginx web application firewall with extended techniques</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">luanginxmore.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Advanced bypassing for LUA/Nginx web application firewall with extended techniques</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-misunion">
                             <input type="checkbox" id="tamperscript-misunion">
+                            <b>misunion.py</b>
+                            <u>Replaces instances of UNION with /*!UNION*/ to bypass certain filters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">misunion.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances of UNION with /*!UNION*/ to bypass certain filters</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-modsecurityversioned">
                             <input type="checkbox" id="tamperscript-modsecurityversioned">
+                            <b>modsecurityversioned.py</b>
+                            <u>Embraces complete query with MySQL versioned comment to bypass ModSecurity WAF</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">modsecurityversioned.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Embraces complete query with MySQL versioned comment to bypass ModSecurity WAF</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-modsecurityzeroversioned">
                             <input type="checkbox" id="tamperscript-modsecurityzeroversioned">
+                            <b>modsecurityzeroversioned.py</b>
+                            <u>Embraces complete query with MySQL zero-versioned comment to bypass ModSecurity WAF</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">modsecurityzeroversioned.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Embraces complete query with MySQL zero-versioned comment to bypass ModSecurity WAF</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-multiplespaces">
                             <input type="checkbox" id="tamperscript-multiplespaces">
+                            <b>multiplespaces.py</b>
+                            <u>Adds multiple spaces around SQL keywords to bypass filters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">multiplespaces.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Adds multiple spaces around SQL keywords to bypass filters</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-ord2ascii">
                             <input type="checkbox" id="tamperscript-ord2ascii">
+                            <b>ord2ascii.py</b>
+                            <u>Replaces ORD(x) with ASCII(x) function calls</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">ord2ascii.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces ORD(x) with ASCII(x) function calls</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-overlongutf8">
                             <input type="checkbox" id="tamperscript-overlongutf8">
+                            <b>overlongutf8.py</b>
+                            <u>Converts all characters in a given payload to overlong UTF8 (not processing already encoded)</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">overlongutf8.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Converts all characters in a given payload to overlong UTF8 (not processing already encoded)</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-overlongutf8more">
                             <input type="checkbox" id="tamperscript-overlongutf8more">
+                            <b>overlongutf8more.py</b>
+                            <u>Advanced overlong UTF8 encoding for bypassing additional security filters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">overlongutf8more.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Advanced overlong UTF8 encoding for bypassing additional security filters</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-percentage">
                             <input type="checkbox" id="tamperscript-percentage">
+                            <b>percentage.py</b>
+                            <u>Adds a percentage sign (%) in front of each character</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">percentage.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Adds a percentage sign (%) in front of each character</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-plus2concat">
                             <input type="checkbox" id="tamperscript-plus2concat">
+                            <b>plus2concat.py</b>
+                            <u>Replaces plus operator ('+') with MsSQL function CONCAT() counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">plus2concat.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces plus operator ('+') with MsSQL function CONCAT() counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-plus2fnconcat">
                             <input type="checkbox" id="tamperscript-plus2fnconcat">
+                            <b>plus2fnconcat.py</b>
+                            <u>Replaces plus operator ('+') with MsSQL function fn_concat() counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">plus2fnconcat.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces plus operator ('+') with MsSQL function fn_concat() counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-randomcase">
                             <input type="checkbox" id="tamperscript-randomcase">
+                            <b>randomcase.py</b>
+                            <u>Replaces each keyword character with random case value (e.g. SELECT -> SEleCt)</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">randomcase.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces each keyword character with random case value (e.g. SELECT -> SEleCt)</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-randomcomments">
                             <input type="checkbox" id="tamperscript-randomcomments">
+                            <b>randomcomments.py</b>
+                            <u>Adds random comments inside SQL keywords to bypass filters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">randomcomments.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Adds random comments inside SQL keywords to bypass filters</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-schemasplit">
                             <input type="checkbox" id="tamperscript-schemasplit">
+                            <b>schemasplit.py</b>
+                            <u>Splits database schema and table names to bypass certain filters</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">schemasplit.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Splits database schema and table names to bypass certain filters</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-scientific">
                             <input type="checkbox" id="tamperscript-scientific">
+                            <b>scientific.py</b>
+                            <u>Converts integer values to scientific notation (e.g. 1 -> 1e0)</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">scientific.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Converts integer values to scientific notation (e.g. 1 -> 1e0)</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-sleep2getlock">
                             <input type="checkbox" id="tamperscript-sleep2getlock">
+                            <b>sleep2getlock.py</b>
+                            <u>Replaces instances of SLEEP with GET_LOCK for time-based injections</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">sleep2getlock.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces instances of SLEEP with GET_LOCK for time-based injections</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-sp_password">
                             <input type="checkbox" id="tamperscript-sp_password">
+                            <b>sp_password.py</b>
+                            <u>Appends 'sp_password' to the end of payload to avoid logging in SQL Server</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">sp_password.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Appends 'sp_password' to the end of payload to avoid logging in SQL Server</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-space2comment">
                             <input type="checkbox" id="tamperscript-space2comment">
+                            <b>space2comment.py</b>
+                            <u>Replaces space character (' ') with comments '/**/'</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">space2comment.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with comments '/**/'</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-space2dash">
                             <input type="checkbox" id="tamperscript-space2dash">
+                            <b>space2dash.py</b>
+                            <u>Replaces space character (' ') with dash comments ('-- ') followed by random string and new line</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">space2dash.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with dash comments ('-- ') followed by random string and new line</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-space2hash">
                             <input type="checkbox" id="tamperscript-space2hash">
+                            <b>space2hash.py</b>
+                            <u>Replaces space character (' ') with hash character ('#') followed by random string and new line</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">space2hash.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with hash character ('#') followed by random string and new line</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-space2morecomment">
                             <input type="checkbox" id="tamperscript-space2morecomment">
+                            <b>space2morecomment.py</b>
+                            <u>Replaces space character (' ') with comments '/**_**/' (with random underscore variations)</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">space2morecomment.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with comments '/**_**/' (with random underscore variations)</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-space2morehash">
                             <input type="checkbox" id="tamperscript-space2morehash">
+                            <b>space2morehash.py</b>
+                            <u>Replaces space character (' ') with hash character ('#') followed by random string and new line</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">space2morehash.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with hash character ('#') followed by random string and new line</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-space2mssqlblank">
                             <input type="checkbox" id="tamperscript-space2mssqlblank">
+                            <b>space2mssqlblank.py</b>
+                            <u>Replaces space character (' ') with random blank character from valid alternate character set for MSSQL</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">space2mssqlblank.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with random blank character from valid alternate character set for MSSQL</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-space2mssqlhash">
                             <input type="checkbox" id="tamperscript-space2mssqlhash">
+                            <b>space2mssqlhash.py</b>
+                            <u>Replaces space character (' ') with hash character ('#') followed by new line for MSSQL</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">space2mssqlhash.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with hash character ('#') followed by new line for MSSQL</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-space2mysqlblank">
                             <input type="checkbox" id="tamperscript-space2mysqlblank">
+                            <b>space2mysqlblank.py</b>
+                            <u>Replaces space character (' ') with random blank character from valid alternate character set for MySQL</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">space2mysqlblank.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with random blank character from valid alternate character set for MySQL</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-space2mysqldash">
                             <input type="checkbox" id="tamperscript-space2mysqldash">
+                            <b>space2mysqldash.py</b>
+                            <u>Replaces space character (' ') with dash comments ('-- ') followed by new line for MySQL</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">space2mysqldash.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with dash comments ('-- ') followed by new line for MySQL</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-space2plus">
                             <input type="checkbox" id="tamperscript-space2plus">
+                            <b>space2plus.py</b>
+                            <u>Replaces space character (' ') with plus sign ('+') for URL encoding</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">space2plus.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with plus sign ('+') for URL encoding</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-space2randomblank">
                             <input type="checkbox" id="tamperscript-space2randomblank">
+                            <b>space2randomblank.py</b>
+                            <u>Replaces space character (' ') with random blank character from valid alternate character set</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">space2randomblank.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces space character (' ') with random blank character from valid alternate character set</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-substring2leftright">
                             <input type="checkbox" id="tamperscript-substring2leftright">
+                            <b>substring2leftright.py</b>
+                            <u>Replaces PostgreSQL SUBSTRING with LEFT and RIGHT functions</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">substring2leftright.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces PostgreSQL SUBSTRING with LEFT and RIGHT functions</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-symboliclogical">
                             <input type="checkbox" id="tamperscript-symboliclogical">
+                            <b>symboliclogical.py</b>
+                            <u>Replaces AND and OR logical operators with symbolic equivalents (&& and ||)</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">symboliclogical.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces AND and OR logical operators with symbolic equivalents (&& and ||)</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-unionalltounion">
                             <input type="checkbox" id="tamperscript-unionalltounion">
+                            <b>unionalltounion.py</b>
+                            <u>Replaces UNION ALL SELECT with UNION SELECT counterpart</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">unionalltounion.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces UNION ALL SELECT with UNION SELECT counterpart</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-unmagicquotes">
                             <input type="checkbox" id="tamperscript-unmagicquotes">
+                            <b>unmagicquotes.py</b>
+                            <u>Replaces quote character (') with multibyte combo %bf%27 (valid for GBK charset)</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">unmagicquotes.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces quote character (') with multibyte combo %bf%27 (valid for GBK charset)</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-uppercase">
                             <input type="checkbox" id="tamperscript-uppercase">
+                            <b>uppercase.py</b>
+                            <u>Replaces each keyword character with uppercase value</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">uppercase.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Replaces each keyword character with uppercase value</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-varnish">
                             <input type="checkbox" id="tamperscript-varnish">
+                            <b>varnish.py</b>
+                            <u>Appends HTTP header 'X-originating-IP' for bypassing Varnish firewalls</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">varnish.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Appends HTTP header 'X-originating-IP' for bypassing Varnish firewalls</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-versionedkeywords">
                             <input type="checkbox" id="tamperscript-versionedkeywords">
+                            <b>versionedkeywords.py</b>
+                            <u>Encloses each non-function keyword with MySQL versioned comment</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">versionedkeywords.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Encloses each non-function keyword with MySQL versioned comment</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-versionedmorekeywords">
                             <input type="checkbox" id="tamperscript-versionedmorekeywords">
+                            <b>versionedmorekeywords.py</b>
+                            <u>Encloses each keyword with MySQL versioned comment (extended version)</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">versionedmorekeywords.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Encloses each keyword with MySQL versioned comment (extended version)</span></span>
                         </label>
                         
-                        <label class="checkbox-label checkbox-label-tamper">
+                        <label class="checkbox-label" for="tamperscript-xforwardedfor">
                             <input type="checkbox" id="tamperscript-xforwardedfor">
+                            <b>xforwardedfor.py</b>
+                            <u>Appends a fake HTTP header 'X-Forwarded-For' to bypass IP restrictions</u>
                             <span class="checkmark"></span>
-                            <span class="checkbox-label-tamper__title">xforwardedfor.py
-                                <br/><span class="checkbox-label-tamper__subtitle">Appends a fake HTTP header 'X-Forwarded-For' to bypass IP restrictions</span></span>
                         </label>
                         
-
                     </div>
                 </div>
             </div>
@@ -1388,37 +1601,41 @@ If it is necessary to enforce the usage of particular pivot column because the a
                 <div class="card__body">
                     <div class="form-grid">
                         <!-- -v -->
-                        <div class="form-group" title="Set the verbosity level of output messages">
-                            <label class="form-label" for="verbose">Verbose level: <span>-v</span> <span id="verboseValue">1</span<br/></label>
+                        <label class="form-group grid-span-2" for="verbose">
+                            <div class="form-label">VERBOSE LEVEL: <u>-v</u> <span id="verboseValue">1</span<br/></div>
                             <input type="range" id="verbose" class="slider" min="0" max="6" value="1">
                             <div class="additional-help" id="verbose-help">1: Show also information and warning messages (default).</div>
-                        </div>
+                        </label>
                         <!-- -t -->
-                        <div class="form-group" title="This option requires an argument that specified the textual file to write all HTTP(s) traffic generated by sqlmap - HTTP(S) requests and HTTP(S) responses.">
-                            <label class="form-label" for="trafficFile">TRAFFIC LOG FILE<br/><span>-t</span></label>
+                        <label class="form-group" for="trafficFile">
+                            <div class="form-label">TRAFFIC LOG FILE<i tooltip="This option requires an argument that specified the textual file to write all HTTP(s) traffic generated by sqlmap - HTTP(S) requests and HTTP(S) responses.">ⁱ</i></div>
+                            <div class="form-label"><u>-t</u></div>
                             <input type="text" id="trafficFile" class="form-control" placeholder="traffic.log">
-                        </div>                        
+                        </label>
                         <!-- -c -->
-                        <div class="form-group" title="It is possible to save the command line options to a configuration INI file using --save switch. This option requires an argument that specified the textual ini file used to load sqlmap options.">
-                            <label class="form-label" for="configFile">SQLMAP CONFIG FILE<br/><span>-c</span></label>
+                        <label class="form-group" for="configFile">
+                            <div class="form-label">SQLMAP CONFIG FILE<i tooltip="It is possible to save the command line options to a configuration INI file using --save switch. 
+                                
+                                This option requires an argument that specified the textual ini file used to load sqlmap options.">ⁱ</i></div>
+                            <div class="form-label"><u>-c</u></div>
                             <input type="text" id="configFile" class="form-control" placeholder="sqlmap-config.ini">
-                        </div>
+                        </label>
                         <!-- --batch -->
-                        <div class="form-group" title="Never ask for user input, use the default behavior (useful when using sqlmap in scripts).">
-                            <label class="form-label">BATCH MODE</label>
-                            <label class="checkbox-label">
+                        <div class="form-group">
+                            <label class="checkbox-label" for="batch">
                                 <input type="checkbox" id="batch">
+                                <b>aaaa</b>
+                                <u>--batch</u><i tooltip="Never ask for user input, use the default behavior (useful when using sqlmap in scripts).">ⁱ</i>
                                 <span class="checkmark"></span>
-                                <span class="checkbox-label__text">--batch</span>
                             </label>
                         </div>
                         <!-- --parse-errors -->
-                        <div class="form-group" title="Parse and display DBMS error messages from responses.">
-                            <label class="form-label">PARSE ERRORS</label>
-                            <label class="checkbox-label">
+                        <div class="form-group">
+                            <label class="checkbox-label" for="parseErrors">
                                 <input type="checkbox" id="parseErrors">
+                                <b>PARSE ERRORS</b>
+                                <u>--parse-errors</u><i tooltip="Parse and display DBMS error messages from responses.">ⁱ</i>
                                 <span class="checkmark"></span>
-                                <span class="checkbox-label__text">--parse-errors</span>
                             </label>
                         </div>
                     </div>
