@@ -57,33 +57,38 @@
                         <div class="form-grid">
                             <!-- -u -->
                             <div class="form-group">
-                                <label class="form-label" for="url">TARGET URL<i tooltip="Target URL (e.g. http://127.0.0.1/vuln.php?id=1)">ⁱ</i></label>
+                                <label class="form-label" for="url">TARGET URL<i tooltip="Target URL to scan.">ⁱ</i></label>
                                 <label class="form-label" for="url"><u>-u</u></label>
                                 <input type="url" id="url" class="form-control" placeholder="https://127.0.0.1/page?id=1">
                             </div>
                             <!-- -d -->
                             <div class="form-group">
-                                <label class="form-label" for="directDb">DATABASE CONNECTION STRING<em class="tooltip">Connection string for direct database connection</em><br/><span>-d</span></label>
+                                <label class="form-label" for="directDb">DATABASE CONNECTION STRING<i tooltip="Connection string for direct database connection.">ⁱ</i></label>
+                                <label class="form-label" for="directDb"><u>-d</u></label>
                                 <input type="text" id="directDb" class="form-control" placeholder="mysql://user:pass@host/db">
                             </div>
                             <!-- -g -->
-                            <div class="form-group" title="Process Google dork results as target URLs" for="googleDork">
-                                <label class="form-label">GOOGLE DORK FOR TARGETS<br/><span>-g</label></span>
+                            <div class="form-group">
+                                <label class="form-label" for="googleDork">GOOGLE DORK FOR TARGETS<i tooltip="Process Google dork results as target URLs.">ⁱ</i></label>
+                                <label class="form-label" for="googleDork"><u>-g</u></label>
                                 <input type="text" id="googleDork" class="form-control" placeholder="inurl:php?id=">
                             </div>
                             <!-- -m -->
-                            <div class="form-group" title="Scan multiple targets given in a textual file">
-                                <label class="form-label" for="targetsFile">FILE WITH TARGETS<br/><span>-m</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="targetsFile">FILE WITH TARGETS<i tooltip="Scan multiple targets given in a textual file.">ⁱ</i></label>
+                                <label class="form-label" for="targetsFile"><u>-m</u></label>
                                 <input type="text" id="targetsFile" class="form-control" placeholder="targets.txt">
                             </div>
                             <!-- -l -->
-                            <div class="form-group" title="Rather than providing a single target URL, it is possible to test and inject against HTTP requests proxied through Burp proxy.">
-                                <label class="form-label" for="burpFile">BURP FILE WITH HTTP REQUESTS<br/><span>-l</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="burpFile">BURP FILE WITH HTTP REQUESTS<i tooltip="Rather than providing a single target URL, it is possible to test and inject against HTTP requests proxied through Burp proxy.">ⁱ</i></label>
+                                <label class="form-label" for="burpFile"><u>-l</u></label>
                                 <input type="text" id="burpFile" class="form-control" placeholder="burp.txt">
                             </div>
                             <!-- --scope -->
-                            <div class="form-group" title="Rather than using all hosts parsed from provided logs with option -l, you can specify valid Python regular expression to be used for filtering desired ones.">
-                                <label class="form-label" for="burpFileScope">SCOPE FOR BURP PROXY FILE<br/><span>--scope</span></label>
+                            <div class="form-group" title="">
+                                <label class="form-label" for="burpFileScope">SCOPE FOR BURP PROXY FILE<i tooltip="Rather than using all hosts parsed from provided logs with option -l, you can specify valid Python regular expression to be used for filtering desired ones.">ⁱ</i></label>
+                                <label class="form-label" for="burpFileScope"><u>--scope</u></label>
                                 <input type="text" id="burpFileScope" class="form-control" placeholder="(www)?\.target\.(com|net|org)">
                             </div>
                         </div>
@@ -98,30 +103,33 @@
                         <div class="form-grid">
                             <h3>Connection Control</h3>
                             <!-- --timeout -->
-                            <div class="form-group" title="Seconds to wait before timeout connection (default 30)">
-                                <label class="form-label" for="timeout">REQUEST TIMEOUT<br/><span>--timeout</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="timeout">REQUEST TIMEOUT<i tooltip="Seconds to wait before timeout connection.
+                                    Default: 30 seconds">ⁱ</i></label>
+                                <label class="form-label" for="timeout"><u>--timeout</u></label>
                                 <input type="number" id="timeout" class="form-control" min="1" max="300" placeholder="10 (seconds)">
                             </div>
                             <!-- --delay -->
-                            <div class="form-group" title="Delay (in seconds) between each HTTP request">
-                                <label class="form-label" for="delay">DELAY BETWEEN REQUEST<br/><span>--delay</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="delay">DELAY BETWEEN REQUEST<i tooltip="Delay (in seconds) between each HTTP request">ⁱ</i></label>
+                                <label class="form-label" for="delay"><u>--delay</u></label>
                                 <input type="number" id="delay" class="form-control" min="0.01" step="0.01" placeholder="2.25 (seconds)">
                             </div>
                             <!-- --threads -->
-                            <div class="form-group" title="Max number of concurrent HTTP(s) requests (default 1, max 10)">
-                                <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS<br/><span>--threads</span></label>
+                            <div class="form-group">
+                                <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS<i tooltip="Max number of concurrent HTTP(s) requests.
+                                    Default: 1 | Maximum: 10"> ⁱ </i></label>
+                                <label class="form-label" for="threads"><u>--threads</u></label>
                                 <input type="number" id="threads" class="form-control" min="1" max="10" placeholder="1">
                             </div>
                             <!-- SPACER -->
                             <div></div>
                             <!-- force-ssl -->
-                            <div class="form-group" title="In case that user wants to force usage of SSL/HTTPS requests toward the target, he can use this switch.
-This can be useful in cases when urls are being collected by using option --crawl or when Burp log is being provided with option -l.">
-                                <label class="form-label">FORCE USAGE OF HTTPS REQUESTS</label>
+                            <div class="form-group">
+                                <label class="checkbox-label" for="forceSsl">FORCE USAGE OF HTTPS REQUESTS</label>
                                 <label class="checkbox-label">
-                                    <input type="checkbox" id="forceSsl">
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-label__text">--force-ssl</span>
+                                    <input type="checkbox" id="forceSsl"><span class="checkmark"></span><u>--force-ssl</u><i tooltip="In case that user wants to force usage of SSL/HTTPS requests toward the target, he can use this switch.
+                                    This can be alse useful in cases when urls are being collected by --crawl or when Burp log is being provided with option -l.">ⁱ</i>
                                 </label>
                             </div>
                             <!-- --keep-alive -->

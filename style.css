@@ -26,7 +26,8 @@
   --hacker-secondary: #9bffaafa;
   --hacker-bg-dark: #0d1117;
   --hacker-bg-dark-opacity: #0a0c14ee;
-  --hacker-surface: #141a23f8;
+  /* --hacker-surface: #141a23f8; */
+  --hacker-surface: #141d23;
   --hacker-border: #223d2b;
 
 
@@ -73,7 +74,7 @@
   --space-l:    16px;
   --space-xl:   22px;
   --space-2xl:  28px;
-  --space-3xl:  32px;
+  --space-3xl:  36px;
 
   /* Border Radius */
   --radius-s: 6px;
@@ -273,7 +274,7 @@ body {
   background-attachment: fixed !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
-  background: url('background.jpg');
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url('background.jpg');
 }
 
 
@@ -461,18 +462,22 @@ pre code {
   user-select: none;
   color: var(--hacker-primary);
   font-weight: bold;
-  margin-bottom: var(--space-xxs);
+  margin-bottom: var(--space-xs);
   font-size: var(--font-size-s);
-  letter-spacing: 0.7px;
+  letter-spacing: 0.5px;
+  line-height: 0.9;
 }
 
-.form-label u, .checkbox-label u {
+.form-label u, 
+.checkbox-label u {
   font-weight: normal;;
   color: var(--hacker-secondary);
   text-decoration: none;
 }
 
-.form-label i {
+.form-label i,
+.checkbox-label i {
+  min-width: 18px;
   position: relative;
   display: inline-block;
   margin-left: var(--space-xs);
@@ -481,20 +486,28 @@ pre code {
   color: var(--hacker-secondary);
 }
 
-.form-label i:hover::after {
-  color: var(--hacker-primary);
-
+.form-label i:hover,
+.checkbox-label i:hover {
+  color: var(--color-primary)
 }
 
-.form-label i::before {
+.form-label i:hover::after,
+.checkbox-label i:hover::after {
+  color: var(--hacker-primary);
+}
+
+.form-label i::before,
+.checkbox-label i::before {
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-normal);
   color: var(--hacker-secondary);
   padding: var(--space-s);
-  border: 1px solid var(--hacker-secondary);
-  box-shadow: 8px 8px 0px 0px var(--hacker-primary);
+  margin: var(--space-m) 0;
+  border: 2px solid var(--hacker-secondary);
+  /* box-shadow: 8px 8px 0px 0px var(--hacker-primary); */
   background: var(--hacker-bg-dark);
 
+  line-height: 1.15;
   position: absolute;
   bottom: calc(100% + var(--space-2xl));
   left: 50%;
@@ -512,18 +525,21 @@ pre code {
   z-index: 1000;
 }
 
-.form-label i:hover::before {
+.form-label i:hover::before,
+.checkbox-label i:hover::before { 
   display: block;
   opacity: 1;
   visibility: visible;
 }
 
-.form-label [tooltip]::before {
+.form-label [tooltip]::before,
+.checkbox-label [tooltip]::before {
   content: attr(tooltip);
   white-space: pre-line;
 }
 
-.form-label i:hover::before {
+.form-label i:hover::before,
+.checkbox-label i:hover::before {
   display: block;
   opacity: 1;
   visibility: visible;
@@ -829,23 +845,12 @@ select.form-control {
   cursor: pointer;
   color: var(--color-text);
   font-size: var(--font-size-s);
+  font-weight: bold;
   position: relative;
   padding-left: var(--space-3xl);
-  -webkit-user-select: none; /* Safari */
+  -webkit-user-select: none;
   user-select: none;
 }
-/*.checkbox-label__text {
-    margin: 0px 0 0 4px;
-}*/
-/*.checkbox-label {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  color: var(--color-text);
-  font-size: var(--font-size-s);
-  position: relative;
-  padding-left: var(--space-3xl);
-}*/
 
 input, select, textarea {
   margin-top: var(--space-xs);
@@ -860,28 +865,17 @@ input, select, textarea {
 .checkmark {
     position: absolute;
     left: 0;
-    top: 50%;
+    top: 0%;
     transform: translateY(-50%);
-    height: 22px;
-    width: 22px;
+    height: 25px;
+    width: 25px;
     background-color: var(--hacker-bg-dark);
     border: 2px solid var(--hacker-border);
     border-radius: 3px;
     transition: all 0.3s ease;
 }
-/*.checkmark {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 18px;
-  width: 18px;
-  background-color: var(--hacker-bg-dark);
-  border: 2px solid var(--hacker-border);
-  border-radius: 3px;
-  transition: all 0.3s ease;
-}*/
 
+.checkbox-label:hover ~ .checkbox-label .checkmark, /* FORCE USAGE OF HTTPS REQUESTS:hover -->> check */
 .checkbox-label:hover .checkmark {
   border-color: var(--hacker-primary);
   box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
@@ -897,26 +891,14 @@ input, select, textarea {
   content: "";
   position: absolute;
   display: none;
-  left: 5px;
-  top: 2px;
+  left: 6px;
+  top: 3px;
   width: 8px;
   height: 12px;
   border: solid var(--color-btn-primary-text);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
-/*.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-  left: 5px;
-  top: 2px;
-  width: 4px;
-  height: 8px;
-  border: solid var(--color-btn-primary-text);
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}*/
 
 .checkbox-label input:checked ~ .checkmark:after {
   display: block;
