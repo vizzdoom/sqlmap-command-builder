@@ -10,8 +10,8 @@ def read_text(path):
 
 def compile_assets(html, css, js):
     compilation_time = datetime.datetime.now().astimezone(pytz.timezone('Europe/Warsaw')).strftime("%Y-%m-%d_%H:%M")
-    img_background = f'  background: url("data:image/jpeg;base64,{base64.b64encode(open("background.jpg", "rb").read()).decode()}");'
-    css = css.replace(f"  background: url('background.jpg');", img_background)
+    img_background = f'url("data:image/jpeg;base64,{base64.b64encode(open("background.jpg", "rb").read()).decode()}");'
+    css = css.replace(f"url('background.jpg');", img_background)
     html = html.replace(f'<span id="tool-version"></span>', f'<span id="tool-version"> <strong>v.{compilation_time}</strong></span>')
     html = html.replace(f'<link rel="stylesheet" href="style.css">', f'')
     html = html.replace(f'</head>', f'<style>\n{css}\n</style>\n</head>')
