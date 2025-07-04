@@ -1,13 +1,13 @@
 ### LIVE VERSION: <https://vizzdoom.github.io/sqlmap-command-builder/>
 
-![Example](example.png)
+![Example](docs/example.png)
 
 ---
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./logo-dark.png">
-    <img height=225 alt="SQLMAP COMMAND BUILDER" src="./logo-light.png">
+    <source media="(prefers-color-scheme: dark)" srcset="./docs/logo-dark.png">
+    <img height=225 alt="SQLMAP COMMAND BUILDER" src="./docs/logo-light.png">
   </picture>
 </p>
 
