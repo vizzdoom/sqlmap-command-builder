@@ -14,7 +14,6 @@
                 <em>Interactive command line generator for conducting advanced SQLMap pentests.<br />
                 This builder works locally with pure HTML/JS/CSS (no data exchanged to any server).</em>
             </p>
-
             <p>
                 <strong><a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">SQLMap Command Builder <span id="tool-version"></span></a></strong> | Compatible with <strong><a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9.4</a></strong> | vizzdoom/at/gmail/dot/com
             </p>
@@ -56,41 +55,41 @@
                     <div class="card__body">
                         <div class="form-grid">
                             <!-- -u -->
-                            <div class="form-group">
-                                <label class="form-label" for="url">TARGET URL<i tooltip="Target URL to scan.">ⁱ</i></label>
-                                <label class="form-label" for="url"><u>-u</u></label>
+                            <label class="form-group" for="url">
+                                <div class="form-label">TARGET URL<i tooltip="Target URL to scan.">ⁱ</i></div>
+                                <div class="form-label"><u>-u</u></div>
                                 <input type="url" id="url" class="form-control" placeholder="https://127.0.0.1/page?id=1">
-                            </div>
+                            </label>
                             <!-- -d -->
-                            <div class="form-group">
-                                <label class="form-label" for="directDb">DATABASE CONNECTION STRING<i tooltip="Connection string for direct database connection.">ⁱ</i></label>
-                                <label class="form-label" for="directDb"><u>-d</u></label>
+                            <label class="form-group" for="directDb">
+                                <div class="form-label">DATABASE CONNECTION STRING<i tooltip="Connection string for direct database connection.">ⁱ</i></div>
+                                <div class="form-label"><u>-d</u></div>
                                 <input type="text" id="directDb" class="form-control" placeholder="mysql://user:pass@host/db">
-                            </div>
+                            </label>
                             <!-- -g -->
-                            <div class="form-group">
-                                <label class="form-label" for="googleDork">GOOGLE DORK FOR TARGETS<i tooltip="Process Google dork results as target URLs.">ⁱ</i></label>
-                                <label class="form-label" for="googleDork"><u>-g</u></label>
+                            <label class="form-group" for="googleDork">
+                                <div class="form-label">GOOGLE DORK FOR TARGETS<i tooltip="Process Google dork results as target URLs.">ⁱ</i></div>
+                                <div class="form-label"><u>-g</u></div>
                                 <input type="text" id="googleDork" class="form-control" placeholder="inurl:php?id=">
-                            </div>
+                            </label>
                             <!-- -m -->
-                            <div class="form-group">
-                                <label class="form-label" for="targetsFile">FILE WITH TARGETS<i tooltip="Scan multiple targets given in a textual file.">ⁱ</i></label>
-                                <label class="form-label" for="targetsFile"><u>-m</u></label>
+                            <label class="form-group" for="targetsFile">
+                                <div class="form-label">FILE WITH TARGETS<i tooltip="Scan multiple targets given in a textual file.">ⁱ</i></div>
+                                <div class="form-label"><u>-m</u></div>
                                 <input type="text" id="targetsFile" class="form-control" placeholder="targets.txt">
-                            </div>
+                            </label>
                             <!-- -l -->
-                            <div class="form-group">
-                                <label class="form-label" for="burpFile">BURP FILE WITH HTTP REQUESTS<i tooltip="Rather than providing a single target URL, it is possible to test and inject against HTTP requests proxied through Burp proxy.">ⁱ</i></label>
-                                <label class="form-label" for="burpFile"><u>-l</u></label>
+                            <label class="form-group" for="burpFile">
+                                <div class="form-label">BURP FILE WITH HTTP REQUESTS<i tooltip="Rather than providing a single target URL, it is possible to test and inject against HTTP requests proxied through Burp proxy.">ⁱ</i></div>
+                                <div class="form-label"><u>-l</u></div>
                                 <input type="text" id="burpFile" class="form-control" placeholder="burp.txt">
-                            </div>
+                            </label>
                             <!-- --scope -->
-                            <div class="form-group" title="">
-                                <label class="form-label" for="burpFileScope">SCOPE FOR BURP PROXY FILE<i tooltip="Rather than using all hosts parsed from provided logs with option -l, you can specify valid Python regular expression to be used for filtering desired ones.">ⁱ</i></label>
-                                <label class="form-label" for="burpFileScope"><u>--scope</u></label>
+                            <label class="form-group" for="burpFileScope">
+                                <div class="form-label">SCOPE FOR BURP PROXY FILE<i tooltip="Rather than using all hosts parsed from provided logs with option -l, you can specify valid Python regular expression to be used for filtering desired ones.">ⁱ</i></div>
+                                <div class="form-label"><u>--scope</u></div>
                                 <input type="text" id="burpFileScope" class="form-control" placeholder="(www)?\.target\.(com|net|org)">
-                            </div>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -103,51 +102,51 @@
                         <div class="form-grid">
                             <h3>Connection Control</h3>
                             <!-- --timeout -->
-                            <div class="form-group">
-                                <label class="form-label" for="timeout">REQUEST TIMEOUT<i tooltip="Seconds to wait before timeout connection.
+                            <label class="form-group" for="timeout">
+                                <div class="form-label">REQUEST TIMEOUT<i tooltip="Seconds to wait before timeout connection.
                                     
-                                    Default: 30 seconds">ⁱ</i></label>
-                                <label class="form-label" for="timeout"><u>--timeout</u></label>
+                                    Default: 30 seconds">ⁱ</i></div>
+                                <div class="form-label"><u>--timeout</u></div>
                                 <input type="number" id="timeout" class="form-control" min="1" max="300" placeholder="10 (seconds)">
-                            </div>
+                            </label>
                             <!-- --delay -->
-                            <div class="form-group">
-                                <label class="form-label" for="delay">DELAY BETWEEN REQUEST<i tooltip="Delay (in seconds) between each HTTP request">ⁱ</i></label>
-                                <label class="form-label" for="delay"><u>--delay</u></label>
+                            <label class="form-group" for="delay">
+                                <div class="form-label">DELAY BETWEEN REQUEST<i tooltip="Delay (in seconds) between each HTTP request">ⁱ</i></div>
+                                <div class="form-label"><u>--delay</u></div>
                                 <input type="number" id="delay" class="form-control" min="0.01" step="0.01" placeholder="2.25 (seconds)">
-                            </div>
+                            </label>
                             <!-- --threads -->
-                            <div class="form-group">
-                                <label class="form-label" for="threads">NUMBER OF CONCURRENT REQUESTS<i tooltip="Max number of concurrent HTTP(s) requests.
+                            <label class="form-group" for="threads">
+                                <div class="form-label">NUMBER OF CONCURRENT REQUESTS<i tooltip="Max number of concurrent HTTP(s) requests.
                                     
-                                    Default: 1 | Maximum: 10"> ⁱ </i></label>
-                                <label class="form-label" for="threads"><u>--threads</u></label>
+                                    Default: 1 | Maximum: 10"> ⁱ </i></div>
+                                <div class="form-label"><u>--threads</u></div>
                                 <input type="number" id="threads" class="form-control" min="1" max="10" placeholder="1">
-                            </div>
+                            </label>
                             <!-- SPACER -->
                             <div></div>
                             <!-- force-ssl -->
-                            <div class="form-group">
-                                <label class="checkbox-label" for="forceSsl">
+                            <label class="form-group" for="forceSsl">
+                                <div class="checkbox-label" >
                                     <input type="checkbox" id="forceSsl">
                                     <b>FORCE USAGE OF HTTPS REQUESTS</b>
                                     <u>--force-ssl</u><i tooltip="In case that user wants to force usage of SSL/HTTPS requests toward the target, he can use this switch.
                                     This can be alse useful in cases when urls are being collected by --crawl or when Burp log is being provided with option -l.">ⁱ</i>
                                     <span class="checkmark"></span>
-                                </label>
-                            </div>
+                                </div>
+                            </label>
                             <!-- --keep-alive -->
-                            <div class="form-group">
-                                <label class="checkbox-label" for="keepAlive">
+                            <label class="form-group" for="keepAlive">
+                                <div class="checkbox-label">
                                     <input type="checkbox" id="keepAlive">
                                     <b>PERSISTENT CONNECTIONS OPTIMIZATION</b>
                                     <u>--keep-alive</u><i tooltip="Connection optimization - using persistent HTTP(s) connections">ⁱ</i>
                                     <span class="checkmark"></span>
-                                </label>
-                            </div>
+                                </div>
+                            </label>
                             <!-- --null-connection -->
-                            <div class="form-group">
-                                <label class="checkbox-label" for="nullConnection">
+                            <label class="form-group" for="nullConnection">
+                                <div class="checkbox-label">
                                     <input type="checkbox" id="nullConnection">
                                     <b>HTTP NULL CONNECTIONS OPTIMIZATION</b>
                                     <u>--null-connection</u><i tooltip="Connection optimization - Retrieve page length without actual HTTP response body.
@@ -157,52 +156,52 @@
                                     If any of these is supported by the target web server, speed up will come from the obvious saving of used bandwidth.
                                     Remark: incompatible with --text-only.">ⁱ</i>
                                     <span class="checkmark"></span>
-                                </label>
-                            </div>
+                                </div>
+                            </label>
                             <!-- --http2 -->
-                            <div class="form-group">
-                                <label class="checkbox-label" for="http2">
+                            <label class="form-group" for="http2">
+                                <div class="checkbox-label">
                                     <input type="checkbox" id="http2">
                                     <b>USE HTTP2 CONNECTIONS</b>
                                     <u>--http2</u><i tooltip="Connection optimization - Use HTTP version 2 (experimental).">ⁱ</i>
                                     <span class="checkmark"></span>
-                                </label>
-                            </div>
+                                </div>
+                            </label>
 
                             <h3>Proxy Options</h3>
                             <!-- --proxy -->
-                            <div class="form-group">
-                                <label class="form-label" for="proxy">HTTP(S) PROXY<i tooltip="Use a proxy to connect to the target URL.">ⁱ</i></label>
-                                <label class="form-label" for="proxy"><u>--proxy</u></label>
+                            <label class="form-group" for="proxy">
+                                <div class="form-label">HTTP(S) PROXY<i tooltip="Use a proxy to connect to the target URL.">ⁱ</i></div>
+                                <div class="form-label"><u>--proxy</u></div>
                                 <input type="text" id="proxy" class="form-control" placeholder="http://127.0.0.1:8080">
-                            </div>
+                            </label>
                             <!-- --proxy-cred -->
-                            <div class="form-group">
-                                <label class="form-label" for="proxyCred">HTTP(S) PROXY CREDENTIAL<i tooltip="If the HTTP(S) proxy requires authentication, you can provide the credentials in the format username:password to the option --proxy-cred.">ⁱ</i></label>
-                                <label class="form-label" for="proxyCred"><u>--proxy-cred</u></label>
+                            <label class="form-group" for="proxyCred">
+                                <div class="form-label">HTTP(S) PROXY CREDENTIAL<i tooltip="If the HTTP(S) proxy requires authentication, you can provide the credentials in the format username:password to the option --proxy-cred.">ⁱ</i></div>
+                                <div class="form-label"><u>--proxy-cred</u></div>
                                 <input type="text" id="proxyCred" class="form-control" placeholder="username:password">
-                            </div>
+                            </label>
                             <!-- --proxy-file -->
-                            <div class="form-group">
-                                <label class="form-label" for="proxyFile">HTTP(S) PROXY FILE<i tooltip="Use a proxy to connect to the target URL.">ⁱ</i></label>
-                                <label class="form-label" for="proxyFile"><u>--proxy-file</u></label>
+                            <label class="form-group" for="proxyFile">
+                                <div class="form-label">HTTP(S) PROXY FILE<i tooltip="Use a proxy to connect to the target URL.">ⁱ</i></div>
+                                <div class="form-label"><u>--proxy-file</u></div>
                                 <input type="text" id="proxyFile" class="form-control" placeholder="proxy-file.txt">
-                            </div>
+                            </label>
                             <!-- --proxy-freq -->
-                            <div class="form-group">
-                                <label class="form-label" for="proxyFreq">PROXY ROTATION NUMBER<i tooltip="Requests between change of proxy from a given --proxy-file list.">ⁱ</i></label>
-                                <label class="form-label" for="proxyFreq"><u>--proxy-freq</u></label>
+                            <label class="form-group" for="proxyFreq">
+                                <div class="form-label">PROXY ROTATION NUMBER<i tooltip="Requests between change of proxy from a given --proxy-file list.">ⁱ</i></div>
+                                <div class="form-label"><u>--proxy-freq</u></div>
                                 <input type="number" id="proxyFreq" class="form-control" min="1" step="1" placeholder="3">
-                            </div>
+                            </label>
                             <!-- --ignore-proxy -->
-                            <div class="form-group">
-                                <label class="checkbox-label" for="proxyIgnore">
+                            <label class="form-group">
+                                <div class="checkbox-label" for="proxyIgnore">
                                     <input type="checkbox" id="proxyIgnore">
                                     <b>IGNORE SYSTEM PROXY SETTINGS</b>
                                     <u>--ignore-proxy</u><i tooltip="Run sqlmap against a target part of a local area network by ignoring the system-wide set HTTP(S) proxy server setting.">ⁱ</i>
                                     <span class="checkmark"></span>
-                                </label>
-                            </div>
+                                </div>
+                            </label>
 
                             <div class="form-group">
                                 <span class="form-label checkbox-grid">TOR ANONYMITY NETWORK SETTINGS</span>
@@ -227,22 +226,22 @@
                             </div>  
                             
                             <!-- --tor-port -->
-                            <div class="form-group">
-                                <label class="form-label" for="torPort">TOR PROXY PORT<i tooltip="In case that you want to manually set the port of used Tor proxy.">ⁱ</i></label>
-                                <label class="form-label" for="torPort"><u>--tor-port</u></label>
+                            <label class="form-group" for="torPort">
+                                <div class="form-label">TOR PROXY PORT<i tooltip="In case that you want to manually set the port of used Tor proxy.">ⁱ</i></div>
+                                <div class="form-label"><u>--tor-port</u></div>
                                 <input type="number" id="torPort" class="form-control" min="1" max="65535" placeholder="9050">
-                            </div>
+                            </label>
                             <!-- --tor-type -->
-                            <div class="form-group">
-                                <label class="form-label" for="torType">TOR PROXY TYPE<i tooltip="In case that you want to manually set the type of used Tor proxy.">ⁱ</i></label>
-                                <label class="form-label" for="torType"><u>--tor-type</u></label>
+                            <label class="form-group" for="torType">
+                                <div class="form-label">TOR PROXY TYPE<i tooltip="In case that you want to manually set the type of used Tor proxy.">ⁱ</i></div>
+                                <div class="form-label"><u>--tor-type</u></div>
                                 <select id="torType" class="form-control">
                                     <option value="">-- Choose Type --</option>
                                     <option value="SOCKS5">SOCKS5 (default)</option>
                                     <option value="SOCKS4">SOCKS4</option>
                                     <option value="HTTP">HTTP</option>
                                 </select>
-                            </div>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -255,9 +254,9 @@
                         <div class="form-grid">
                             <h3>Request Data</h3>
                             <!-- --method -->
-                            <div class="form-group">
-                                <label class="form-label" for="method">HTTP REQUEST METHOD<i tooltip="Force usage of given HTTP method (e.g. PUT).">ⁱ</i></label>
-                                <label class="form-label" for="method"><u>--method</u></label>
+                            <label class="form-group" for="method">
+                                <div class="form-label">HTTP REQUEST METHOD<i tooltip="Force usage of given HTTP method (e.g. PUT).">ⁱ</i></div>
+                                <div class="form-label"><u>--method</u></div>
                                 <select id="method" class="form-control">
                                     <option value="">-- Choose HTTP Method --</option>
                                     <option value="GET">GET</option>
@@ -272,42 +271,42 @@
                                 <div class="form-group" id="customHttpMethodGroup" style="display: none">
                                     <input type="text" id="customHttpMethod" class="form-control" placeholder="Custom HTTP method value">
                                 </div>
-                            </div>
+                            </label>
                             <!-- --param-del -->
-                            <div class="form-group">
-                                <label class="form-label" for="paramDel">PARAMETER DELIMITER<i tooltip="There are cases when default parameter delimiter (&) needs to be overwritten for sqlmap to be able to properly split and process each parameter separately, e.g.:
-                                     query=foobar;id=1 instead query=foobar&id=1">ⁱ</i></label>
-                                <label class="form-label" for="paramDel"><u>--param-del</u></label>
+                            <label class="form-group" for="paramDel">
+                                <div class="form-label">PARAMETER DELIMITER<i tooltip="There are cases when default parameter delimiter (&) needs to be overwritten for sqlmap to be able to properly split and process each parameter separately, e.g.:
+                                     query=foobar;id=1 instead query=foobar&id=1">ⁱ</i></div>
+                                <div class="form-label"><u>--param-del</u></div>
                                 <input type="text" id="paramDel" class="form-control" placeholder="&">
-                            </div>
+                            </label>
                             <!-- -r -->
-                            <div class="form-group">
-                                <label class="form-label" for="requestFile">FILE WITH AN HTTP REQUEST<i tooltip="Load HTTP request from a file">ⁱ</i></label>
-                                <label class="form-label" for="requestFile"><u>-r</u></label>
+                            <label class="form-group" for="requestFile">
+                                <div class="form-label">FILE WITH AN HTTP REQUEST<i tooltip="Load HTTP request from a file">ⁱ</i></div>
+                                <div class="form-label"><u>-r</u></div>
                                 <input type="text" id="requestFile" class="form-control" placeholder="request.txt">
-                            </div>
+                            </label>
                             <!-- --data -->
-                            <div class="form-group">
-                                <label class="form-label" for="data">HTTP BODY DATA<i tooltip="By default the HTTP method used to perform HTTP requests is GET, but you can implicitly change it to POST by providing the data to be sent in the POST requests.
+                            <label class="form-group" for="data">
+                                <div class="form-label">HTTP BODY DATA<i tooltip="By default the HTTP method used to perform HTTP requests is GET, but you can implicitly change it to POST by providing the data to be sent in the POST requests.
                                     
-                                    Such data, being those parameters, are tested for SQL injection as well as any provided GET parameters.">ⁱ</i></label>
-                                <label class="form-label" for="data"><u>--data</u></label>
+                                    Such data, being those parameters, are tested for SQL injection as well as any provided GET parameters.">ⁱ</i></div>
+                                <div class="form-label"><u>--data</u></div>
                                 <textarea id="data" class="form-control" rows="4" placeholder="param1=value1&param2=value2"></textarea>
-                            </div>
+                            </label>
 
                             <h3>Request Headers</h3>
                             <!-- --host -->
-                            <div class="form-group">
-                                <label class="form-label" for="host">CUSTOM HTTP HOST HEADER<i tooltip="You can manually set HTTP Host header value. 
+                            <label class="form-group" for="host">
+                                <div class="form-label">CUSTOM HTTP HOST HEADER<i tooltip="You can manually set HTTP Host header value. 
                                     By default HTTP Host header is parsed from a provided target URL.
                                     
-                                    Note that also the HTTP Host header is tested against SQL injection if the --level is set to 5.">ⁱ</i></label>
-                                <label class="form-label" for="host"><u>--host</u></label>
+                                    Note that also the HTTP Host header is tested against SQL injection if the --level is set to 5.">ⁱ</i></div>
+                                <div class="form-label"><u>--host</u></div>
                                 <input type="text" id="host" class="form-control" placeholder="example.com">
-                            </div>
+                            </label>
                             <!-- -A / --random-agent / --mobile -->
-                            <div class="form-group">
-                                <label class="form-label" for="userAgent">USER-AGENT HEADER VALUE<i tooltip="By default sqlmap performs HTTP requests with the &quot;sqlmap/1.0-dev-x (http://sqlmap.org)&quot; User-Agent header, but it can changed with the option -A.
+                            <label class="form-group" for="userAgent">
+                                <div class="form-label">USER-AGENT HEADER VALUE<i tooltip="By default sqlmap performs HTTP requests with the &quot;sqlmap/1.0-dev-x (http://sqlmap.org)&quot; User-Agent header, but it can changed with the option -A.
                                     
                                     Moreover, by providing the switch --random-agent, sqlmap will randomly select a User-Agent from the ./txt/user-agents.txt textual file and use it for all HTTP requests within the session.
                                     
@@ -317,8 +316,8 @@
                                     
                                     In such cases you can enforce usage of one of predetermined smartphone HTTP User-Agent header values by using a --mobile switch (sqlmap will ask you to pick one of popular smartphones which it will imitate in current run).
                                     
-                                    Note that also the HTTP User-Agent header is tested against SQL injection if the --level is set to 3 or above.">ⁱ</i></label>
-                                <label class="form-label" for="userAgent"><u>--mobile / --random-agent / -A</u></label>
+                                    Note that also the HTTP User-Agent header is tested against SQL injection if the --level is set to 3 or above.">ⁱ</i></div>
+                                <div class="form-label"><u>--mobile / --random-agent / -A</u></div>
                                 <select id="userAgent" class="form-control">
                                     <option value="">Default: sqlmap/1.0-dev-x (http://sqlmap.org)</option>
                                     <option value="mobile">--mobile</option>
@@ -353,66 +352,66 @@
                                 <div class="form-group" id="customUserAgentGroup" style="display: none;">
                                     <input type="text" id="customUserAgent" class="form-control" placeholder="Custom User Agent value">
                                 </div>
-                            </div>
+                            </label>
                             <!-- --referer -->
-                            <div class="form-group">
-                                <label class="form-label" for="referer">HTTP REFERER HEADER<i tooltip="By default no HTTP Referer header is sent in HTTP requests if not explicitly set by the --referer switch.
+                            <label class="form-group" for="referer">
+                                <div class="form-label">HTTP REFERER HEADER<i tooltip="By default no HTTP Referer header is sent in HTTP requests if not explicitly set by the --referer switch.
                                     
-                                    Note that also the HTTP Referer header is tested against SQL injection if the --level is set to 3 or above.">ⁱ</i></label>
-                                <label class="form-label" for="referer"><u>--referer</u></label>
+                                    Note that also the HTTP Referer header is tested against SQL injection if the --level is set to 3 or above.">ⁱ</i></div>
+                                <div class="form-label"><u>--referer</u></div>
                                 <input type="url" id="referer" class="form-control" placeholder="https://127.0.0.1/login">
-                            </div>
+                            </label>
                             <!-- -headers -->
-                            <div class="form-group">
-                                <label class="form-label" for="headers">EXTRA HTTP HEADERS<i tooltip="Extra HTTP headers separated by a newline.">ⁱ</i></label>
-                                <label class="form-label" for="headers"><u>--headers</u></label>
+                            <label class="form-group" for="headers">
+                                <div class="form-label">EXTRA HTTP HEADERS<i tooltip="Extra HTTP headers separated by a newline.">ⁱ</i></div>
+                                <div class="form-label"><u>--headers</u></div>
                                 <textarea id="headers" class="form-control" rows="4" placeholder="X-Forwarded-For: 127.0.0.1&#10;Authorization: Bearer token"></textarea>
-                            </div>
+                            </label>
 
                             <h3>Authentication</h3>
                             <!-- --cookie -->
-                            <div class="form-group">
-                                <label class="form-label" for="cookie">COOKIE VALUE<i tooltip="HTTP Cookie header value for authentication (and for exploitation if the --level is set to 2 or above).
+                            <label class="form-group" for="cookie">
+                                <div class="form-label">COOKIE VALUE<i tooltip="HTTP Cookie header value for authentication (and for exploitation if the --level is set to 2 or above).
                                     
                                     If you provide a HTTP Cookie header with option --cookie and the target URL sends an HTTP Set-Cookie header at any time, sqlmap will ask you which set of cookies to use for the following HTTP requests.
                                     
-                                    See also: --drop-set-cookie">ⁱ</i></label>
-                                <label class="form-label" for="cookie"><u>--cookie</u></label>
+                                    See also: --drop-set-cookie">ⁱ</i></div>
+                                <div class="form-label"><u>--cookie</u></div>
                                 <input id="cookie" class="form-control" placeholder="PHPSESSID=abc123; userid=1"></input>
-                            </div>
+                            </label>
                             <!-- --cookie-del -->
-                            <div class="form-group">
-                                <label class="form-label" for="cookieDel">COOKIE DELIMITER<i tooltip="The HTTP Cookie header values are usually separated by a ; character, not by an &. 
+                            <label class="form-group" for="cookieDel">
+                                <div class="form-label">COOKIE DELIMITER<i tooltip="The HTTP Cookie header values are usually separated by a ; character, not by an &. 
                                     
                                     Sqlmap can recognize these as separate sets of parameter=value too, as well as GET and POST parameters. 
-                                    In case that the separation character is other than ; it can be specified by using option --cookie-del">ⁱ</i></label>
-                                <label class="form-label" for="cookieDel"><u>--cookie-del</u></label>
+                                    In case that the separation character is other than ; it can be specified by using option --cookie-del">ⁱ</i></div>
+                                <div class="form-label"><u>--cookie-del</u></div>
                                 <input type="text" id="cookieDel" class="form-control" placeholder=";">
-                            </div>
+                            </label>
                             <!-- --live-cookies -->
-                            <div class="form-group">
-                                <label class="form-label" for="cookieLive">LIVE COOKIES FILE<i tooltip="Option --live-cookies can be used to provide a cookies file which will be used for loading of up-to-date values. 
+                            <label class="form-group" for="cookieLive">
+                                <div class="form-label">LIVE COOKIES FILE<i tooltip="Option --live-cookies can be used to provide a cookies file which will be used for loading of up-to-date values. 
                                     This means that that same file will be read prior to each request to get the latest value for HTTP Cookie header. It should point to a file with fresh/up-to-date cookie values. 
                                     
                                     Trick is that once you delete its content, sqlmap immediately will stop and wait for the update of its content. Same applies if you just modify its content in-place.You can do this indefinitely number of times during a run. 
                                     
-                                    In your case, you can just run sqlmap in one terminal with --live-cookies pointing to a file containing starting cookie value, while in another terminal you can do a periodic deletion and filling of that same file.">ⁱ</i></label>
-                                <label class="form-label" for="cookieLive"><u>--live-cookies</u></label>
+                                    In your case, you can just run sqlmap in one terminal with --live-cookies pointing to a file containing starting cookie value, while in another terminal you can do a periodic deletion and filling of that same file.">ⁱ</i></div>
+                                <div class="form-label"><u>--live-cookies</u></div>
                                 <input type="text" id="cookieLive" class="form-control" placeholder="live-cookies.txt">
-                            </div>
+                            </label>
                             <!-- --load-cookies -->
-                            <div class="form-group">
-                                <label class="form-label" for="cookieLoad">RAW COOKIE FILE<i tooltip="An option --load-cookies can be used to provide a special file containing Netscape/wget formatted cookies. 
+                            <label class="form-group" for="cookieLoad">
+                                <div class="form-label">RAW COOKIE FILE<i tooltip="An option --load-cookies can be used to provide a special file containing Netscape/wget formatted cookies. 
                                     
                                     This format includes not only cookie names and values but also their domains, paths, expiry, and security attributes.
 
-                                    Unlike the --cookie or -H options which requires to manually enter raw cookie strings, the --load-cookies reads structures cookie data, which can help fully replicate a browser session.">ⁱ</i></label>
-                                <label class="form-label" for="cookieLoad"><u>--load-cookies</u></label>
+                                    Unlike the --cookie or -H options which requires to manually enter raw cookie strings, the --load-cookies reads structures cookie data, which can help fully replicate a browser session.">ⁱ</i></div>
+                                <div class="form-label"><u>--load-cookies</u></div>
                                 <input type="text" id="cookieLoad" class="form-control" placeholder="load-cookies.txt">
-                            </div>
+                            </label>
                             <!-- --drop-set-cookie -->
-                            <div class="form-group">
-                                <label class="checkbox-label" for="cookieDrop">
+                            <label class="form-group">
+                                <div class="checkbox-label" for="cookieDrop">
                                     <input type="checkbox" id="cookieDrop">
                                     <b>IGNORE Set-Cookie HEADER</b>
                                     <u>--drop-set-cookie</u><i tooltip="If the web application responds with Set-Cookie headers, sqlmap will automatically use its value in all further HTTP requests as the Cookie header. Sqlmap will also automatically test those values for SQL injection.
@@ -420,13 +419,13 @@
                                     This can be avoided by providing the switch --drop-set-cookie. 
                                     Therefore, an sqlmap will ignore any coming Set-Cookie header.">ⁱ</i>
                                     <span class="checkmark"></span>
-                                </label>
-                            </div>
+                                </div>
+                            </label>
                             <div></div>
                             <!-- --auth-type/--auth-cred -->
-                            <div class="form-group">
-                                <label class="form-label" for="authCred">HTTP PROTOCOL AUTHENTICATION<i tooltip="These options can be used to specify which HTTP protocol authentication back-end web server implements and the valid credentials to be used to perform all HTTP requests to the target application.">ⁱ</i></label>
-                                <label class="form-label" for="authCred"><u>--auth-type / --auth-cred</u></label>
+                            <label class="form-group" for="authType">
+                                <div class="form-label">HTTP PROTOCOL AUTHENTICATION<i tooltip="These options can be used to specify which HTTP protocol authentication back-end web server implements and the valid credentials to be used to perform all HTTP requests to the target application.">ⁱ</i></div>
+                                <div class="form-label"><u>--auth-type / --auth-cred</u></div>
                                 <select id="authType" class="form-control">
                                     <option value="">-- Choose auth method --</option>
                                     <option value="Basic">Basic</option>
@@ -436,37 +435,37 @@
                                 <div class="form-group">
                                     <input type="text" id="authCred" class="form-control" placeholder="username:password">
                                 </div>
-                            </div>
+                            </label>
                             <!-- --auth-file -->
-                            <div class="form-group">
-                                <label class="form-label" for="authFile">PRIVATE KEY AUTHENTICATION<i tooltip="This option should be used in cases when the web server requires proper client-side certificate and a private key for authentication.
+                            <label class="form-group" for="authFile">
+                                <div class="form-label">PRIVATE KEY AUTHENTICATION<i tooltip="This option should be used in cases when the web server requires proper client-side certificate and a private key for authentication.
                                     
-                                    Supplied value should be a PEM formatted key_file that contains your certificate and a private key.">ⁱ</i></label>
-                                <label class="form-label" for="authFile"><u>--auth-file</u></label>
+                                    Supplied value should be a PEM formatted key_file that contains your certificate and a private key.">ⁱ</i></div>
+                                <div class="form-label"><u>--auth-file</u></div>
                                 <input type="text" id="authFile" class="form-control" placeholder="auth_file.key">
-                            </div>
+                            </label>
 
                             <h3>CSRF Tokens Control</h3>
                             <!-- --csrf-token -->
-                            <div class="form-group">
-                                <label class="form-label" for="csrfToken">ANTI-CSRF TOKEN FIEL<i tooltip="Option --csrf-token can be used to set the name of the hidden value that contains the randomized token. 
+                            <label class="form-group" for="csrfToken">
+                                <div class="form-label">ANTI-CSRF TOKEN FIEL<i tooltip="Option --csrf-token can be used to set the name of the hidden value that contains the randomized token. 
                                     
-                                    This is useful in cases when web sites use non-standard names for such fields.">ⁱ</i></label>
-                                <label class="form-label" for="csrfToken"><u>--csrf-token</u></label>
+                                    This is useful in cases when web sites use non-standard names for such fields.">ⁱ</i></div>
+                                <div class="form-label"><u>--csrf-token</u></div>
                                 <input type="text" id="csrfToken" class="form-control" placeholder="anti-csrf">
-                            </div>
+                            </label>
                             <!-- --csrf-url -->
-                            <div class="form-group">
-                                <label class="form-label" for="csrfUrl">TOKEN EXTRACTION URL<i tooltip="Option --csrf-url can be used for retrieval of the token value from arbitrary URL address. 
+                            <label class="form-group" for="csrfUrl">
+                                <div class="form-label">TOKEN EXTRACTION URL<i tooltip="Option --csrf-url can be used for retrieval of the token value from arbitrary URL address. 
                                     
-                                    This is useful if the vulnerable target URL doesn't contain the necessary token value in the first place, but it is required to extract it from some other location.">ⁱ</i></label>
-                                <label class="form-label" for="csrfUrl"><u>--csrf-url</u></label>
+                                    This is useful if the vulnerable target URL doesn't contain the necessary token value in the first place, but it is required to extract it from some other location.">ⁱ</i></div>
+                                <div class="form-label"><u>--csrf-url</u></div>
                                 <input type="url" id="csrfUrl" class="form-control" placeholder="https://example.com/profile/">
-                            </div>
+                            </label>
                             <!-- --csrf-method -->
-                            <div class="form-group">
-                                <label class="form-label" for="csrfMethod">HTTP METHOD FOR TOKEN RETRIEVAL<i tooltip="HTTP method for token extraction.">ⁱ</i></label>
-                                <label class="form-label" for="csrfMethod"><u>--csrf-method</u></label>
+                            <label class="form-group" for="csrfMethod">
+                                <div class="form-label">HTTP METHOD FOR TOKEN RETRIEVAL<i tooltip="HTTP method for token extraction.">ⁱ</i></div>
+                                <div class="form-label"><u>--csrf-method</u></div>
                                 <select id="csrfMethod" class="form-control">
                                     <option value="">-- Choose HTTP method --</option>
                                     <option value="GET">GET</option>
@@ -481,15 +480,15 @@
                                 <div class="form-group" id="customCsrfMethodGroup">
                                     <input type="text" id="customCsrfMethod" class="form-control" placeholder="">
                                 </div>
-                            </div>
+                            </label>
                             <!-- --csrf-retries -->
-                            <div class="form-group">
-                                <label class="form-label" for="csrfRetries">RETRIES DURING TOKEN RETRIEVAL<i tooltip="Retries for anti-CSRF token retrieval.
+                            <label class="form-group" for="csrfRetries">
+                                <div class="form-label" >RETRIES DURING TOKEN RETRIEVAL<i tooltip="Retries for anti-CSRF token retrieval.
                                     
-                                    Default: 0">ⁱ</i></label>
-                                <label class="form-label" for="csrfRetries"><u>--csrf-retries</u></label>
+                                    Default: 0">ⁱ</i></div>
+                                <div class="form-label"><u>--csrf-retries</u></div>
                                 <input type="number" id="csrfRetries" class="form-control" placeholder="0" min="0" step="1">
-                            </div>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -612,25 +611,25 @@
                                 <input type="number" id="code" class="form-control" min="100", max="599", step="1" placeholder="201">
                             </label>
                             <!-- --titles -->
-                            <div class="form-group">
-                                <label class="checkbox-label" for="titles">
+                            <label class="form-group" for="titles">
+                                <div class="checkbox-label">
                                     <input type="checkbox" id="titles">
                                     <b>DETECT COMPARING TITLES</b>
                                     <u>--titles</u><i tooltip="Turn on when you knows that the distinction of a True query from a False one can be done using HTML title (e.g. &quot;Welcome&quot; for True and &quot;Forbidden&quot; for False).">ⁱ</i>
                                     <span class="checkmark"></span>
-                                </label>
-                            </div>
+                                </div>
+                            </label>
                             <!-- --text-only -->
-                            <div class="form-group">
-                                <label class="checkbox-label" for="textOnly">
+                            <label class="form-group" for="textOnly">
+                                <div class="checkbox-label">
                                     <input type="checkbox" id="textOnly">
                                     <b>FILTER ACTIVE CONTENT</b>
                                     <u>--text-only</u><i tooltip="In cases with lot of active content (e.g. scripts, embeds, etc.) in the HTTP responses' body, you can filter pages (--text-only) just for their textual content. 
                                     
                                     This way, in a good number of cases, you can automatically tune the detection engine.">ⁱ</i>
                                     <span class="checkmark"></span>
-                                </label>
-                            </div>                         
+                                </div>
+                            </label>                         
 
                             <h3>Attack Optimalization</h3>
                             <!-- --level -->
