@@ -31,6 +31,7 @@ class SQLMapGenerator {
             '--method': 'method',
             '--param-del': 'paramDel',
             '-r': 'requestFile',
+            '--eval': 'eval',
             '--data': 'data',
             
             '--host': 'host',
@@ -49,10 +50,17 @@ class SQLMapGenerator {
             '--auth-cred': 'authCred',
             '--auth-file': 'authFile',
 
-            '--csrf-token': 'csrfToken',
-            '--csrf-method': 'csrfMethod',
             '--csrf-url': 'csrfUrl',
+            '--csrf-method': 'csrfMethod',
+            '--csrf-data': 'csrfData',
+            '--csrf-token': 'csrfToken',
             '--csrf-retries': 'csrfRetries',
+
+            '--safe-url': 'safeUrl',
+            '--safe-post': 'safePost',
+            '--safe-req': 'safeReq',
+            '--safe-freq': 'safeFreq',
+
             
             '-p': 'paramTest',
             '--skip': 'paramSkip',
@@ -60,15 +68,22 @@ class SQLMapGenerator {
             '--param-filter': 'paramFilter',
             '--prefix': 'prefix',
             '--suffix': 'suffix',
+            '--randomize': 'randomize',
             
+            '--titles': 'titles',
+            '--text-only': 'textOnly',
+            '--ignore-redirects': 'ignoreRedirects',
+            '--ignore-timeouts': 'ignoreTimeouts',
             '--string': 'string',
             '--regexp': 'regexp',
             '--not-string': 'notString',
             '--code': 'code',
-            '--titles': 'titles',
-            '--text-only': 'textOnly',
-            '--level': 'level',
+            '--abort-code': 'abortCode',
+            '--ignore-code': 'ignoreCode',
+            '--retries': 'retries',
+            '--retry-on': 'retryOn',
 
+            '--level': 'level',
             '--risk': 'risk',
             '--dbms': 'dbms',
             '--os': 'os',
@@ -81,6 +96,9 @@ class SQLMapGenerator {
             '--no-cast': 'noCast',
             '--no-escape': 'noEscape',
             '--predict-output':'predictOutput',
+            '--skip-urlencode':'skipUrlencode',
+            '--chunked':'chunked',
+            '--hpp':'hpp',
 
             '--all': 'all',
             '--banner': 'banner',
@@ -215,18 +233,25 @@ class SQLMapGenerator {
         var id = this.paramMapping[confkey];
         var elem = document.getElementById(id);
         var value = null;
-        if (elem.type === 'checkbox') {
-            value = elem.checked;
-        } 
-        else if (elem.type === 'text' || elem.type === 'number' || elem.type === 'url' || elem.type === 'select-one') {
-            value = elem.value.trim();
-        }        
-        else if (elem.type === 'textarea') {
-            value = elem.value.trim().replaceAll("\n", "\\\n");
-        }
+        try {
 
-        if (value) {
-            config[confkey] = value;
+        
+            if (elem.type === 'checkbox') {
+                value = elem.checked;
+            } 
+            else if (elem.type === 'text' || elem.type === 'number' || elem.type === 'url' || elem.type === 'select-one') {
+                value = elem.value.trim();
+            }        
+            else if (elem.type === 'textarea') {
+                value = elem.value.trim().replaceAll("\n", "\\\n");
+            }
+
+            if (value) {
+                config[confkey] = value;
+            }
+
+        } catch (e) {
+            console.log(confkey, e);
         }
     }
 
@@ -291,6 +316,7 @@ class SQLMapGenerator {
         if (paramDel && paramDel !== "&") config['--param-del'] = paramDel;
 
         this.setStandardConfigItem(config, '-r');   
+        this.setStandardConfigItem(config, '--eval');   
         this.setStandardConfigItem(config, '--data');   
 
         // ## Request Headers
@@ -332,9 +358,8 @@ class SQLMapGenerator {
         this.setStandardConfigItem(config, '--auth-file'); 
 
         // ## CSRF Tokens Control
-        this.setStandardConfigItem(config, '--csrf-token'); 
         this.setStandardConfigItem(config, '--csrf-url'); 
-
+        
         const csrfMethod = document.getElementById('csrfMethod').value;
         if (csrfMethod && csrfMethod !== 'custom') {
             config['--csrf-method'] = csrfMethod;
@@ -343,9 +368,18 @@ class SQLMapGenerator {
             if (customCsrfMethod) config['--csrf-method'] = customCsrfMethod;
         }
         
+        this.setStandardConfigItem(config, '--csrf-data'); 
+        this.setStandardConfigItem(config, '--csrf-token'); 
+        
         const csrfRetries = document.getElementById('csrfRetries').value.trim();
         if (csrfRetries && csrfRetries > 0) config['--csrf-retries'] = csrfRetries;
 
+        // ## Safe Requests
+        this.setStandardConfigItem(config, '--safe-url'); 
+        this.setStandardConfigItem(config, '--safe-post'); 
+        this.setStandardConfigItem(config, '--safe-req'); 
+        this.setStandardConfigItem(config, '--safe-freq'); 
+     
         // # INJECTION TAB
         // ## Parameters
         this.setStandardConfigItem(config, '-p'); 
@@ -354,17 +388,27 @@ class SQLMapGenerator {
         this.setStandardConfigItem(config, '--param-filter'); 
         this.setStandardConfigItem(config, '--prefix'); 
         this.setStandardConfigItem(config, '--suffix'); 
+        this.setStandardConfigItem(config, '--randomize');  
 
         // ## Detection
+        this.setStandardConfigItem(config, '--text-only');  
+        this.setStandardConfigItem(config, '--titles');  
+        this.setStandardConfigItem(config, '--ignore-redirects');  
+        this.setStandardConfigItem(config, '--ignore-timeouts');  
         this.setStandardConfigItem(config, '--string');
         this.setStandardConfigItem(config, '--regexp');    
         this.setStandardConfigItem(config, '--not-string');
        
         const code = document.getElementById('code').value.trim();
         if (code && code >= 100 && code <= 599) config['--code'] = code;
+        
+        this.setStandardConfigItem(config, '--abort-code');  
+        this.setStandardConfigItem(config, '--ignore-code');  
 
-        this.setStandardConfigItem(config, '--text-only');  
-        this.setStandardConfigItem(config, '--titles');  
+        const retries = document.getElementById('retries').value.trim();
+        if (retries && retries >= 0) config['--retries'] = csrfRetries;
+
+        this.setStandardConfigItem(config, '--retry-on');  
         
         // ## Attack Optimalization
         const level = document.getElementById('level').value;
@@ -393,6 +437,9 @@ class SQLMapGenerator {
         this.setStandardConfigItem(config, '--no-cast');
         this.setStandardConfigItem(config, '--no-escape');
         this.setStandardConfigItem(config, '--predict-output');
+        this.setStandardConfigItem(config, '--skip-urlencode');
+        this.setStandardConfigItem(config, '--chunked');
+        this.setStandardConfigItem(config, '--hpp');
 
         // # EXPLOITATION TAB
         // ## Enumeration and Data Exfiltraion

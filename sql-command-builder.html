@@ -15,7 +15,7 @@
                 This builder works locally with pure HTML/JS/CSS (no data exchanged to any server).</em>
             </p>
             <p>
-                <strong><a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">SQLMap Command Builder <span id="tool-version"></span></a></strong> | Compatible with <strong><a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9.4</a></strong> | vizzdoom/at/gmail/dot/com
+                <strong><a href="https://github.com/vizzdoom/sqlmap-command-builder" target="_blank">SQLMap Command Builder <span id="tool-version"></span></a></strong> | Compatible with <strong><a target="_blank" href="https://github.com/sqlmapproject/sqlmap/releases">SQLMap 1.9.6.10</a></strong> | vizzdoom/at/gmail/dot/com
             </p>
         </header>
 
@@ -56,7 +56,7 @@
                         <div class="form-grid">
                             <!-- -u -->
                             <label class="form-group" for="url">
-                                <div class="form-label">TARGET URL<i tooltip="Target URL to scan.">ⁱ</i></div>
+                                <div class="form-label">TARGET URL<i tooltip="Specify the target URL to scan for SQL injection vulnerabilities, including any query parameters.">ⁱ</i></div>
                                 <div class="form-label"><u>-u</u></div>
                                 <input type="url" id="url" class="form-control" placeholder="https://127.0.0.1/page?id=1">
                             </label>
@@ -285,15 +285,25 @@
                                 <div class="form-label"><u>-r</u></div>
                                 <input type="text" id="requestFile" class="form-control" placeholder="request.txt">
                             </label>
+                            <!-- --eval -->
+                            <label class="form-group" for="eval">
+                                <div class="form-label">PYTHON CODE TO EVALUATE<i tooltip="Evaluate custom Python code before each request and use its output to modify parameters or payloads.
+
+                                    Perfect for dynamic payload generation, custom hashing, encoding, or manipulating request data on the fly.
+                                    ">ⁱ</i></div>
+                                <div class="form-label"><u>-r</u></div>
+                                <input type="text" id="eval" class="form-control" placeholder="from flask_unsign import session as s; session = s.sign({'uid': session}, secret='SecretExfilratedFromTheMachine')">
+                            </label>
                             <!-- --data -->
                             <label class="form-group" for="data">
                                 <div class="form-label">HTTP BODY DATA<i tooltip="By default the HTTP method used to perform HTTP requests is GET, but you can implicitly change it to POST by providing the data to be sent in the POST requests.
                                     
                                     Such data, being those parameters, are tested for SQL injection as well as any provided GET parameters.">ⁱ</i></div>
-                                <div class="form-label"><u>--data</u></div>
-                                <textarea id="data" class="form-control" rows="4" placeholder="param1=value1&param2=value2"></textarea>
+                                    <div class="form-label"><u>--data</u></div>
+                                    <textarea id="data" class="form-control" rows="4" placeholder="param1=value1&param2=value2"></textarea>
+                                </label>
                             </label>
-
+                                    
                             <h3>Request Headers</h3>
                             <!-- --host -->
                             <label class="form-group" for="host">
@@ -446,22 +456,14 @@
                             </label>
 
                             <h3>CSRF Tokens Control</h3>
-                            <!-- --csrf-token -->
-                            <label class="form-group" for="csrfToken">
-                                <div class="form-label">ANTI-CSRF TOKEN FIEL<i tooltip="Option --csrf-token can be used to set the name of the hidden value that contains the randomized token. 
-                                    
-                                    This is useful in cases when web sites use non-standard names for such fields.">ⁱ</i></div>
-                                <div class="form-label"><u>--csrf-token</u></div>
-                                <input type="text" id="csrfToken" class="form-control" placeholder="anti-csrf">
-                            </label>
                             <!-- --csrf-url -->
                             <label class="form-group" for="csrfUrl">
                                 <div class="form-label">TOKEN EXTRACTION URL<i tooltip="Option --csrf-url can be used for retrieval of the token value from arbitrary URL address. 
                                     
                                     This is useful if the vulnerable target URL doesn't contain the necessary token value in the first place, but it is required to extract it from some other location.">ⁱ</i></div>
-                                <div class="form-label"><u>--csrf-url</u></div>
-                                <input type="url" id="csrfUrl" class="form-control" placeholder="https://example.com/profile/">
-                            </label>
+                                    <div class="form-label"><u>--csrf-url</u></div>
+                                    <input type="url" id="csrfUrl" class="form-control" placeholder="https://example.com/profile/">
+                            </label>                            
                             <!-- --csrf-method -->
                             <label class="form-group" for="csrfMethod">
                                 <div class="form-label">HTTP METHOD FOR TOKEN RETRIEVAL<i tooltip="HTTP method for token extraction.">ⁱ</i></div>
@@ -481,6 +483,23 @@
                                     <input type="text" id="customCsrfMethod" class="form-control" placeholder="">
                                 </div>
                             </label>
+                            <!-- --csrf-data -->
+                            <label class="form-group" for="csrfData">
+                                <div class="form-label">TOKEN EXTRACTION DATA<i tooltip="Send this POST data when sqlmap visits the anti-CSRF token URL to retrieve a new token.
+                                    
+                                    Use together with --csrf-url for applications that require a POST request to generate or refresh the CSRF token, ensuring your scans stay authenticated and valid.
+                                    ">ⁱ</i></div>
+                                    <div class="form-label"><u>--csrf-data</u></div>
+                                    <input type="text" id="csrfData" class="form-control" placeholder="anticsrf=KvWS8aJQ&action=show">
+                                </label>
+                            <!-- --csrf-token -->
+                            <label class="form-group" for="csrfToken">
+                                <div class="form-label">ANTI-CSRF TOKEN FIELD<i tooltip="Option --csrf-token can be used to set the name of the hidden value that contains the randomized token. 
+                                    
+                                    This is useful in cases when web sites use non-standard names for such fields.">ⁱ</i></div>
+                                <div class="form-label"><u>--csrf-token</u></div>
+                                <input type="text" id="csrfToken" class="form-control" placeholder="anti-csrf">
+                            </label>
                             <!-- --csrf-retries -->
                             <label class="form-group" for="csrfRetries">
                                 <div class="form-label" >RETRIES DURING TOKEN RETRIEVAL<i tooltip="Retries for anti-CSRF token retrieval.
@@ -489,6 +508,56 @@
                                 <div class="form-label"><u>--csrf-retries</u></div>
                                 <input type="number" id="csrfRetries" class="form-control" placeholder="0" min="0" step="1">
                             </label>
+
+                            <h3>Safe Requests</h3>
+                            <!-- safe-url -->
+                            <label class="form-group" for="safeUrl">
+                                <div class="form-label">SAFE REQUEST URL<i tooltip="Visit the specified URL regularly during scanning to keep your session alive or prevent automatic logouts.
+
+                                    Sqlmap will visit this safe URL between requests to maintain access while testing.
+
+                                    Useful for applications with aggressive session timeouts or login expirations.
+
+                                    You can send specific data to this request with --safe-post.
+                                    ">ⁱ</i></div>
+                                <div class="form-label"><u>--safe-url</u></div>
+                                <input type="url" id="safeUrl" class="form-control" placeholder="https://example.com/login">
+                            </label>
+                            <!-- --safe-post -->
+                            <label class="form-group" for="safePost">
+                                <div class="form-label">SAFE REQUEST DATA<i tooltip="Send this custom POST data to the safe URL during session keep-alive requests.
+
+                                    Ideal when your application requires a specific POST body to refresh a session or simulate a real user action while maintaining authentication during a scan.
+
+                                    You should specify a URL using the --safe-url switch.
+                                    ">ⁱ</i></div>
+                                <div class="form-label"><u>--safe-post</u></div>
+                                <input type="text" id="safePost" class="form-control" placeholder="login=admin&password=letmein">
+                            </label>
+                            <!-- --safe-req -->
+                            <label class="form-group" for="safeReq">
+                                <div class="form-label">FILE WITH A SAFE REQUEST<i tooltip="Use a complete HTTP request from a file as the safe URL visit to keep your session active.
+
+                                    Great for complex authentication flows or when you need to replay a real request with headers, cookies, or big chunk of POST data to prevent timeouts and maintain access while scanning.
+                                    ">ⁱ</i></div>
+                                <div class="form-label"><u>--safe-req</u></div>
+                                <input type="text" id="safeReq" class="form-control" placeholder="safe-request-file.txt">
+                            </label>
+                            <!-- --safe-freq -->
+                            <label class="form-group" for="safeFreq">
+                                <div class="form-label">SAFE REQUEST FREQUENCY<i tooltip="Set how many injection requests sqlmap sends before each visit to the safe URL.
+
+                                    For example, --safe-freq=5 means send 5 attack requests, then automatically hit your safe URL once to refresh session state. 
+                                    
+                                    Adjust this number based on session timeout: smaller values for fast-expiring sessions, larger for more speed-focused scans. 
+                                    
+                                    Use it together with --safe-url, --safe-post or --safe-req to balance attack speed and session maintenance.  
+                                    
+                                    ">ⁱ</i></div>
+                                <div class="form-label"><u>--safe-freq</u></div>
+                                <input type="number" id="safeFreq" class="form-control" placeholder="5">
+                            </label>
+                            
                         </div>
                     </div>
                 </div>
@@ -561,7 +630,67 @@
                                 <input type="text" id="suffix" class="form-control" placeholder="-- -">
                             </label>
 
+                            <!-- --randomize -->
+                            <label class="form-group" for="randomize">
+                                <div class="form-label">PARAMETER(S) WITH RANDOM VALUE(S)<i tooltip="Randomly change the value of the specified parameter(s) on each request.
+
+                                    Great for avoiding caching, WAF tracking, or when you want each request to look unique. Useful for scanning parameters that the app or security device ignores unless they change on every request.
+                                    ">ⁱ</i></div>
+                                <div class="form-label"><u>--randomize</u></div>
+                                <input type="number" id="randomize" class="form-control" placeholder="tracking">
+                            </label>    
+
                             <h3>Detection</h3>
+                            <div class="form-group grid-row-span-3">
+                                <span class="form-label checkbox-grid">DETECTION TECHNIQUES</span>
+                                <div class="checkbox-grid">
+
+                                    <!-- --titles -->
+                                    <label class="checkbox-label" for="titles">
+                                        <input type="checkbox" id="titles">
+                                        <u>--titles</u><i tooltip="Compare only the &lt;title&gt; tag of each page when checking for SQL injection differences, instead of analyzing the full page content.
+
+                                        Great for web apps where the page content changes a lot but the title reflects the true application state—useful for noisy apps, dynamic pages, or when other detection methods are unreliable.
+                                        
+                                        Turn on when you knows that the distinction of a True query from a False one can be done using HTML title (e.g. &quot;Welcome&quot; for True and &quot;Forbidden&quot; for False).
+                                        ">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+
+                                    <!-- --text-only -->
+                                    <label class="checkbox-label" for="textOnly">
+                                        <input type="checkbox" id="textOnly">
+                                        <u>--text-only</u><i tooltip="Compare only the textual content of each page (stripped of HTML tags) to detect SQL injection, ignoring markup and scripts.
+
+                                        Useful when HTML layout or scripts change on every request, but the actual text on the page is what matters for detection—helps reduce false positives on dynamic sites.
+                                        
+                                        This way, in a good number of cases, you can automatically tune the detection engine.">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                        
+                                    <!-- --ignore-redirects -->
+                                    <label class="checkbox-label" for="ignoreRedirects">
+                                        <input type="checkbox" id="ignoreRedirects">
+                                        <u>--ignore-redirects</u><i tooltip="Ignore HTTP redirects and treat redirection responses as normal results, without following them.
+
+                                        Useful for endpoints that always redirect, when redirects interfere with scanning, or if you want sqlmap to process only the original response without chasing further URLs.
+                                        ">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                                
+                                    <!-- --ignore-timeouts -->
+                                    <label class="checkbox-label" for="ignoreTimeouts">
+                                        <input type="checkbox" id="ignoreTimeouts">
+                                        <u>--ignore-timeouts</u><i tooltip="Ignore time out requests and continue scanning as if nothing happened.
+
+                                        Perfect for unstable or slow targets, letting sqlmap complete scans without interruption from occasional network issues or delayed server responses.
+                                        ">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                            
+                                </div>
+                            </div>
+
                             <!-- --string -->
                             <label class="form-group" for="string">
                                 <div class="form-label">TRUE DETECTION STRING<i tooltip="By default the distinction of a True query from a False is done by comparing the injected requests page content with the original not injected page content. 
@@ -576,6 +705,7 @@
                                 <div class="form-label"><u>--string</u></div>
                                 <input type="text" id="string" class="form-control" placeholder="">
                             </label>
+                            
                             <!-- --regexp-->
                             <label class="form-group" for="regexp">
                                 <div class="form-label">TRUE DETECTION REGEXP<i tooltip="By default the distinction of a True query from a False  is done by comparing the injected requests page content with the original not injected page content. 
@@ -590,6 +720,7 @@
                                 <div class="form-label"><u>--regexp</u></div>
                                 <input type="text" id="regexp" class="form-control" placeholder="">
                             </label>
+
                             <!-- --not-string -->
                             <label class="form-group" for="notString">
                                 <div class="form-label">FALSE DETECTION STRING<i tooltip="By default the distinction of a True query from a False is done by comparing the injected requests page content with the original not injected page content. 
@@ -604,125 +735,73 @@
                                 <div class="form-label"><u>--not-string</u></div>
                                 <input type="text" id="notString" class="form-control" placeholder="">
                             </label>
+
                             <!-- --code -->
                             <label class="form-group" for="code">
                                 <div class="form-label">EXPECTED HTTP CODE<i tooltip="Use this in cases when you know that the distinction of a True query from a False one can be done using HTTP code.">ⁱ</i></div>
                                 <div class="form-label"><u>--code</u></div>
                                 <input type="number" id="code" class="form-control" min="100", max="599", step="1" placeholder="201">
                             </label>
-                            <!-- --titles -->
-                            <label class="form-group" for="titles">
-                                <div class="checkbox-label">
-                                    <input type="checkbox" id="titles">
-                                    <b>DETECT COMPARING TITLES</b>
-                                    <u>--titles</u><i tooltip="Turn on when you knows that the distinction of a True query from a False one can be done using HTML title (e.g. &quot;Welcome&quot; for True and &quot;Forbidden&quot; for False).">ⁱ</i>
-                                    <span class="checkmark"></span>
-                                </div>
-                            </label>
-                            <!-- --text-only -->
-                            <label class="form-group" for="textOnly">
-                                <div class="checkbox-label">
-                                    <input type="checkbox" id="textOnly">
-                                    <b>FILTER ACTIVE CONTENT</b>
-                                    <u>--text-only</u><i tooltip="In cases with lot of active content (e.g. scripts, embeds, etc.) in the HTTP responses' body, you can filter pages (--text-only) just for their textual content. 
+     
+                            <!-- --abort-code -->
+                            <label class="form-group" for="abortCode">
+                                <div class="form-label">STOP SCAN ON THIS HTTP STATUS CODE<i tooltip="Abort testing when the specified HTTP status code (like 403 or 500) appears in the response.
+
+                                    Use this to stop scans automatically if you trigger a block, web application firewall or major server error. Great for avoiding account lockouts or when you want fast feedback if the application changes its behavior during the scan.">ⁱ</i></div>
+                                <div class="form-label"><u>--abort-code</u></div>
+                                <input type="number" id="abortCode" min="100" max="599" class="form-control" placeholder="500">
+                            </label>       
+     
+                            <!-- --ignore-code -->
+                            <label class="form-group" for="ignoreCode">
+                                <div class="form-label">STOP SCAN ON THIS HTTP STATUS CODE<i tooltip="Ignore HTTP responses with the specified status code(s), like 401, 404, or 500.
                                     
-                                    This way, in a good number of cases, you can automatically tune the detection engine.">ⁱ</i>
-                                    <span class="checkmark"></span>
-                                </div>
-                            </label>                         
+                                    Use this to skip over noisy or irrelevant errors so your scan focuses on valuable responses.
+                                    
+                                    Remark: what the help suggests, wildcards like * or 4* are not supported—only a comma-separated list of integer codes will work. 
+                                    ">ⁱ</i></div>
+                                <div class="form-label"><u>--ignore-code</u></div>
+                                <input type="number" id="ignoreCode" min="100" max="599" class="form-control" placeholder="500">
+                            </label>       
+
+                            <!-- --retries -->
+                            <label class="form-group" for="retries">
+                                <div class="form-label">MAX NUMBER OF RETRIES<i tooltip="Set how many times sqlmap should retry a request after a connection timeout.
+
+                                    Increase for unstable or slow networks to improve scan reliability, or decrease for faster scans if connection issues are rare.
+
+                                    Default: 3.
+                                    ">ⁱ</i></div>
+                                <div class="form-label"><u>--retries</u></div>
+                                <input type="number" id="retries" class="form-control" placeholder="3">
+                            </label>      
+
+                            <!-- --retry-on -->
+                            <label class="form-group" for="retryOn">
+                                <div class="form-label">RETRY ON CONTENT REGEXP<i tooltip="Retry the request if the response body matches the given regular expression.
+
+                                    Perfect for skipping over temporary issues, like 'Service Unavailable' or anti-bot messages—use this to keep your scan going if you hit intermittent errors or protections that show specific content in their response.
+                                    ">ⁱ</i></div>
+                                <div class="form-label"><u>--retry-on</u></div>
+                                <input type="number" id="retryOn" class="form-control" placeholder="(?i)error|unavailable">
+                            </label>                                                
 
                             <h3>Attack Optimalization</h3>
                             <!-- --level -->
-                            <label class="form-group grid-span-2" for="level">
+                            <label class="form-group grid-column-span-2" for="level">
                                 <div class="form-label">ATTACK <u>--level</u> <span id="levelValue">1</span></div>
                                 <input type="range" id="level" class="slider" min="1" max="5" value="1">
                                 <div class="additional-help" id="level-help">1: Show also information and warning messages (default).</div>
                             </label>
                             <!-- --risk -->
-                            <label class="form-group grid-span-2" for="risk">
+                            <label class="form-group grid-column-span-2" for="risk">
                                 <div class="form-label">ATTACK <u>--risk</u> <span id="riskValue">1</span></div>
                                 <input type="range" id="risk" class="slider" min="1" max="3" value="1">
                                 <div class="additional-help" id="risk-help">1: Innocuous test for the majority of SQL injection points (default).</div>
                             </label>
 
-                            <!-- --dbms -->
-                            <label class="form-group" for="dbms">
-                                <div class="form-label">FORCE TARGET DATABASE ENGINE<i tooltip="Greatly reduces scan time by minimalizing number of requests, using payloads appropriate only for the selected database engine.">ⁱ</i></div>
-                                <div class="form-label"><u>--dbms</u></div>
-                                <select id="dbms" class="form-control">
-                                    <option value="">Auto-detect</option>
-                                    <option value="MySQL">MySQL</option>
-                                    <option value="Oracle">Oracle</option>
-                                    <option value="PostgreSQL">PostgreSQL</option>
-                                    <option value="Microsoft SQL Server">Microsoft SQL Server</option>
-                                    <option value="Microsoft Access">Microsoft Access</option>
-                                    <option value="IBM DB2">IBM DB2</option>
-                                    <option value="SQLite">SQLite</option>
-                                    <option value="Firebird">Firebird</option>
-                                    <option value="Sybase">Sybase</option>
-                                    <option value="SAP MaxDB">SAP MaxDB</option>
-                                    <option value="Informix">Informix</option>
-                                    <option value="MariaDB">MariaDB</option>
-                                    <option value="Percona">Percona</option>
-                                    <option value="MemSQL">MemSQL</option>
-                                    <option value="TiDB">TiDB</option>
-                                    <option value="CockroachDB">CockroachDB</option>
-                                    <option value="HSQLDB">HSQLDB</option>
-                                    <option value="H2">H2</option>
-                                    <option value="MonetDB">MonetDB</option>
-                                    <option value="Apache Derby">Apache Derby</option>
-                                    <option value="Amazon Redshift">Amazon Redshift</option>
-                                    <option value="Vertica">Vertica</option>
-                                    <option value="Mckoi">Mckoi</option>
-                                    <option value="Presto">Presto</option>
-                                    <option value="Altibase">Altibase</option>
-                                    <option value="MimerSQL">MimerSQL</option>
-                                    <option value="CrateDB">CrateDB</option>
-                                    <option value="Greenplum">Greenplum</option>
-                                    <option value="Drizzle">Drizzle</option>
-                                    <option value="Apache Ignite">Apache Ignite</option>
-                                    <option value="Cubrid">Cubrid</option>
-                                    <option value="InterSystems Cache">InterSystems Cache</option>
-                                    <option value="IRIS">IRIS</option>
-                                    <option value="eXtremeDB">eXtremeDB</option>
-                                    <option value="FrontBase">FrontBase</option>
-                                </select>
-                            </label>
-                            <!-- --os -->
-                            <label class="form-group" for="os">
-                                <div class="form-label">FORCE TARGET OS<i tooltip="By default sqlmap automatically detects the web application's back-end database management system underlying operating system when this information is a dependence of any other provided switch or option. 
-                                    
-                                    It is possible to force the operating system name by --os switch, if you already know it so that sqlmap will avoid doing it itself. 
-                                    
-                                    Note that this option is not mandatory and it is strongly recommended to use it only if you are absolutely sure about the back-end database management system underlying operating system. 
-                                    
-                                    If you do not know it, let sqlmap automatically identify it for you.">ⁱ</i></div>
-                                <div class="form-label"><u>--os</u></div>
-                                <select id="os" class="form-control">
-                                    <option value="">Auto-detect</option>
-                                    <option value="Linux">Linux</option>
-                                    <option value="Windows">Windows</option>
-                                </select>
-                            </label>
-                            <!-- --second-url -->
-                            <label class="form-group" for="secondUrl">
-                                <div class="form-label">SECOND ORDER PAGE URL<i tooltip="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
-
-                                    You can point sqlmap a resulting page URL searched for second-order response to test for this type of SQL injection by using option --second-order.">ⁱ</i></div>
-                                <div class="form-label"><u>--second-url</u></div>
-                                <input type="url" id="secondUrl" class="form-control" placeholder="https://example.com/profile">
-                            </label>
-                            <!-- --second-req -->
-                            <label class="form-group" for="secondReq">
-                                <div class="form-label">SECOND ORDER REQUEST FILE<i tooltip="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
-
-                                    You can point sqlmap a request file for sending to the server where results are being shown to test by using option --second-req.">ⁱ</i></div>
-                                <div class="form-label"><u>--second-req</u></div>
-                                <input type="text" id="secondReq" class="form-control" placeholder="second-order-request.txt">
-                            </label>
-
                             <!-- Attack techniques -->
-                            <div class="form-group">
+                            <div class="form-group grid-row-span-2">
                                 <span class="form-label checkbox-grid">ATTACK TECHNIQUES</span>
                                 <div class="checkbox-grid">
 
@@ -766,7 +845,7 @@
                             </div>  
 
                             <!-- Attack tuning -->
-                            <div class="form-group">
+                            <div class="form-group grid-row-span-2">
                                 <span class="form-label checkbox-grid">ATTACK TUNING</span>
                                 <div class="checkbox-grid">
                             
@@ -844,8 +923,118 @@
                                         <span class="checkmark"></span>
                                     </label>
 
+                                    <!-- --skip-urlencode -->
+                                    <label class="checkbox-label" for="skipUrlencode">
+                                        <input type="checkbox" id="skipUrlencode">
+                                        <u>--skip-urlencode</u><i tooltip="Send payload data without URL encoding.
+
+                                        Useful for debugging, custom encoding schemes, or when the target expects raw input. 
+                                        
+                                        Use with caution — most apps require URL-encoded data, so skipping encoding can cause requests to fail or be misinterpreted.
+                                        ">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>                                    
+                                    
+                                    <!-- --chunked -->
+                                    <label class="checkbox-label" for="chunked">
+                                        <input type="checkbox" id="chunked">
+                                        <u>--chunked</u><i tooltip="Use HTTP Parameter Pollution (HPP) by sending multiple instances of the same parameter in requests.
+
+                                        Great for testing if the web app or backend handles duplicate parameters insecurely—can help bypass filters, trigger edge-case bugs, or discover hidden vulnerabilities that appear only when parameters are polluted.
+                                        ">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    
+                                    <!-- --hpp -->
+                                    <label class="checkbox-label" for="hpp">
+                                        <input type="checkbox" id="hpp">
+                                        <u>--hpp</u><i tooltip="Send POST requests using HTTP chunked transfer encoding instead of a standard Content-Length.
+
+                                        Useful for bypassing WAFs, filters, or edge devices that mishandle or ignore chunked requests.
+                                        
+                                        Try this if standard POSTs are blocked or behave differently.
+                                        ">ⁱ</i>
+                                        <span class="checkmark"></span>
+                                    </label>
+
                                 </div>
                             </div>  
+
+                            <!-- --dbms -->
+                            <label class="form-group" for="dbms">
+                                <div class="form-label">FORCE TARGET DATABASE ENGINE<i tooltip="Greatly reduces scan time by minimalizing number of requests, using payloads appropriate only for the selected database engine.">ⁱ</i></div>
+                                <div class="form-label"><u>--dbms</u></div>
+                                <select id="dbms" class="form-control">
+                                    <option value="">Auto-detect</option>
+                                    <option value="MySQL">MySQL</option>
+                                    <option value="Oracle">Oracle</option>
+                                    <option value="PostgreSQL">PostgreSQL</option>
+                                    <option value="Microsoft SQL Server">Microsoft SQL Server</option>
+                                    <option value="Microsoft Access">Microsoft Access</option>
+                                    <option value="IBM DB2">IBM DB2</option>
+                                    <option value="SQLite">SQLite</option>
+                                    <option value="Firebird">Firebird</option>
+                                    <option value="Sybase">Sybase</option>
+                                    <option value="SAP MaxDB">SAP MaxDB</option>
+                                    <option value="Informix">Informix</option>
+                                    <option value="MariaDB">MariaDB</option>
+                                    <option value="Percona">Percona</option>
+                                    <option value="MemSQL">MemSQL</option>
+                                    <option value="TiDB">TiDB</option>
+                                    <option value="CockroachDB">CockroachDB</option>
+                                    <option value="HSQLDB">HSQLDB</option>
+                                    <option value="H2">H2</option>
+                                    <option value="MonetDB">MonetDB</option>
+                                    <option value="Apache Derby">Apache Derby</option>
+                                    <option value="Amazon Redshift">Amazon Redshift</option>
+                                    <option value="Vertica">Vertica</option>
+                                    <option value="Mckoi">Mckoi</option>
+                                    <option value="Presto">Presto</option>
+                                    <option value="Altibase">Altibase</option>
+                                    <option value="MimerSQL">MimerSQL</option>
+                                    <option value="CrateDB">CrateDB</option>
+                                    <option value="Greenplum">Greenplum</option>
+                                    <option value="Drizzle">Drizzle</option>
+                                    <option value="Apache Ignite">Apache Ignite</option>
+                                    <option value="Cubrid">Cubrid</option>
+                                    <option value="InterSystems Cache">InterSystems Cache</option>
+                                    <option value="IRIS">IRIS</option>
+                                    <option value="eXtremeDB">eXtremeDB</option>
+                                    <option value="FrontBase">FrontBase</option>
+                                </select>
+                            </label>
+                            <!-- --os -->
+                            <label class="form-group" for="os">
+                                <div class="form-label">FORCE TARGET OS<i tooltip="By default sqlmap automatically detects the web application's back-end database management system underlying operating system when this information is a dependence of any other provided switch or option. 
+                                    
+                                    It is possible to force the operating system name by --os switch, if you already know it so that sqlmap will avoid doing it itself. 
+                                    
+                                    Note that this option is not mandatory and it is strongly recommended to use it only if you are absolutely sure about the back-end database management system underlying operating system. 
+                                    
+                                    If you do not know it, let sqlmap automatically identify it for you.">ⁱ</i></div>
+                                <div class="form-label"><u>--os</u></div>
+                                <select id="os" class="form-control">
+                                    <option value="">Auto-detect</option>
+                                    <option value="Linux">Linux</option>
+                                    <option value="Windows">Windows</option>
+                                </select>
+                            </label>
+                            <!-- --second-url -->
+                            <label class="form-group" for="secondUrl">
+                                <div class="form-label">SECOND ORDER PAGE URL<i tooltip="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
+
+                                    You can point sqlmap a resulting page URL searched for second-order response to test for this type of SQL injection by using option --second-order.">ⁱ</i></div>
+                                <div class="form-label"><u>--second-url</u></div>
+                                <input type="url" id="secondUrl" class="form-control" placeholder="https://example.com/profile">
+                            </label>
+                            <!-- --second-req -->
+                            <label class="form-group" for="secondReq">
+                                <div class="form-label">SECOND ORDER REQUEST FILE<i tooltip="Second-order SQL injection attack is an attack where result(s) of an injected payload in one vulnerable page is reflected at the other (e.g. frame).
+
+                                    You can point sqlmap a request file for sending to the server where results are being shown to test by using option --second-req.">ⁱ</i></div>
+                                <div class="form-label"><u>--second-req</u></div>
+                                <input type="text" id="secondReq" class="form-control" placeholder="second-order-request.txt">
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -1600,7 +1789,7 @@
                 <div class="card__body">
                     <div class="form-grid">
                         <!-- -v -->
-                        <label class="form-group grid-span-2" for="verbose">
+                        <label class="form-group grid-column-span-2" for="verbose">
                             <div class="form-label">VERBOSE LEVEL: <u>-v</u> <span id="verboseValue">1</span<br/></div>
                             <input type="range" id="verbose" class="slider" min="0" max="6" value="1">
                             <div class="additional-help" id="verbose-help">1: Show also information and warning messages (default).</div>
